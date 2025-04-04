@@ -1,0 +1,103 @@
+/* Zerar estilos básicos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Corpo da página com fundo vermelho */
+body {
+    background-color: white; /* Ajuste conforme a tonalidade desejada */
+    font-family: Arial, sans-serif;
+}
+
+/* Container principal em Grid */
+.container {
+    display: grid;
+    /* 
+       2 colunas:
+       - 200px (largura fixa para o logo)
+       - 1fr (restante para o título)
+    */
+    grid-template-columns: 200px 1fr;
+    /* 
+       4 linhas:
+       - linha 1: logo + title
+       - linha 2: name + password
+       - linha 3: clients (ocupando 2 colunas)
+       - linha 4: chat (ocupando 2 colunas)
+    */
+    grid-template-areas:
+        "logo title"
+        "name password"
+        "clients clients"
+        "chat chat";
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto; /* Centraliza horizontalmente */
+    padding: 20px;
+}
+
+/* Seções em Grid */
+.logo {
+    grid-area: logo;
+    background-color: #20b2da; /* Dourado */
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}
+
+.title {
+    grid-area: title;
+    background-color: #20b2da;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* NAME e PASSWORD com bordas arredondadas para lembrar "ovais" */
+.name {
+    grid-area: name;
+    background-color: #20b2da;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+}
+
+.password {
+    grid-area: password;
+    background-color: #DAA520;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 30px;
+}
+
+/* Área que agrupa os 6 clientes */
+.clients {
+    grid-area: clients;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+/* Cada caixa de cliente */
+.client {
+    flex: 1;
+    background-color: #DAA520;
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px; /* ajuste se quiser cantos mais arredondados */
+    font-weight: bold;
+}
+
+/* Área de chat */
+.chat {
+    grid-area: chat;
+    background-color: #DAA520;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+}

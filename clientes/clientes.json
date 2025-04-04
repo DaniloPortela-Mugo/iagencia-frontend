@@ -1,0 +1,38 @@
+[
+    {
+      "id": "cliente1",
+      "nome": "Cliente 1",
+      "imagem_url": "/static/img/cliente1.jpg",
+      "chat_link": "/chat/cliente1"
+    },
+    {
+      "id": "cliente2",
+      "nome": "Cliente 2",
+      "imagem_url": "/static/img/cliente2.jpg",
+      "chat_link": "/chat/cliente2"
+    },
+    {
+      "id": "cliente3",
+      "nome": "Cliente 3",
+      "imagem_url": "/static/img/cliente3.jpg",
+      "chat_link": "/chat/cliente3"
+    },
+    {
+      "id": "cliente4",
+      "nome": "Cliente 4",
+      "imagem_url": "/static/img/cliente4.jpg",
+      "chat_link": "/chat/cliente4"
+    },
+    {
+      "id": "cliente5",
+      "nome": "Cliente 5",
+      "imagem_url": "/static/img/cliente5.jpg",
+      "chat_link": "/chat/cliente5"
+    },
+    {
+      "id": "cliente6",
+      "nome": "Cliente 6",
+      "imagem_url": "/static/img/cliente6.jpg",
+      "chat_link": "/chat/cliente6"
+    }
+  ]

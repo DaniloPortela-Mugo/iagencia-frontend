@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='pagina3-chat.css') }}">
+</head>
+<body>
+  <header>
+    <div class="logo">Logo</div>
+    <div class="logo" style="visibility: hidden;">Logo 2</div>
+  </header>
+
+  <main class="main-container">
+    <h1>Chat com {{ cliente_id }}</h1>
+    <h2>Envie sua pergunta</h2>
+
+    <div class="chat-container">
+      <div class="chat-output" id="chat-output">
+        <!-- Mensagens aparecerão aqui -->
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="mensagem" placeholder="Digite sua mensagem..." onkeydown="if(event.key === 'Enter') enviarMensagem()">
+        <button onclick="enviarMensagem()">+</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div style="visibility: hidden;"></div>
+    <div class="logo">LOGO 2</div>
+  </footer>
+
+  <script>
+    function adicionarMensagem(texto, origem) {
+      const chat = document.getElementById('chat-output');
+      const msg = document.createElement('div');
+      msg.innerText = (origem === 'user' ? 'Você: ' : 'Bot: ') + texto;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function enviarMensagem() {
+      const input = document.getElementById('mensagem');
+      const texto = input.value.trim();
+      if (!texto) return;
+
+      adicionarMensagem(texto, 'user');
+      input.value = '';
+
+      fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cliente_id: "{{ cliente_id }}",
+          mensagem: texto
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        adicionarMensagem(data.resposta, 'bot');
+      })
+      .catch(err => {
+        adicionarMensagem("[Erro ao enviar mensagem]", 'bot');
+        console.error(err);
+      });
+    }
+  </script>
+</body>
+</html>

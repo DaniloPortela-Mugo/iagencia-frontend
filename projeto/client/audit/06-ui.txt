@@ -1,0 +1,206 @@
+src/components/ui/alert-dialog.tsx:5:import { buttonVariants } from "@/components/ui/button";
+src/components/ui/alert-dialog.tsx:125:      className={cn(buttonVariants(), className)}
+src/components/ui/alert-dialog.tsx:137:      className={cn(buttonVariants({ variant: "outline" }), className)}
+src/components/ui/pagination.tsx:9:import { Button, buttonVariants } from "@/components/ui/button";
+src/components/ui/pagination.tsx:57:        buttonVariants({
+src/components/ui/calendar.tsx:10:import { Button, buttonVariants } from "@/components/ui/button";
+src/components/ui/calendar.tsx:53:          buttonVariants({ variant: buttonVariant }),
+src/components/ui/calendar.tsx:58:          buttonVariants({ variant: buttonVariant }),
+src/components/ui/button.tsx:7:const buttonVariants = cva(
+src/components/ui/button.tsx:35:    VariantProps<typeof buttonVariants> {
+src/components/ui/button.tsx:44:        className={cn(buttonVariants({ variant, size, className }))}
+src/components/ui/button.tsx:53:export { Button, buttonVariants };
+src/components/ui/input-group.tsx:110:      variant={variant}
+src/components/ui/field.tsx:30:      data-variant={variant}
+src/components/ui/field.tsx:33:        "data-[variant=legend]:text-base",
+src/components/ui/field.tsx:34:        "data-[variant=label]:text-sm",
+src/components/ui/field.tsx:145:        "last:mt-0 nth-last-2:-mt-1 [[data-variant=legend]+&]:-mt-1.5",
+src/components/ui/field.tsx:166:        "relative -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2",
+src/components/ui/empty.tsx:54:      data-variant={variant}
+src/components/ui/calendar.tsx:189:      variant="ghost"
+src/components/ui/item.tsx:66:      data-variant={variant}
+src/components/ui/item.tsx:99:      data-variant={variant}
+src/components/ui/toggle-group.tsx:28:      data-variant={variant}
+src/components/ui/toggle-group.tsx:31:        "group/toggle-group flex w-fit items-center rounded-md data-[variant=outline]:shadow-xs",
+src/components/ui/toggle-group.tsx:56:      data-variant={context.variant || variant}
+src/components/ui/toggle-group.tsx:63:        "min-w-0 flex-1 shrink-0 rounded-none shadow-none first:rounded-l-md last:rounded-r-md focus:z-10 focus-visible:z-10 data-[variant=outline]:border-l-0 data-[variant=outline]:first:border-l",
+src/components/ui/menubar.tsx:102:      data-variant={variant}
+src/components/ui/menubar.tsx:104:        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+src/components/ui/sidebar.tsx:141:            "group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full",
+src/components/ui/sidebar.tsx:214:      data-variant={variant}
+src/components/ui/sidebar.tsx:254:          className="bg-sidebar group-data-[variant=floating]:border-sidebar-border flex h-full w-full flex-col group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm"
+src/components/ui/sidebar.tsx:274:      variant="ghost"
+src/components/ui/sidebar.tsx:320:        "md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2",
+src/components/ui/dropdown-menu.tsx:73:      data-variant={variant}
+src/components/ui/dropdown-menu.tsx:75:        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+src/components/ui/context-menu.tsx:125:      data-variant={variant}
+src/components/ui/context-menu.tsx:127:        "focus:bg-accent focus:text-accent-foreground data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 dark:data-[variant=destructive]:focus:bg-destructive/20 data-[variant=destructive]:focus:text-destructive data-[variant=destructive]:*:[svg]:!text-destructive [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+src/components/ui/carousel.tsx:183:      variant={variant}
+src/components/ui/carousel.tsx:213:      variant={variant}
+src/pages/Login.tsx:80:          variant="ghost"
+src/pages/NotificationSettings.tsx:11:          <Button variant="ghost" size="icon">
+src/pages/ComponentShowcase.tsx:236:          <Button variant="outline" size="icon" onClick={toggleTheme}>
+src/pages/ComponentShowcase.tsx:391:                  <Button variant="secondary">Secondary</Button>
+src/pages/ComponentShowcase.tsx:392:                  <Button variant="destructive">Destructive</Button>
+src/pages/ComponentShowcase.tsx:393:                  <Button variant="outline">Outline</Button>
+src/pages/ComponentShowcase.tsx:394:                  <Button variant="ghost">Ghost</Button>
+src/pages/ComponentShowcase.tsx:395:                  <Button variant="link">Link</Button>
+src/pages/ComponentShowcase.tsx:478:                        variant="outline"
+src/pages/ComponentShowcase.tsx:541:                        variant="outline"
+src/pages/ComponentShowcase.tsx:689:                    <Badge variant="secondary">Secondary</Badge>
+src/pages/ComponentShowcase.tsx:690:                    <Badge variant="destructive">Destructive</Badge>
+src/pages/ComponentShowcase.tsx:691:                    <Badge variant="outline">Outline</Badge>
+src/pages/ComponentShowcase.tsx:880:              <Alert variant="destructive">
+src/pages/ComponentShowcase.tsx:993:                    <Button variant="ghost" className="w-full justify-between">
+src/pages/ComponentShowcase.tsx:1025:                      <Button variant="outline">Open Dialog</Button>
+src/pages/ComponentShowcase.tsx:1049:                          variant="outline"
+src/pages/ComponentShowcase.tsx:1061:                      <Button variant="outline">Open Sheet</Button>
+src/pages/ComponentShowcase.tsx:1076:                      <Button variant="outline">Open Drawer</Button>
+src/pages/ComponentShowcase.tsx:1088:                          <Button variant="outline">Cancel</Button>
+src/pages/ComponentShowcase.tsx:1096:                      <Button variant="outline">Open Popover</Button>
+src/pages/ComponentShowcase.tsx:1110:                      <Button variant="outline">Hover me</Button>
+src/pages/ComponentShowcase.tsx:1129:                      <Button variant="outline">Dropdown Menu</Button>
+src/pages/ComponentShowcase.tsx:1143:                      <Button variant="outline">Right Click Me</Button>
+src/pages/ComponentShowcase.tsx:1155:                      <Button variant="outline">Hover Card</Button>
+src/pages/ComponentShowcase.tsx:1322:                      variant="outline"
+src/pages/ComponentShowcase.tsx:1332:                      variant="outline"
+src/pages/ComponentShowcase.tsx:1343:                      variant="outline"
+src/pages/ComponentShowcase.tsx:1353:                      variant="outline"
+src/pages/ComponentShowcase.tsx:1364:                      variant="outline"
+src/pages/ComponentShowcase.tsx:1374:                      variant="outline"
+src/pages/Clipping.tsx:194:            <Button variant="outline" size="sm" onClick={() => refetchClippings()}>
+src/pages/Clipping.tsx:201:                <Button variant="secondary">
+src/pages/Clipping.tsx:231:                          <Badge key={source.id} variant="outline">
+src/pages/Clipping.tsx:236:                          <Badge variant="outline">+{newsSources.length - 5} mais</Badge>
+src/pages/Clipping.tsx:252:                        <Badge variant="secondary">
+src/pages/Clipping.tsx:267:                              <Badge variant={news.relevanceScore >= 50 ? "default" : "outline"} className="shrink-0">
+src/pages/Clipping.tsx:290:                              <Badge variant="outline" className="text-xs">
+src/pages/Clipping.tsx:305:                  <Button variant="outline" onClick={() => setShowSearchDialog(false)}>
+src/pages/Clipping.tsx:425:                  <Button variant="outline" onClick={() => setShowAddClippingDialog(false)}>
+src/pages/Clipping.tsx:467:                <Button variant="outline" size="sm">
+src/pages/Clipping.tsx:487:                <Badge variant="secondary">{newsSources?.length || 0} fontes</Badge>
+src/pages/Clipping.tsx:500:                    variant={selectedSourceId === null ? "default" : "outline"}
+src/pages/Clipping.tsx:514:                        variant={selectedSourceId === sid ? "default" : "outline"}
+src/pages/Clipping.tsx:532:                    <Button variant="outline" size="sm">
+src/pages/Clipping.tsx:555:                    <Badge key={competitor.id} variant="outline" className="flex items-center gap-1">
+src/pages/Clipping.tsx:580:                variant="ghost"
+src/pages/Clipping.tsx:598:                <Badge variant="secondary" className="ml-1">
+src/pages/Clipping.tsx:605:                <Badge variant="secondary" className="ml-1">
+src/pages/Clipping.tsx:640:                                    <Badge variant="outline" className={`${sentiment.color} text-white border-0`}>
+src/pages/Clipping.tsx:647:                                    <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
+src/pages/Clipping.tsx:670:                                <Badge variant="outline" className="cursor-pointer hover:bg-accent">
+src/pages/Clipping.tsx:689:                      <Button variant="outline" onClick={() => setShowAddClippingDialog(true)}>
+src/pages/Clipping.tsx:726:                                    <Badge variant="outline" className={`${sentiment.color} text-white border-0`}>
+src/pages/Clipping.tsx:749:                                <Badge variant="outline" className="cursor-pointer hover:bg-accent">
+src/pages/Clipping.tsx:771:                          <Button variant="outline">
+src/pages/Clipping.tsx:801:                          <Badge key={idx} variant="secondary" className="text-xs">
+src/pages/Approvals.tsx:90:    if (v === "rejected") return <Badge variant="destructive">REPROVADO</Badge>;
+src/pages/Approvals.tsx:91:    return <Badge variant="outline">PENDENTE</Badge>;
+src/pages/Approvals.tsx:212:                  <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+src/pages/Approvals.tsx:248:                      variant="ghost"
+src/pages/Approvals.tsx:263:                    variant="outline"
+src/pages/Approvals.tsx:276:                    variant="destructive"
+src/pages/Home.tsx:95:                  <Button variant="outline" size="sm" onClick={() => navigate(`/clients/${client.id}`)}>
+src/pages/Creation.tsx:330:              <Button variant="outline">
+src/pages/Creation.tsx:344:          <Button variant="outline" onClick={() => setIsChatOpen(true)}>
+src/pages/Creation.tsx:421:                      <Button type="button" variant="outline" size="sm" onClick={handlePasteContent}>
+src/pages/Creation.tsx:438:                  <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+src/pages/Creation.tsx:489:                  <Badge variant="secondary" className={statusColors[status]}>
+src/pages/Creation.tsx:534:                            variant="outline"
+src/pages/Creation.tsx:560:                            variant="outline"
+src/pages/Creation.tsx:599:                            variant="ghost"
+src/pages/Creation.tsx:637:                        <Button variant="outline" size="sm" onClick={() => toast.message("Mock: nova conversa")}>
+src/pages/Creation.tsx:649:                        <Button variant="outline" size="sm" onClick={() => toast.message("Mock: salvar conversa (server depois)")}>
+src/pages/Library.tsx:69:          <Button variant="outline" onClick={() => setQ("")}>
+src/pages/Library.tsx:102:                          {it.tag ? <Badge variant="outline">{it.tag}</Badge> : null}
+src/pages/Library.tsx:103:                          <Button variant="outline" onClick={() => alert(`Abrir item ${it.id} (vamos ligar depois).`)}>
+src/pages/Production.tsx:290:                  <Button type="button" variant="outline" onClick={closeDialog}>
+src/pages/Production.tsx:446:                          <Badge variant="outline" className="text-xs">
+src/pages/Production.tsx:470:                          <Button size="sm" variant="outline" onClick={() => moveStatus(ev.id, "todo")}>
+src/pages/Production.tsx:475:                          <Button size="sm" variant="outline" onClick={() => moveStatus(ev.id, "doing")}>
+src/pages/Production.tsx:484:                        <Button size="icon" variant="ghost" onClick={() => removeEvent(ev.id)}>
+src/pages/Production.tsx:518:        <Button size="icon" variant="ghost" onClick={onDelete}>
+src/pages/Production.tsx:529:          <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => onMove("todo")}>
+src/pages/Production.tsx:534:          <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => onMove("doing")}>
+src/pages/Notifications.tsx:12:            <Button variant="ghost" size="icon">
+src/pages/Notifications.tsx:25:          <Button variant="outline">
+src/pages/Clients.tsx:159:                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+src/pages/Clients.tsx:187:                <Button size="icon" variant="ghost" onClick={() => setLocation(`/clients/${client.id}/config`)}>
+src/pages/Clients.tsx:191:                <Button size="icon" variant="ghost" onClick={() => deleteClient.mutate(client.id)}>
+src/pages/CampaignConfig.tsx:177:          <Button variant="link">Voltar</Button>
+src/pages/CampaignConfig.tsx:235:          <Button variant="ghost" size="icon">
+src/pages/CampaignConfig.tsx:347:                  <Button variant="outline" onClick={() => setPromptDialog(false)}>Cancelar</Button>
+src/pages/CampaignConfig.tsx:367:                          {p.category && <Badge variant="secondary">{p.category}</Badge>}
+src/pages/CampaignConfig.tsx:372:                      <Button variant="ghost" size="icon" onClick={() => deletePrompt.mutate(p.id)}>
+src/pages/CampaignConfig.tsx:448:                  <Button variant="outline" onClick={() => setSourceDialog(false)}>Cancelar</Button>
+src/pages/CampaignConfig.tsx:468:                          {s.source_type && <Badge variant="secondary">{s.source_type}</Badge>}
+src/pages/CampaignConfig.tsx:469:                          {s.region && <Badge variant="outline">{s.region}</Badge>}
+src/pages/CampaignConfig.tsx:477:                      <Button variant="ghost" size="icon" onClick={() => deleteSource.mutate(s.id)}>
+src/pages/CampaignConfig.tsx:512:                  <Button variant="outline" onClick={toggleEnabled} disabled={updateSchedule.isPending}>
+src/pages/CampaignConfig.tsx:543:                <Button variant="outline" onClick={setFrequency} disabled={updateSchedule.isPending || createSchedule.isPending}>
+src/pages/PIT.tsx:208:                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+src/pages/Media.tsx:242:                  <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+src/pages/Media.tsx:282:                    variant="ghost"
+src/pages/ScheduleMonitor.tsx:69:          <Button variant="outline" onClick={() => alert("Depois ligamos refresh real (fetch / supabase).")}>
+src/pages/ScheduleMonitor.tsx:103:            <Button variant="outline" onClick={() => setQ("")}>
+src/pages/ScheduleMonitor.tsx:127:                    <Badge variant={pill(it.status) as any}>{it.status}</Badge>
+src/pages/ScheduleMonitor.tsx:128:                    <Button variant="outline" onClick={() => alert(`Abrir ${it.id} (vamos ligar depois).`)}>
+src/components/ui/pagination.tsx:75:      size="default"
+src/components/ui/pagination.tsx:92:      size="default"
+src/components/ui/input-group.tsx:109:      data-size={size}
+src/components/ui/calendar.tsx:190:      size="icon"
+src/components/ui/item.tsx:67:      data-size={size}
+src/components/ui/toggle-group.tsx:29:      data-size={size}
+src/components/ui/toggle-group.tsx:57:      data-size={context.size || size}
+src/components/ui/sidebar.tsx:275:      size="icon"
+src/components/ui/sidebar.tsx:525:      data-size={size}
+src/components/ui/sidebar.tsx:574:        "peer-data-[size=sm]/menu-button:top-1",
+src/components/ui/sidebar.tsx:575:        "peer-data-[size=default]/menu-button:top-1.5",
+src/components/ui/sidebar.tsx:576:        "peer-data-[size=lg]/menu-button:top-2.5",
+src/components/ui/sidebar.tsx:598:        "peer-data-[size=sm]/menu-button:top-1",
+src/components/ui/sidebar.tsx:599:        "peer-data-[size=default]/menu-button:top-1.5",
+src/components/ui/sidebar.tsx:600:        "peer-data-[size=lg]/menu-button:top-2.5",
+src/components/ui/sidebar.tsx:693:      data-size={size}
+src/components/ui/select.tsx:36:      data-size={size}
+src/components/ui/select.tsx:38:        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-input/50 flex w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+src/components/ui/carousel.tsx:184:      size={size}
+src/components/ui/carousel.tsx:214:      size={size}
+src/pages/NotificationSettings.tsx:11:          <Button variant="ghost" size="icon">
+src/pages/ComponentShowcase.tsx:236:          <Button variant="outline" size="icon" onClick={toggleTheme}>
+src/pages/ComponentShowcase.tsx:396:                  <Button size="sm">Small</Button>
+src/pages/ComponentShowcase.tsx:397:                  <Button size="lg">Large</Button>
+src/pages/ComponentShowcase.tsx:398:                  <Button size="icon">
+src/pages/ComponentShowcase.tsx:713:                      size="sm"
+src/pages/ComponentShowcase.tsx:719:                      size="sm"
+src/pages/Clipping.tsx:194:            <Button variant="outline" size="sm" onClick={() => refetchClippings()}>
+src/pages/Clipping.tsx:467:                <Button variant="outline" size="sm">
+src/pages/Clipping.tsx:532:                    <Button variant="outline" size="sm">
+src/pages/Clipping.tsx:581:                size="sm"
+src/pages/Approvals.tsx:249:                      size="icon"
+src/pages/Approvals.tsx:262:                    size="sm"
+src/pages/Approvals.tsx:269:                    size="sm"
+src/pages/Approvals.tsx:275:                    size="sm"
+src/pages/Home.tsx:95:                  <Button variant="outline" size="sm" onClick={() => navigate(`/clients/${client.id}`)}>
+src/pages/Creation.tsx:421:                      <Button type="button" variant="outline" size="sm" onClick={handlePasteContent}>
+src/pages/Creation.tsx:559:                            size="sm"
+src/pages/Creation.tsx:575:                            size="sm"
+src/pages/Creation.tsx:588:                              size="sm"
+src/pages/Creation.tsx:598:                            size="sm"
+src/pages/Creation.tsx:637:                        <Button variant="outline" size="sm" onClick={() => toast.message("Mock: nova conversa")}>
+src/pages/Creation.tsx:649:                        <Button variant="outline" size="sm" onClick={() => toast.message("Mock: salvar conversa (server depois)")}>
+src/pages/Production.tsx:470:                          <Button size="sm" variant="outline" onClick={() => moveStatus(ev.id, "todo")}>
+src/pages/Production.tsx:475:                          <Button size="sm" variant="outline" onClick={() => moveStatus(ev.id, "doing")}>
+src/pages/Production.tsx:480:                          <Button size="sm" onClick={() => moveStatus(ev.id, "done")}>
+src/pages/Production.tsx:484:                        <Button size="icon" variant="ghost" onClick={() => removeEvent(ev.id)}>
+src/pages/Production.tsx:518:        <Button size="icon" variant="ghost" onClick={onDelete}>
+src/pages/Production.tsx:529:          <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => onMove("todo")}>
+src/pages/Production.tsx:534:          <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => onMove("doing")}>
+src/pages/Production.tsx:539:          <Button size="sm" className="h-7 text-xs" onClick={() => onMove("done")}>
+src/pages/Notifications.tsx:12:            <Button variant="ghost" size="icon">
+src/pages/Clients.tsx:183:                <Button size="sm" className="flex-1" onClick={() => setLocation(`/clients/${client.id}`)}>
+src/pages/Clients.tsx:187:                <Button size="icon" variant="ghost" onClick={() => setLocation(`/clients/${client.id}/config`)}>
+src/pages/Clients.tsx:191:                <Button size="icon" variant="ghost" onClick={() => deleteClient.mutate(client.id)}>
+src/pages/CampaignConfig.tsx:235:          <Button variant="ghost" size="icon">
+src/pages/CampaignConfig.tsx:372:                      <Button variant="ghost" size="icon" onClick={() => deletePrompt.mutate(p.id)}>
+src/pages/CampaignConfig.tsx:477:                      <Button variant="ghost" size="icon" onClick={() => deleteSource.mutate(s.id)}>
+src/pages/Media.tsx:283:                    size="icon"

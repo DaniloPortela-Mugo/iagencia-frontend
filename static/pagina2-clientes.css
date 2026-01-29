@@ -1,28 +1,27 @@
 .selecao-clientes h3 {
   text-align: center;
   margin-bottom: 30px;
-  font-size: 20px;
+  font-size: 50px;
 }
 
 .grid-clientes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 60px;
   max-width: 800px;
   width: 100%;
   justify-content: center;
 }
 
 .cliente-item {
-  background-color: #339dff;
   height: 150px;
   border-radius: 20px;
-  display: flex;
+  display: block;
   align-items: center;
   justify-content: center;
   color: black;
   font-weight: bold;
-  text-align: center;
+  text-align: bottom;
   cursor: pointer;
   transition: 0.3s;
 }

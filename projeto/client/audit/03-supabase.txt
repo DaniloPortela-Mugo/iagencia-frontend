@@ -1,0 +1,157 @@
+src/components/NotificationBell.tsx:55:    .from("notifications")
+src/components/NotificationBell.tsx:81:        .from("notifications")
+src/components/NotificationBell.tsx:94:        .from("notifications")
+src/components/NotificationBell.tsx:106:      const { error } = await supabase.from("notifications").delete().eq("id", id);
+src/lib/trpc.ts:58:                .from("client_profile")
+src/lib/trpc.ts:77:              .from("client_profile")
+src/lib/trpc.ts:107:            const { error } = await supabase.from("client_profile").delete().eq("id", input.id);
+src/lib/trpc.ts:135:                .from("client_profile")
+src/lib/trpc.ts:152:              .from("client_profile")
+src/lib/trpc.ts:184:                .from("client_prompts")
+src/lib/trpc.ts:200:              .from("client_prompts")
+src/lib/trpc.ts:231:                .from("contents")
+src/lib/trpc.ts:252:                .from("contents")
+src/lib/trpc.ts:263:                const { data: appr, error: aErr } = await supabase.from("approvals").select("*").in("content_id", ids);
+src/lib/trpc.ts:288:              .from("contents")
+src/lib/trpc.ts:324:              let q = supabase.from("approvals").select("*").order("created_at", { ascending: false });
+src/lib/trpc.ts:338:            const { data, error } = await supabase.from("approvals").insert([input]).select("*").single();
+src/lib/trpc.ts:357:            const { data, error } = await supabase.from("approvals").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts:375:            const { error } = await supabase.from("approvals").delete().eq("id", input.id);
+src/lib/trpc.ts:403:                .from("pits")
+src/lib/trpc.ts:419:            const { data, error } = await supabase.from("pits").insert([input]).select("*").single();
+src/lib/trpc.ts:438:            const { data, error } = await supabase.from("pits").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts:456:            const { error } = await supabase.from("pits").delete().eq("id", input.id);
+src/lib/trpc.ts:483:                .from("production_events")
+src/lib/trpc.ts:500:              const { data, error } = await supabase.from("production_events").select("*").order("created_at", {
+src/lib/trpc.ts:514:            const { data, error } = await supabase.from("production_events").insert([input]).select("*").single();
+src/lib/trpc.ts:535:              .from("production_events")
+src/lib/trpc.ts:558:            const { error } = await supabase.from("production_events").delete().eq("id", input.id);
+src/lib/trpc.ts:586:                .from("calendar_events")
+src/lib/trpc.ts:603:              const { data, error } = await supabase.from("calendar_events").select("*").order("created_at", {
+src/lib/trpc.ts:617:            const { data, error } = await supabase.from("calendar_events").insert([input]).select("*").single();
+src/lib/trpc.ts:638:              .from("calendar_events")
+src/lib/trpc.ts:661:            const { error } = await supabase.from("calendar_events").delete().eq("id", input.id);
+src/lib/trpc.ts:689:                .from("media_channels")
+src/lib/trpc.ts:710:                .from("media_broadcasts")
+src/lib/trpc.ts:725:            const { data, error } = await supabase.from("media_broadcasts").insert([input]).select("*").single();
+src/lib/trpc.ts:743:            const { error } = await supabase.from("media_broadcasts").delete().eq("id", input.id);
+src/lib/trpc.ts:770:                .from("clippings")
+src/lib/trpc.ts:786:            const { data, error } = await supabase.from("clippings").insert([input]).select("*").single();
+src/lib/trpc.ts:810:                .from("client_news_sources")
+src/lib/trpc.ts:853:                .from("notifications")
+src/lib/trpc.ts:875:                .from("notifications")
+src/lib/trpc.ts:891:            const { error } = await supabase.from("notifications").update({ is_read: true }).eq("id", input.id);
+src/lib/trpc.ts:921:                .from("news_search_history")
+src/lib/workspace.ts:18:    .from("workspace_members")
+src/lib/campaign-config.api.ts:6:    .from("clients")
+src/lib/campaign-config.api.ts:18:    .from("client_profile")
+src/lib/campaign-config.api.ts:30:    .from("client_profile")
+src/lib/campaign-config.api.ts:39:    .from("client_prompts")
+src/lib/campaign-config.api.ts:49:  const { error } = await supabase.from("client_prompts").insert({
+src/lib/campaign-config.api.ts:60:  const { error } = await supabase.from("client_prompts").delete().eq("id", id);
+src/lib/campaign-config.api.ts:67:    .from("client_news_sources")
+src/lib/campaign-config.api.ts:77:  const { error } = await supabase.from("client_news_sources").insert({
+src/lib/campaign-config.api.ts:90:  const { error } = await supabase.from("client_news_sources").delete().eq("id", id);
+src/lib/campaign-config.api.ts:97:    .from("scheduled_searches")
+src/lib/campaign-config.api.ts:107:  const { error } = await supabase.from("scheduled_searches").insert({
+src/lib/campaign-config.api.ts:117:  const { error } = await supabase.from("scheduled_searches").update(patch).eq("id", id);
+src/lib/campaign-config.api.ts:123:    .from("scheduled_search_logs")
+src/lib/db.ts:8:    .from("calendar_events")
+src/lib/db.ts:21:    .from("production_events")
+src/lib/db.ts:39:    .from("client_profile")
+src/lib/trpc.ts.bak:58:                .from("client_profile")
+src/lib/trpc.ts.bak:77:              .from("client_profile")
+src/lib/trpc.ts.bak:107:            const { error } = await supabase.from("client_profile").delete().eq("id", input.id);
+src/lib/trpc.ts.bak:132:              const { data, error } = await supabase.from("client_profile").select("*").eq("id", input.clientId).maybeSingle();
+src/lib/trpc.ts.bak:145:              .from("client_profile")
+src/lib/trpc.ts.bak:177:                .from("contents")
+src/lib/trpc.ts.bak:188:                const { data: appr, error: aErr } = await supabase.from("approvals").select("*").in("content_id", ids);
+src/lib/trpc.ts.bak:212:              let q = supabase.from("contents").select("*").order("created_at", { ascending: false });
+src/lib/trpc.ts.bak:230:              .from("contents")
+src/lib/trpc.ts.bak:266:              let q = supabase.from("approvals").select("*").order("created_at", { ascending: false });
+src/lib/trpc.ts.bak:280:            const { data, error } = await supabase.from("approvals").insert([input]).select("*").single();
+src/lib/trpc.ts.bak:299:            const { data, error } = await supabase.from("approvals").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts.bak:317:            const { error } = await supabase.from("approvals").delete().eq("id", input.id);
+src/lib/trpc.ts.bak:343:                .from("pits")
+src/lib/trpc.ts.bak:359:            const { data, error } = await supabase.from("pits").insert([input]).select("*").single();
+src/lib/trpc.ts.bak:378:            const { data, error } = await supabase.from("pits").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts.bak:396:            const { error } = await supabase.from("pits").delete().eq("id", input.id);
+src/lib/trpc.ts.bak:421:              const { data, error } = await supabase.from("clippings").select("*").eq("client_id", input.clientId).order("created_at", { ascending: false });
+src/lib/trpc.ts.bak:433:            const { data, error } = await supabase.from("clippings").insert([input]).select("*").single();
+src/lib/trpc.ts.bak:455:              const { data, error } = await supabase.from("client_news_sources").select("*").eq("client_id", input.clientId).order("created_at", { ascending: false });
+src/lib/trpc.ts.bak:489:              const { data, error } = await supabase.from("notifications").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+src/lib/trpc.ts.bak:506:              const { data, error } = await supabase.from("notifications").select("id").eq("user_id", userId).eq("is_read", false);
+src/lib/trpc.ts.bak:518:            const { error } = await supabase.from("notifications").update({ is_read: true }).eq("id", input.id);
+src/pages/Home.tsx:26:        .from("clients") // <- view que aponta para client_profile
+src/pages/Creation.tsx:161:        .from("clients")
+src/pages/Creation.tsx:177:        .from("contents")
+src/pages/Creation.tsx:191:          .from("approvals")
+src/pages/Creation.tsx:214:      const { error } = await supabase.from("contents").insert({
+src/pages/Creation.tsx:235:      const { error } = await supabase.from("contents").update({ status }).eq("id", id);
+src/pages/Creation.tsx:249:        .from("approvals")
+src/pages/Creation.tsx:258:        .from("contents")
+src/pages/Clients.tsx:48:        .from("client_profile")
+src/pages/Clients.tsx:72:        .from("client_profile")
+src/pages/Clients.tsx:103:      const { error } = await supabase.from("client_profile").update({ status: "inactive" }).eq("id", id);
+src/pages/Performance.tsx:36:        .from("clients")
+src/pages/Performance.tsx:51:        .from("performance_metrics")
+src/lib/trpc.ts:186:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:233:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:254:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:325:              if (input?.clientId) q = q.eq("client_id", input.clientId);
+src/lib/trpc.ts:405:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:485:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:588:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:691:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:712:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:772:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:812:                .eq("client_id", input.clientId)
+src/lib/trpc.ts:923:                .eq("client_id", input.clientId)
+src/lib/campaign-config.api.ts:20:    .eq("client_id", clientId)
+src/lib/campaign-config.api.ts:41:    .eq("client_id", clientId)
+src/lib/campaign-config.api.ts:69:    .eq("client_id", clientId)
+src/lib/campaign-config.api.ts:99:    .eq("client_id", clientId)
+src/lib/approvals.api.ts:74:  if (params.clientId) q = q.eq("client_id", params.clientId);
+src/lib/db.ts:10:    .eq("client_id", client_id)
+src/lib/db.ts:23:    .eq("client_id", client_id)
+src/lib/trpc.ts.bak:179:                .eq("client_id", input.clientId)
+src/lib/trpc.ts.bak:213:              if (input?.clientId) q = q.eq("client_id", input.clientId);
+src/lib/trpc.ts.bak:267:              if (input?.clientId) q = q.eq("client_id", input.clientId);
+src/lib/trpc.ts.bak:345:                .eq("client_id", input.clientId)
+src/lib/trpc.ts.bak:421:              const { data, error } = await supabase.from("clippings").select("*").eq("client_id", input.clientId).order("created_at", { ascending: false });
+src/lib/trpc.ts.bak:455:              const { data, error } = await supabase.from("client_news_sources").select("*").eq("client_id", input.clientId).order("created_at", { ascending: false });
+src/pages/Creation.tsx:179:        .eq("client_id", clientId)
+src/pages/Performance.tsx:53:        .eq("client_id", selectedClientId)
+src/components/NotificationBell.tsx:83:        .eq("id", id);
+src/components/NotificationBell.tsx:106:      const { error } = await supabase.from("notifications").delete().eq("id", id);
+src/lib/trpc.ts:107:            const { error } = await supabase.from("client_profile").delete().eq("id", input.id);
+src/lib/trpc.ts:137:                .eq("id", input.clientId)
+src/lib/trpc.ts:357:            const { data, error } = await supabase.from("approvals").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts:375:            const { error } = await supabase.from("approvals").delete().eq("id", input.id);
+src/lib/trpc.ts:438:            const { data, error } = await supabase.from("pits").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts:456:            const { error } = await supabase.from("pits").delete().eq("id", input.id);
+src/lib/trpc.ts:537:              .eq("id", id)
+src/lib/trpc.ts:558:            const { error } = await supabase.from("production_events").delete().eq("id", input.id);
+src/lib/trpc.ts:640:              .eq("id", id)
+src/lib/trpc.ts:661:            const { error } = await supabase.from("calendar_events").delete().eq("id", input.id);
+src/lib/trpc.ts:743:            const { error } = await supabase.from("media_broadcasts").delete().eq("id", input.id);
+src/lib/trpc.ts:891:            const { error } = await supabase.from("notifications").update({ is_read: true }).eq("id", input.id);
+src/lib/campaign-config.api.ts:8:    .eq("id", clientId)
+src/lib/campaign-config.api.ts:60:  const { error } = await supabase.from("client_prompts").delete().eq("id", id);
+src/lib/campaign-config.api.ts:90:  const { error } = await supabase.from("client_news_sources").delete().eq("id", id);
+src/lib/campaign-config.api.ts:117:  const { error } = await supabase.from("scheduled_searches").update(patch).eq("id", id);
+src/lib/approvals.api.ts:117:  const { data, error } = await supabase.from(TABLE_APPROVALS).select("*").eq("id", id).maybeSingle();
+src/lib/approvals.api.ts:125:    approval.clientId ? supabase.from(TABLE_CLIENTS).select("*").eq("id", approval.clientId).maybeSingle() : Promise.resolve({ data: null, error: null }),
+src/lib/approvals.api.ts:126:    approval.requesterId ? supabase.from(TABLE_USERS).select("*").eq("id", approval.requesterId).maybeSingle() : Promise.resolve({ data: null, error: null }),
+src/lib/approvals.api.ts:127:    approval.approverId ? supabase.from(TABLE_USERS).select("*").eq("id", approval.approverId).maybeSingle() : Promise.resolve({ data: null, error: null }),
+src/lib/approvals.api.ts:187:  const { error } = await supabase.from(TABLE_APPROVALS).update(patch).eq("id", payload.id);
+src/lib/trpc.ts.bak:107:            const { error } = await supabase.from("client_profile").delete().eq("id", input.id);
+src/lib/trpc.ts.bak:132:              const { data, error } = await supabase.from("client_profile").select("*").eq("id", input.clientId).maybeSingle();
+src/lib/trpc.ts.bak:299:            const { data, error } = await supabase.from("approvals").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts.bak:317:            const { error } = await supabase.from("approvals").delete().eq("id", input.id);
+src/lib/trpc.ts.bak:378:            const { data, error } = await supabase.from("pits").update(patch).eq("id", id).select("*").single();
+src/lib/trpc.ts.bak:396:            const { error } = await supabase.from("pits").delete().eq("id", input.id);
+src/lib/trpc.ts.bak:518:            const { error } = await supabase.from("notifications").update({ is_read: true }).eq("id", input.id);
+src/pages/Creation.tsx:235:      const { error } = await supabase.from("contents").update({ status }).eq("id", id);
+src/pages/Creation.tsx:260:        .eq("id", contentId);
+src/pages/Clients.tsx:103:      const { error } = await supabase.from("client_profile").update({ status: "inactive" }).eq("id", id);

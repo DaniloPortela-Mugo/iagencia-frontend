@@ -1,0 +1,71 @@
+src/pages/Clipping.tsx:50:  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+src/pages/Clipping.tsx:74:  const clientId = selectedClientId ?? "";
+src/pages/Clipping.tsx:78:    trpc.clippings.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:81:    trpc.clientNewsSources.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:84:    trpc.clientCompetitors.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:94:        if (selectedClientId) {
+src/pages/Clipping.tsx:95:          utils.invalidate("clippings.listByClientId", { clientId: selectedClientId });
+src/pages/Clipping.tsx:105:    trpc.newsSearch.history.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:110:      if (selectedClientId) {
+src/pages/Clipping.tsx:111:        utils.invalidate("clippings.listByClientId", { clientId: selectedClientId });
+src/pages/Clipping.tsx:150:  const selectedClient = clients?.find((c: any) => String(c.id) === String(selectedClientId));
+src/pages/Clipping.tsx:163:    if (!selectedClientId) {
+src/pages/Clipping.tsx:168:    searchNews.mutate({ clientId: selectedClientId, query: searchQuery || undefined } as any);
+src/pages/Clipping.tsx:172:    if (!selectedClientId || !newClipping.title || !newClipping.url) {
+src/pages/Clipping.tsx:178:      clientId: selectedClientId,
+src/pages/Clipping.tsx:192:        {selectedClientId && (
+src/pages/Clipping.tsx:446:              value={selectedClientId ?? ""}
+src/pages/Clipping.tsx:465:            {selectedClientId && (
+src/pages/Clipping.tsx:466:              <Link href={`/clients/${selectedClientId}/config`}>
+src/pages/Clipping.tsx:477:      {selectedClientId && (
+src/pages/Clipping.tsx:531:                  <Link href={`/clients/${selectedClientId}/config`}>
+src/pages/Clipping.tsx:770:                        <Link href={`/clients/${selectedClientId}/config`}>
+src/pages/Creation.tsx:144:  const [selectedClientId, setSelectedClientId] = useState<UUID | null>(null);
+src/pages/Creation.tsx:171:    queryKey: ["contentsWithApproval", selectedClientId],
+src/pages/Creation.tsx:172:    enabled: !!selectedClientId,
+src/pages/Creation.tsx:174:      const clientId = selectedClientId as UUID;
+src/pages/Creation.tsx:225:      queryClient.invalidateQueries({ queryKey: ["contentsWithApproval", selectedClientId] });
+src/pages/Creation.tsx:240:      queryClient.invalidateQueries({ queryKey: ["contentsWithApproval", selectedClientId] });
+src/pages/Creation.tsx:266:      queryClient.invalidateQueries({ queryKey: ["contentsWithApproval", selectedClientId] });
+src/pages/Creation.tsx:458:            value={selectedClientId ?? ""}
+src/pages/Creation.tsx:482:      {selectedClientId && (
+src/pages/Production.tsx:51:  const [selectedClientId, setSelectedClientId] = useState<UUID | null>(null);
+src/pages/Production.tsx:77:      { clientId: selectedClientId as UUID },
+src/pages/Production.tsx:78:      { enabled: !!selectedClientId }
+src/pages/Production.tsx:82:    trpc.productionEvents.list.useQuery(undefined, { enabled: !selectedClientId });
+src/pages/Production.tsx:84:  const events: ProductionEvent[] = (selectedClientId ? byClientEvents : allEvents) as any;
+src/pages/Production.tsx:86:  const isLoading = selectedClientId ? loadingByClient : loadingAll;
+src/pages/Production.tsx:121:      clientId: selectedClientId ?? "",
+src/pages/Production.tsx:185:                setEventForm((p) => ({ ...p, clientId: selectedClientId ?? "" }));
+src/pages/Production.tsx:310:                value={selectedClientId ?? "all"}
+src/pages/Planning.tsx:125:  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+src/pages/Planning.tsx:153:    { clientId: selectedClientId! },
+src/pages/Planning.tsx:154:    { enabled: !!selectedClientId }
+src/pages/Planning.tsx:158:    enabled: !selectedClientId,
+src/pages/Planning.tsx:161:  const displayEvents = selectedClientId ? events : allEvents;
+src/pages/Planning.tsx:280:        value={selectedClientId ?? "all"}
+src/pages/Performance.tsx:30:  const [selectedClientId, setSelectedClientId] = useState<string>("");
+src/pages/Performance.tsx:48:    queryKey: ["performanceMetrics", selectedClientId],
+src/pages/Performance.tsx:53:        .eq("client_id", selectedClientId)
+src/pages/Performance.tsx:59:    enabled: !!selectedClientId,
+src/pages/Performance.tsx:103:          <Select value={selectedClientId} onValueChange={setSelectedClientId}>
+src/pages/Performance.tsx:118:      {!!selectedClientId && (
+src/pages/PIT.tsx:49:  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+src/pages/PIT.tsx:65:    { clientId: selectedClientId ?? "" },
+src/pages/PIT.tsx:66:    { enabled: !!selectedClientId }
+src/pages/PIT.tsx:72:      utils.pits.listByClientId.invalidate({ clientId: selectedClientId ?? "" });
+src/pages/PIT.tsx:89:      utils.pits.listByClientId.invalidate({ clientId: selectedClientId ?? "" });
+src/pages/PIT.tsx:227:            value={selectedClientId ?? ""}
+src/pages/PIT.tsx:245:      {selectedClientId && (
+src/pages/Media.tsx:40:  const [selectedClientId, setSelectedClientId] = useState<Uuid | null>(null);
+src/pages/Media.tsx:58:    { clientId: selectedClientId as Uuid },
+src/pages/Media.tsx:59:    { enabled: !!selectedClientId }
+src/pages/Media.tsx:63:    { clientId: selectedClientId as Uuid },
+src/pages/Media.tsx:64:    { enabled: !!selectedClientId }
+src/pages/Media.tsx:73:        clientId: selectedClientId ?? "",
+src/pages/Media.tsx:97:    if (!selectedClientId) {
+src/pages/Media.tsx:101:    setBroadcastForm((p) => ({ ...p, clientId: selectedClientId }));
+src/pages/Media.tsx:107:    if (!selectedClientId) return toast.error("Selecione um cliente");
+src/pages/Media.tsx:116:      clientId: selectedClientId,
+src/pages/Media.tsx:138:            value={selectedClientId ?? "all"}
+src/pages/Media.tsx:255:      {!selectedClientId ? (

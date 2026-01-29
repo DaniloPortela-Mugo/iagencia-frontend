@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vox Strategy – Avatares IA & Conteúdo Criativo</title>
+    <meta name="description" content="A Vox Strategy cria avatares gerados por IA e conteúdo criativo para redes sociais.">
+
+    <!-- Tailwind via CDN para prototipagem rápida -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-sans antialiased text-gray-800">
+    <!-- HERO VIDEO -->
+    <section id="hero" class="relative h-screen">
+        <video class="absolute inset-0 w-full h-full object-cover" src="https://assets.mixkit.co/videos/preview/mixkit-woman-holding-a-presentation-while-standing-in-front-11712-large.mp4" autoplay muted loop playsinline></video>
+        <div class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center px-6">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">Sua marca, seu avatar</h1>
+            <p class="text-lg md:text-2xl text-gray-200 mb-8 max-w-3xl">Transformamos ideias em avatares de IA que conquistam corações e algoritmos.</p>
+            <a href="#contact" class="inline-block bg-white text-blue-600 font-semibold px-8 py-3 rounded-full hover:bg-blue-100 transition">Fale Conosco</a>
+        </div>
+    </section>
+
+    <!-- PORTFÓLIO DE VÍDEOS -->
+    <section id="portfolio" class="py-16 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-10">Alguns dos nossos trabalhos</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <video src="https://assets.mixkit.co/videos/preview/mixkit-colorful-abstract-design-1559-large.mp4" controls class="w-full rounded-lg shadow"></video>
+                <video src="https://assets.mixkit.co/videos/preview/mixkit-gradient-liquid-shape-1703-large.mp4" controls class="w-full rounded-lg shadow"></video>
+                <video src="https://assets.mixkit.co/videos/preview/mixkit-pink-liquid-shape-1699-large.mp4" controls class="w-full rounded-lg shadow"></video>
+            </div>
+        </div>
+    </section>
+
+    <!-- FUNDADORES -->
+    <section id="founders" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-10">Quem está por trás</h2>
+            <div class="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+                <!-- Fundador 1 -->
+                <div class="bg-white rounded-xl p-8 shadow flex flex-col items-center">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Camila Castro" class="w-32 h-32 rounded-full object-cover mb-4">
+                    <h3 class="text-xl font-semibold mb-1">Camila Castro</h3>
+                    <p class="text-blue-600 mb-4">CEO & Co‑fundadora</p>
+                    <p>Especialista em branding e storytelling. Lidera a visão criativa da Vox Strategy.</p>
+                </div>
+                <!-- Fundador 2 -->
+                <div class="bg-white rounded-xl p-8 shadow flex flex-col items-center">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Leonardo Braga" class="w-32 h-32 rounded-full object-cover mb-4">
+                    <h3 class="text-xl font-semibold mb-1">Leonardo Braga</h3>
+                    <p class="text-blue-600 mb-4">CTO & Co‑fundador</p>
+                    <p>Engenheiro de IA apaixonado por geração de conteúdo automatizado e avatares virtuais.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section id="contact" class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">Vamos conversar?</h2>
+            <form class="max-w-xl mx-auto space-y-6">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <input type="text" placeholder="Nome" required class="px-4 py-3 w-full rounded bg-blue-500 placeholder-blue-200 focus:ring-2 focus:ring-blue-300 focus:outline-none">
+                    <input type="email" placeholder="E‑mail" required class="px-4 py-3 w-full rounded bg-blue-500 placeholder-blue-200 focus:ring-2 focus:ring-blue-300 focus:outline-none">
+                </div>
+                <textarea rows="5" placeholder="Mensagem" required class="px-4 py-3 w-full rounded bg-blue-500 placeholder-blue-200 focus:ring-2 focus:ring-blue-300 focus:outline-none"></textarea>
+                <button type="submit" class="w-full bg-white text-blue-600 font-semibold py-3 rounded-lg hover:bg-blue-50 transition">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-400 text-center py-6">
+        © 2025 Vox Strategy
+    </footer>
+</body>
+</html>

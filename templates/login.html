@@ -8,12 +8,13 @@
 </head>
 <body>
   <header>
-    <div class="logo">Logo</div>
-    <div class="logo" style="visibility: hidden;">Logo 2</div>
+    <div class="vox">vox</div>
+     <img src="{{ url_for('static', filename='imagens/vox.jpg') }}" alt="Vox Strategy">
+    <div class="vox" style="visibility: hidden;">logo</div>
   </header>
 
   <main class="main-container">
-    <h1>Bem-vindo!</h1>
+    <h1>{{login}}</h1>
     <h2>Faça login para continuar</h2>
 
     {% if erro %}
@@ -29,7 +30,7 @@
 
   <footer>
     <div style="visibility: hidden;"></div>
-    <div class="logo">LOGO 2</div>
+    <div class="vox">logo</div>
   </footer>
 </body>
 </html>

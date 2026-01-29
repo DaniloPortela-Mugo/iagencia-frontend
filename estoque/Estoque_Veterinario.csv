@@ -1,0 +1,111 @@
+Código,Data Entrada,Produto,Nome Comercial,Categoria,Uso Principal,Quantidade,Validade,Lote,Preço Unit. (R$),Fornecedor,Email do Fornecedor
+001,2025-03-22,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,52,2026-09-12,L001X8883,61.83,ClinPet Brasil,clinpetbrasil@animalmed.com
+002,2025-02-03,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,35,2026-10-09,L002X3063,11.17,Animal Farma,animalfarma@vetprod.com
+003,2025-01-03,Colírio,Tobrex Vet,Medicamento,Infecções oculares,60,2026-05-15,L003X1755,11.08,PetPlus Fornecimentos,petplusfornecimentos@saudevet.com.br
+004,2025-02-03,Sedativo,Sedam 5ml,Medicamento,Sedação leve,30,2027-02-22,L004X9051,59.31,VetDistribui,vetdistribui@vetprod.com
+005,2025-01-26,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,31,2026-01-24,L005X7411,36.76,VetDistribui,vetdistribui@saudevet.com.br
+006,2024-10-28,Vermífugo,Endogard,Medicamento,Vermes intestinais,28,2026-12-21,L006X9824,39.15,VetDistribui,vetdistribui@pethealth.com
+007,2025-01-12,Vermífugo,Endogard,Medicamento,Vermes intestinais,41,2026-08-20,L007X9608,65.39,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+008,2024-12-17,Vermífugo,Endogard,Medicamento,Vermes intestinais,10,2026-02-05,L008X9107,37.31,Animal Farma,animalfarma@animalmed.com
+009,2024-10-13,Colírio,Tobrex Vet,Medicamento,Infecções oculares,44,2026-07-10,L009X2316,44.12,Animal Farma,animalfarma@vetprod.com
+010,2024-10-10,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,18,2026-10-22,L010X2440,25.42,Animal Farma,animalfarma@vetprod.com
+011,2025-03-31,Vacina,V10 Nobivac,Vacina,Prevenção viral,37,2027-05-25,L011X6209,73.67,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+012,2025-03-10,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,13,2025-06-04,L012X5944,48.47,PetPlus Fornecimentos,petplusfornecimentos@animalmed.com
+013,2025-03-27,Vermífugo,Endogard,Medicamento,Vermes intestinais,10,2027-02-02,L013X2124,42.27,ClinPet Brasil,clinpetbrasil@saudevet.com.br
+014,2025-02-06,Colírio,Tobrex Vet,Medicamento,Infecções oculares,47,2025-10-25,L014X7020,72.28,ClinPet Brasil,clinpetbrasil@pethealth.com
+015,2025-03-13,Vermífugo,Endogard,Medicamento,Vermes intestinais,41,2025-11-01,L015X6581,73.47,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+016,2024-10-22,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,22,2025-08-27,L016X2584,42.58,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+017,2024-10-18,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,17,2025-12-12,L017X9275,69.64,VetDistribui,vetdistribui@pethealth.com
+018,2025-02-02,Pomada dermatológica,Otogen,Medicamento,Otites,44,2027-05-26,L018X6422,42.39,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+019,2024-10-23,Colírio,Tobrex Vet,Medicamento,Infecções oculares,38,2025-09-09,L019X7279,27.6,Animal Farma,animalfarma@pethealth.com
+020,2024-10-02,Colírio,Tobrex Vet,Medicamento,Infecções oculares,57,2026-10-18,L020X3729,64.23,VetDistribui,vetdistribui@vetprod.com
+021,2025-01-08,Suplemento,Osteocart Pet,Suplemento,Articulações,38,2025-06-24,L021X3008,13.98,Animal Farma,animalfarma@saudevet.com.br
+022,2025-01-15,Sedativo,Sedam 5ml,Medicamento,Sedação leve,21,2027-01-17,L022X8643,39.41,ClinPet Brasil,clinpetbrasil@vetprod.com
+023,2024-10-13,Vacina,V10 Nobivac,Vacina,Prevenção viral,41,2027-01-02,L023X6024,18.0,ClinPet Brasil,clinpetbrasil@saudevet.com.br
+024,2025-02-14,Suplemento,Osteocart Pet,Suplemento,Articulações,55,2025-12-02,L024X8551,83.22,Animal Farma,animalfarma@pethealth.com
+025,2025-02-12,Colírio,Tobrex Vet,Medicamento,Infecções oculares,44,2025-10-17,L025X9428,27.0,VetDistribui,vetdistribui@pethealth.com
+026,2024-12-27,Vacina,V10 Nobivac,Vacina,Prevenção viral,51,2025-06-28,L026X5138,82.53,Animal Farma,animalfarma@pethealth.com
+027,2025-02-22,Vermífugo,Endogard,Medicamento,Vermes intestinais,55,2027-04-13,L027X2083,19.28,VetDistribui,vetdistribui@pethealth.com
+028,2024-11-16,Sedativo,Sedam 5ml,Medicamento,Sedação leve,58,2026-06-16,L028X1474,52.34,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+029,2024-10-15,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,8,2027-01-15,L029X7808,53.31,BioVet Saúde Animal,biovetsaúdeanimal@pethealth.com
+030,2025-03-03,Vacina,V10 Nobivac,Vacina,Prevenção viral,56,2025-10-18,L030X9459,36.98,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+031,2024-12-11,Vacina,V10 Nobivac,Vacina,Prevenção viral,9,2026-08-16,L031X4645,14.69,BioVet Saúde Animal,biovetsaúdeanimal@vetprod.com
+032,2025-01-31,Colírio,Tobrex Vet,Medicamento,Infecções oculares,19,2025-12-25,L032X4364,71.83,ClinPet Brasil,clinpetbrasil@animalmed.com
+033,2024-12-01,Pomada dermatológica,Otogen,Medicamento,Otites,7,2026-04-20,L033X8492,70.83,Animal Farma,animalfarma@animalmed.com
+034,2025-03-26,Pomada dermatológica,Otogen,Medicamento,Otites,44,2027-04-17,L034X3281,38.86,PetPlus Fornecimentos,petplusfornecimentos@animalmed.com
+035,2025-04-01,Suplemento,Osteocart Pet,Suplemento,Articulações,5,2025-11-01,L035X9578,39.92,BioVet Saúde Animal,biovetsaúdeanimal@saudevet.com.br
+036,2024-11-25,Sedativo,Sedam 5ml,Medicamento,Sedação leve,40,2025-09-15,L036X8409,72.75,ClinPet Brasil,clinpetbrasil@pethealth.com
+037,2025-02-10,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,19,2026-11-26,L037X9602,85.02,PetPlus Fornecimentos,petplusfornecimentos@animalmed.com
+038,2025-02-24,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,58,2027-03-04,L038X1964,66.25,Animal Farma,animalfarma@vetprod.com
+039,2025-03-23,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,32,2026-10-05,L039X1846,81.64,VetDistribui,vetdistribui@saudevet.com.br
+040,2025-01-05,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,46,2027-05-27,L040X2330,89.48,PetPlus Fornecimentos,petplusfornecimentos@vetprod.com
+041,2024-12-19,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,53,2026-01-06,L041X9689,35.42,BioVet Saúde Animal,biovetsaúdeanimal@saudevet.com.br
+042,2025-01-03,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,49,2025-10-08,L042X3408,15.14,PetPlus Fornecimentos,petplusfornecimentos@saudevet.com.br
+043,2025-04-01,Pomada dermatológica,Otogen,Medicamento,Otites,38,2025-08-07,L043X1661,15.15,ClinPet Brasil,clinpetbrasil@pethealth.com
+044,2025-02-14,Vermífugo,Endogard,Medicamento,Vermes intestinais,28,2027-03-30,L044X2468,69.08,ClinPet Brasil,clinpetbrasil@animalmed.com
+045,2025-03-11,Colírio,Tobrex Vet,Medicamento,Infecções oculares,5,2026-11-06,L045X3358,44.87,Animal Farma,animalfarma@saudevet.com.br
+046,2025-01-06,Sedativo,Sedam 5ml,Medicamento,Sedação leve,25,2026-04-11,L046X6193,24.0,PetPlus Fornecimentos,petplusfornecimentos@vetprod.com
+047,2025-01-08,Vermífugo,Endogard,Medicamento,Vermes intestinais,9,2027-01-09,L047X6889,63.49,VetDistribui,vetdistribui@vetprod.com
+048,2025-03-21,Vermífugo,Endogard,Medicamento,Vermes intestinais,5,2027-03-31,L048X4306,57.65,Animal Farma,animalfarma@vetprod.com
+049,2024-11-25,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,31,2025-09-06,L049X1863,21.58,Animal Farma,animalfarma@pethealth.com
+050,2024-10-10,Vermífugo,Endogard,Medicamento,Vermes intestinais,24,2026-03-25,L050X1037,51.68,VetDistribui,vetdistribui@vetprod.com
+051,2024-11-07,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,44,2025-10-18,L051X4266,66.59,BioVet Saúde Animal,biovetsaúdeanimal@pethealth.com
+052,2024-11-12,Sedativo,Sedam 5ml,Medicamento,Sedação leve,37,2026-01-16,L052X9553,35.97,Animal Farma,animalfarma@vetprod.com
+053,2025-01-06,Sedativo,Sedam 5ml,Medicamento,Sedação leve,38,2026-05-09,L053X5892,40.09,VetDistribui,vetdistribui@saudevet.com.br
+054,2025-02-26,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,15,2025-07-31,L054X7163,11.82,ClinPet Brasil,clinpetbrasil@vetprod.com
+055,2025-03-25,Colírio,Tobrex Vet,Medicamento,Infecções oculares,44,2027-03-28,L055X6796,55.6,Animal Farma,animalfarma@vetprod.com
+056,2025-01-19,Colírio,Tobrex Vet,Medicamento,Infecções oculares,12,2026-06-10,L056X3320,73.24,Animal Farma,animalfarma@saudevet.com.br
+057,2025-01-14,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,27,2027-04-07,L057X7802,89.16,ClinPet Brasil,clinpetbrasil@pethealth.com
+058,2025-03-29,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,41,2026-05-30,L058X3944,33.4,Animal Farma,animalfarma@animalmed.com
+059,2024-12-28,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,60,2027-04-05,L059X7215,39.79,BioVet Saúde Animal,biovetsaúdeanimal@saudevet.com.br
+060,2025-01-29,Suplemento,Osteocart Pet,Suplemento,Articulações,56,2026-05-25,L060X3313,34.88,ClinPet Brasil,clinpetbrasil@saudevet.com.br
+061,2024-12-08,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,56,2025-12-30,L061X8468,45.01,VetDistribui,vetdistribui@saudevet.com.br
+062,2025-01-06,Vermífugo,Endogard,Medicamento,Vermes intestinais,41,2026-09-12,L062X1871,10.78,PetPlus Fornecimentos,petplusfornecimentos@vetprod.com
+063,2025-03-27,Sedativo,Sedam 5ml,Medicamento,Sedação leve,42,2026-11-02,L063X6019,35.9,BioVet Saúde Animal,biovetsaúdeanimal@vetprod.com
+064,2025-02-15,Suplemento,Osteocart Pet,Suplemento,Articulações,58,2026-11-07,L064X6703,81.6,VetDistribui,vetdistribui@pethealth.com
+065,2024-12-22,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,51,2026-07-17,L065X1974,14.89,ClinPet Brasil,clinpetbrasil@vetprod.com
+066,2025-03-11,Pomada dermatológica,Otogen,Medicamento,Otites,10,2026-03-14,L066X1692,66.83,BioVet Saúde Animal,biovetsaúdeanimal@pethealth.com
+067,2025-02-11,Pomada dermatológica,Otogen,Medicamento,Otites,39,2026-08-11,L067X5758,55.22,VetDistribui,vetdistribui@pethealth.com
+068,2024-10-20,Pomada dermatológica,Otogen,Medicamento,Otites,9,2025-10-31,L068X7673,29.9,Animal Farma,animalfarma@saudevet.com.br
+069,2024-11-08,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,49,2026-01-05,L069X1308,17.71,PetPlus Fornecimentos,petplusfornecimentos@vetprod.com
+070,2024-10-04,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,51,2025-06-23,L070X5177,82.23,PetPlus Fornecimentos,petplusfornecimentos@vetprod.com
+071,2024-11-08,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,41,2026-12-19,L071X5528,50.06,BioVet Saúde Animal,biovetsaúdeanimal@pethealth.com
+072,2024-11-04,Vacina,V10 Nobivac,Vacina,Prevenção viral,26,2026-12-23,L072X6303,30.65,VetDistribui,vetdistribui@vetprod.com
+073,2024-11-10,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,18,2026-04-27,L073X5864,69.27,Animal Farma,animalfarma@pethealth.com
+074,2024-10-01,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,33,2027-05-10,L074X8073,31.44,BioVet Saúde Animal,biovetsaúdeanimal@saudevet.com.br
+075,2024-11-25,Colírio,Tobrex Vet,Medicamento,Infecções oculares,36,2025-08-25,L075X8711,60.48,Animal Farma,animalfarma@animalmed.com
+076,2024-11-08,Vermífugo,Endogard,Medicamento,Vermes intestinais,17,2025-08-24,L076X9553,10.92,BioVet Saúde Animal,biovetsaúdeanimal@pethealth.com
+077,2024-12-03,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,33,2027-04-20,L077X6981,45.7,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+078,2025-03-02,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,21,2027-01-06,L078X2587,52.68,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+079,2024-12-13,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,39,2027-01-27,L079X1190,30.8,Animal Farma,animalfarma@animalmed.com
+080,2024-10-10,Colírio,Tobrex Vet,Medicamento,Infecções oculares,9,2026-06-01,L080X2826,79.26,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+081,2024-12-20,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,51,2026-06-04,L081X6735,41.21,BioVet Saúde Animal,biovetsaúdeanimal@pethealth.com
+082,2024-10-18,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,18,2025-07-14,L082X1381,65.35,ClinPet Brasil,clinpetbrasil@animalmed.com
+083,2025-02-06,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,23,2025-10-31,L083X1861,76.15,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+084,2024-10-23,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,6,2026-01-02,L084X8849,89.76,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+085,2024-10-29,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,27,2027-03-08,L085X3496,89.52,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+086,2024-11-29,Antipulgas,NexGard 68mg,Antiparasitário,Pulgas e carrapatos,20,2026-06-26,L086X3727,52.12,VetDistribui,vetdistribui@vetprod.com
+087,2025-01-08,Sedativo,Sedam 5ml,Medicamento,Sedação leve,17,2027-03-17,L087X1399,32.64,BioVet Saúde Animal,biovetsaúdeanimal@vetprod.com
+088,2024-12-11,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,58,2026-02-21,L088X9087,84.83,VetDistribui,vetdistribui@pethealth.com
+089,2024-10-10,Pomada dermatológica,Otogen,Medicamento,Otites,20,2026-09-12,L089X3961,43.29,BioVet Saúde Animal,biovetsaúdeanimal@saudevet.com.br
+090,2024-12-22,Vermífugo,Endogard,Medicamento,Vermes intestinais,35,2026-06-13,L090X6133,23.29,VetDistribui,vetdistribui@animalmed.com
+091,2024-12-02,Colírio,Tobrex Vet,Medicamento,Infecções oculares,33,2026-09-29,L091X8774,44.8,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+092,2024-10-10,Vermífugo,Endogard,Medicamento,Vermes intestinais,57,2025-07-06,L092X4287,73.89,PetPlus Fornecimentos,petplusfornecimentos@pethealth.com
+093,2025-03-31,Sedativo,Sedam 5ml,Medicamento,Sedação leve,22,2026-12-11,L093X5410,48.99,ClinPet Brasil,clinpetbrasil@animalmed.com
+094,2025-02-23,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,25,2025-07-29,L094X1551,48.26,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+095,2025-02-17,Vermífugo,Endogard,Medicamento,Vermes intestinais,15,2025-08-24,L095X4369,41.76,Animal Farma,animalfarma@animalmed.com
+096,2025-03-18,Vacina,V10 Nobivac,Vacina,Prevenção viral,27,2026-07-11,L096X5558,35.26,ClinPet Brasil,clinpetbrasil@vetprod.com
+097,2024-10-05,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,44,2026-04-26,L097X1976,84.19,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+098,2024-11-17,Colírio,Tobrex Vet,Medicamento,Infecções oculares,49,2027-03-15,L098X4348,28.43,VetDistribui,vetdistribui@vetprod.com
+099,2024-12-13,Sedativo,Sedam 5ml,Medicamento,Sedação leve,58,2025-07-23,L099X3703,35.18,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+100,2024-10-27,Sedativo,Sedam 5ml,Medicamento,Sedação leve,48,2026-05-02,L100X6720,70.68,ClinPet Brasil,clinpetbrasil@saudevet.com.br
+101,2025-03-30,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,36,2026-03-21,L101X9913,75.67,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+102,2025-01-12,Antibiótico,Baytril 150mg,Medicamento,Infecções bacterianas,10,2027-04-29,L102X1115,69.06,ClinPet Brasil,clinpetbrasil@pethealth.com
+103,2024-10-28,Sedativo,Sedam 5ml,Medicamento,Sedação leve,27,2025-06-16,L103X9249,62.96,ClinPet Brasil,clinpetbrasil@vetprod.com
+104,2025-02-13,Sedativo,Sedam 5ml,Medicamento,Sedação leve,7,2026-04-06,L104X5997,20.56,ClinPet Brasil,clinpetbrasil@saudevet.com.br
+105,2025-03-21,Sedativo,Sedam 5ml,Medicamento,Sedação leve,13,2026-09-28,L105X5155,72.1,PetPlus Fornecimentos,petplusfornecimentos@vetprod.com
+106,2024-11-13,Anti-inflamatório,Meloxinew 1mg,Medicamento,Dor e inflamação,50,2026-09-22,L106X3862,32.13,VetDistribui,vetdistribui@pethealth.com
+107,2025-03-22,Sedativo,Sedam 5ml,Medicamento,Sedação leve,6,2026-03-07,L107X3054,35.8,ClinPet Brasil,clinpetbrasil@animalmed.com
+108,2025-01-26,Vermífugo,Endogard,Medicamento,Vermes intestinais,59,2026-11-24,L108X9230,41.92,BioVet Saúde Animal,biovetsaúdeanimal@animalmed.com
+109,2024-10-07,Suplemento,Osteocart Pet,Suplemento,Articulações,12,2026-06-17,L109X3211,35.74,PetPlus Fornecimentos,petplusfornecimentos@animalmed.com
+110,2025-01-17,Ração terapêutica,Hepatic Canine,Alimentação,Doença hepática,33,2025-11-21,L110X4896,52.65,ClinPet Brasil,clinpetbrasil@pethealth.com

@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1768425090579,
+      "tag": "0000_ordinary_forgotten_one",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1768499865280,
+      "tag": "0001_useful_red_ghost",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1768502335571,
+      "tag": "0002_tidy_lake",
+      "breakpoints": true
+    }
+  ]
+}

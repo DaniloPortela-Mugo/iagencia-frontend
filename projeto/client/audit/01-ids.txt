@@ -1,0 +1,346 @@
+== 1) ONDE TEM parseInt / Number / NaN / || 0 ==
+src/pages/ComponentShowcase.tsx:517:                                newDate.setHours(parseInt(hours));
+src/pages/ComponentShowcase.tsx:518:                                newDate.setMinutes(parseInt(minutes));
+src/pages/CampaignConfig.tsx:22:  const clientId = Number((params as any).id);
+src/pages/CampaignConfig.tsx:58:    queryFn: () => api.listScheduledSearchLogs(Number(schedule!.id)),
+src/pages/Media.tsx:111:    const insertions = Number(broadcastForm.insertionsCount || "1");
+src/pages/Media.tsx:112:    const duration = Number(broadcastForm.duration || "30");
+src/pages/Media.tsx:113:    const costPerInsertion = broadcastForm.costPerInsertion ? Number(broadcastForm.costPerInsertion) : null;
+src/const.ts:6:  return (import.meta as any).env?.[name] as string | undefined;
+src/const.ts:11:  const oauthPortalUrl = env("VITE_OAUTH_PORTAL_URL") || window.location.origin;
+src/const.ts:12:  const appId = env("VITE_APP_ID") || "dev";
+src/const.ts:19:    oauthPortalUrl.startsWith("http://") || oauthPortalUrl.startsWith("https://")
+src/contexts/ThemeContext.tsx:3:type Theme = "light" | "dark";
+src/contexts/ThemeContext.tsx:11:const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+src/contexts/ThemeContext.tsx:27:      return (stored as Theme) || defaultTheme;
+src/index.css:19:  --radius: 0.65rem;
+src/index.css:21:  --background: oklch(1 0 0);
+src/index.css:22:  --foreground: oklch(0.235 0.015 65);
+src/index.css:24:  --card: oklch(1 0 0);
+src/index.css:25:  --card-foreground: oklch(0.235 0.015 65);
+src/index.css:27:  --popover: oklch(1 0 0);
+src/index.css:28:  --popover-foreground: oklch(0.235 0.015 65);
+src/index.css:30:  --primary: oklch(0.58 0.24 290);
+src/index.css:31:  --primary-foreground: oklch(0.98 0.01 290);
+src/index.css:33:  --secondary: oklch(0.98 0.001 286.375);
+src/index.css:34:  --secondary-foreground: oklch(0.4 0.015 65);
+src/index.css:36:  --muted: oklch(0.967 0.001 286.375);
+src/index.css:37:  --muted-foreground: oklch(0.552 0.016 285.938);
+src/index.css:39:  --accent: oklch(0.967 0.001 286.375);
+src/index.css:40:  --accent-foreground: oklch(0.141 0.005 285.823);
+src/index.css:42:  --destructive: oklch(0.577 0.245 27.325);
+src/index.css:43:  --destructive-foreground: oklch(0.985 0 0);
+src/index.css:45:  --border: oklch(0.92 0.004 286.32);
+src/index.css:46:  --input: oklch(0.92 0.004 286.32);
+src/index.css:47:  --ring: oklch(0.623 0.214 259.815);
+src/index.css:49:  --sidebar: oklch(0.985 0 0);
+src/index.css:50:  --sidebar-foreground: oklch(0.235 0.015 65);
+src/index.css:51:  --sidebar-primary: oklch(0.55 0.22 290);
+src/index.css:52:  --sidebar-primary-foreground: oklch(0.98 0.01 290);
+src/index.css:53:  --sidebar-accent: oklch(0.967 0.001 286.375);
+src/index.css:54:  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
+src/index.css:55:  --sidebar-border: oklch(0.92 0.004 286.32);
+src/index.css:56:  --sidebar-ring: oklch(0.623 0.214 259.815);
+src/index.css:58:  --chart-1: oklch(0.75 0.18 290);
+src/index.css:59:  --chart-2: oklch(0.65 0.20 290);
+src/index.css:60:  --chart-3: oklch(0.58 0.24 290);
+src/index.css:61:  --chart-4: oklch(0.50 0.22 290);
+src/index.css:62:  --chart-5: oklch(0.42 0.20 290);
+src/index.css:117:  --background: oklch(0.141 0.005 285.823);
+src/index.css:118:  --foreground: oklch(0.85 0.005 65);
+src/index.css:120:  --card: oklch(0.21 0.006 285.885);
+src/index.css:121:  --card-foreground: oklch(0.85 0.005 65);
+src/index.css:123:  --popover: oklch(0.21 0.006 285.885);
+src/index.css:124:  --popover-foreground: oklch(0.85 0.005 65);
+src/index.css:126:  --primary: oklch(0.62 0.26 290);
+src/index.css:127:  --primary-foreground: oklch(0.98 0.01 290);
+src/index.css:129:  --secondary: oklch(0.24 0.006 286.033);
+src/index.css:130:  --secondary-foreground: oklch(0.7 0.005 65);
+src/index.css:132:  --muted: oklch(0.274 0.006 286.033);
+src/index.css:133:  --muted-foreground: oklch(0.705 0.015 286.067);
+src/index.css:135:  --accent: oklch(0.274 0.006 286.033);
+src/index.css:136:  --accent-foreground: oklch(0.92 0.005 65);
+src/index.css:138:  --border: oklch(1 0 0 / 10%);
+src/index.css:139:  --input: oklch(1 0 0 / 15%);
+src/index.css:140:  --ring: oklch(0.488 0.243 264.376);
+src/index.css:142:  --sidebar: oklch(0.21 0.006 285.885);
+src/index.css:143:  --sidebar-foreground: oklch(0.85 0.005 65);
+src/index.css:162:    min-height: 0;
+src/index.css:163:    min-width: 0;
+src/components/ui/slider.tsx:10:  min = 0,
+src/components/ui/progress.tsx:23:        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+src/components/ui/chart.tsx:14:    | { color?: string; theme?: never }
+src/components/ui/chart.tsx:15:    | { color?: never; theme: Record<keyof typeof THEMES, string> }
+src/components/ui/chart.tsx:23:const ChartContext = React.createContext<ChartContextProps | null>(null);
+src/components/ui/chart.tsx:48:  const chartId = `chart-${id || uniqueId.replace(/:/g, "")}`;
+src/components/ui/chart.tsx:72:    ([, config]) => config.theme || config.color
+src/components/ui/chart.tsx:89:      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
+src/components/ui/chart.tsx:123:    indicator?: "line" | "dot" | "dashed";
+src/components/ui/chart.tsx:130:    if (hideLabel || !payload?.length) {
+src/components/ui/chart.tsx:135:    const key = `${labelKey || item?.dataKey || item?.name || "value"}`;
+src/components/ui/chart.tsx:139:        ? config[label as keyof typeof config]?.label || label
+src/components/ui/chart.tsx:165:  if (!active || !payload?.length) {
+src/components/ui/chart.tsx:183:            const key = `${nameKey || item.name || item.dataKey || "value"}`;
+src/components/ui/chart.tsx:185:            const indicatorColor = color || item.payload.fill || item.color;
+src/components/ui/chart.tsx:232:                          {itemConfig?.label || item.name}
+src/components/ui/chart.tsx:260:  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+src/components/ui/chart.tsx:281:          const key = `${nameKey || item.dataKey || "value"}`;
+src/components/ui/chart.tsx:315:  if (typeof payload !== "object" || payload === null) {
+src/components/ui/sheet.tsx:53:  side?: "top" | "right" | "bottom" | "left";
+src/components/ui/field.tsx:26:}: React.ComponentProps<"legend"> & { variant?: "legend" | "label" }) {
+src/components/ui/field.tsx:190:  errors?: Array<{ message?: string } | undefined>;
+src/components/ui/toggle-group.tsx:56:      data-variant={context.variant || variant}
+src/components/ui/toggle-group.tsx:57:      data-size={context.size || size}
+src/components/ui/toggle-group.tsx:60:          variant: context.variant || variant,
+src/components/ui/toggle-group.tsx:61:          size: context.size || size,
+src/components/ui/menubar.tsx:96:  variant?: "default" | "destructive";
+src/components/ui/dialog.tsx:27:  const endTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+src/components/ui/dialog.tsx:107:      const isCurrentlyComposing = (e as any).isComposing || isComposing();
+src/components/ui/sidebar.tsx:35:  state: "expanded" | "collapsed";
+src/components/ui/sidebar.tsx:44:const SidebarContext = React.createContext<SidebarContextProps | null>(null);
+src/components/ui/sidebar.tsx:76:    (value: boolean | ((value: boolean) => boolean)) => {
+src/components/ui/sidebar.tsx:100:        (event.metaKey || event.ctrlKey)
+src/components/ui/sidebar.tsx:162:  side?: "left" | "right";
+src/components/ui/sidebar.tsx:163:  variant?: "sidebar" | "floating" | "inset";
+src/components/ui/sidebar.tsx:164:  collapsible?: "offcanvas" | "icon" | "none";
+src/components/ui/sidebar.tsx:228:          variant === "floating" || variant === "inset"
+src/components/ui/sidebar.tsx:244:          variant === "floating" || variant === "inset"
+src/components/ui/sidebar.tsx:516:  tooltip?: string | React.ComponentProps<typeof TooltipContent>;
+src/components/ui/sidebar.tsx:548:        hidden={state !== "collapsed" || isMobile}
+src/components/ui/sidebar.tsx:684:  size?: "sm" | "md";
+src/components/ui/dropdown-menu.tsx:67:  variant?: "default" | "destructive";
+src/components/ui/select.tsx:31:  size?: "sm" | "default";
+src/components/ui/context-menu.tsx:119:  variant?: "default" | "destructive";
+src/components/ui/carousel.tsx:18:  orientation?: "horizontal" | "vertical";
+src/components/ui/carousel.tsx:31:const CarouselContext = React.createContext<CarouselContextProps | null>(null);
+src/components/ui/carousel.tsx:90:    if (!api || !setApi) return;
+src/components/ui/carousel.tsx:112:          orientation || (opts?.axis === "y" ? "vertical" : "horizontal"),
+src/components/CampaignLayout.tsx:46:  return current === href || current.startsWith(href + "/");
+src/components/AIChatBox.tsx:20:  role: "system" | "user" | "assistant";
+src/components/AIChatBox.tsx:55:  height?: string | number;
+src/components/AIChatBox.tsx:145:  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+src/components/AIChatBox.tsx:211:    if (!trimmedInput || isLoading) return;
+src/components/AIChatBox.tsx:241:        {displayMessages.length === 0 ? (
+src/components/AIChatBox.tsx:249:              {suggestedPrompts && suggestedPrompts.length > 0 && (
+src/components/AIChatBox.tsx:272:                  isLastMessage && !isLoading && minHeightForLastMessage > 0;
+src/components/AIChatBox.tsx:360:                    minHeightForLastMessage > 0
+src/components/AIChatBox.tsx:396:          disabled={!input.trim() || isLoading}
+src/components/NotificationBell.tsx:25:  | "event_reminder"
+src/components/NotificationBell.tsx:26:  | "pit_assigned"
+src/components/NotificationBell.tsx:27:  | "content_approved"
+src/components/NotificationBell.tsx:28:  | "content_rejected"
+src/components/NotificationBell.tsx:29:  | "team_confirmation"
+src/components/NotificationBell.tsx:30:  | "system";
+src/components/NotificationBell.tsx:34:  type: NotificationType | string;
+src/components/NotificationBell.tsx:123:          {unreadCount > 0 && (
+src/components/NotificationBell.tsx:138:            {unreadCount > 0 && (
+src/components/NotificationBell.tsx:164:          {notifications.length > 0 ? (
+src/components/NotificationBell.tsx:240:        {notifications.length > 0 && (
+src/components/Map.tsx:7: * const mapRef = useRef<google.maps.Map | null>(null);
+src/components/Map.tsx:91:  import.meta.env.VITE_FRONTEND_FORGE_API_URL ||
+src/components/Map.tsx:126:  const map = useRef<google.maps.Map | null>(null);
+src/components/ErrorBoundary.tsx:11:  error: Error | null;
+src/hooks/useComposition.ts:5:  T extends HTMLInputElement | HTMLTextAreaElement,
+src/hooks/useComposition.ts:14:  T extends HTMLInputElement | HTMLTextAreaElement,
+src/hooks/useComposition.ts:24:  T extends HTMLInputElement | HTMLTextAreaElement = HTMLInputElement,
+src/hooks/useComposition.ts:33:  const timer = useRef<TimerResponse | null>(null);
+src/hooks/useComposition.ts:34:  const timer2 = useRef<TimerResponse | null>(null);
+src/hooks/useComposition.ts:63:      (e.key === "Escape" || (e.key === "Enter" && !e.shiftKey))
+src/hooks/useMobile.tsx:6:  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(
+src/lib/trpc.ts:37:  description?: string | null;
+src/lib/trpc.ts:38:  status?: string | null;
+src/lib/trpc.ts:39:  created_by?: string | null;
+src/lib/trpc.ts:40:  created_at?: string | null;
+src/lib/trpc.ts:41:  updated_at?: string | null;
+src/lib/trpc.ts:872:              if (!userId) return 0;
+src/lib/trpc.ts:882:            }, 0),
+src/lib/approvals.api.ts:11:  | "pending"
+src/lib/approvals.api.ts:12:  | "in_review"
+src/lib/approvals.api.ts:13:  | "approved"
+src/lib/approvals.api.ts:14:  | "rejected"
+src/lib/approvals.api.ts:15:  | "revision_requested";
+src/lib/approvals.api.ts:17:export type Priority = "low" | "medium" | "high" | "urgent";
+src/lib/approvals.api.ts:20:  | "post"
+src/lib/approvals.api.ts:21:  | "video"
+src/lib/approvals.api.ts:22:  | "image"
+src/lib/approvals.api.ts:23:  | "audio"
+src/lib/approvals.api.ts:24:  | "document"
+src/lib/approvals.api.ts:25:  | "campaign"
+src/lib/approvals.api.ts:26:  | "other";
+src/lib/supabase.ts:6:if (!supabaseUrl || !supabaseAnonKey) {
+src/lib/id.ts:1:export function asUuid(value: unknown): string | null {
+src/lib/db.ts:33:  description?: string | null;
+src/lib/db.ts:34:  status?: string | null;
+src/lib/trpc.ts.bak:37:  description?: string | null;
+src/lib/trpc.ts.bak:38:  status?: string | null;
+src/lib/trpc.ts.bak:39:  created_by?: string | null;
+src/lib/trpc.ts.bak:40:  created_at?: string | null;
+src/lib/trpc.ts.bak:41:  updated_at?: string | null;
+src/lib/trpc.ts.bak:504:              if (!userId) return 0;
+src/lib/trpc.ts.bak:509:            }, 0),
+src/pages/Login.tsx:13:  const [mode, setMode] = useState<"signin" | "signup">("signin");
+src/pages/Login.tsx:14:  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+src/pages/Login.tsx:20:      if (!e || !password) {
+src/pages/ComponentShowcase.tsx:178:  const [date, setDate] = useState<Date | undefined>(new Date());
+src/pages/Clipping.tsx:50:  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+src/pages/Clipping.tsx:51:  const [selectedSourceId, setSelectedSourceId] = useState<string | null>(null);
+src/pages/Clipping.tsx:64:    sentiment: "neutral" as "positive" | "neutral" | "negative",
+src/pages/Clipping.tsx:65:    isCompetitor: 0,
+src/pages/Clipping.tsx:92:          `Busca concluída! ${result.newsFound?.length ?? 0} notícias encontradas, ${result.newsSaved ?? 0} salvas.`
+src/pages/Clipping.tsx:120:        isCompetitor: 0,
+src/pages/Clipping.tsx:131:          (c.title ?? "").toLowerCase().includes(term) ||
+src/pages/Clipping.tsx:132:          (c.summary ?? "").toLowerCase().includes(term) ||
+src/pages/Clipping.tsx:145:    }) || [];
+src/pages/Clipping.tsx:158:      return src.includes(name) || (url && url.includes(src));
+src/pages/Clipping.tsx:168:    searchNews.mutate({ clientId: selectedClientId, query: searchQuery || undefined } as any);
+src/pages/Clipping.tsx:172:    if (!selectedClientId || !newClipping.title || !newClipping.url) {
+src/pages/Clipping.tsx:226:                  {newsSources && newsSources.length > 0 ? (
+src/pages/Clipping.tsx:253:                          {searchResults.newsFound?.length ?? 0} encontradas, {searchResults.newsSaved ?? 0} salvas
+src/pages/Clipping.tsx:277:                  {searchHistory && searchHistory.length > 0 && !searchResults && (
+src/pages/Clipping.tsx:310:                    disabled={searchNews.isPending || !newsSources || newsSources.length === 0}
+src/pages/Clipping.tsx:417:                      onChange={(e) => setNewClipping({ ...newClipping, isCompetitor: e.target.checked ? 1 : 0 })}
+src/pages/Clipping.tsx:487:                <Badge variant="secondary">{newsSources?.length || 0} fontes</Badge>
+src/pages/Clipping.tsx:497:              ) : newsSources && newsSources.length > 0 ? (
+src/pages/Clipping.tsx:508:                    const Icon = sourceTypeIcons[source.sourceType] || Globe;
+src/pages/Clipping.tsx:543:          {competitors && competitors.length > 0 && (
+src/pages/Clipping.tsx:578:            {(searchTerm || selectedSourceId) && (
+src/pages/Clipping.tsx:625:                  ) : clientClippings.length > 0 ? (
+src/pages/Clipping.tsx:685:                        {newsSources && newsSources.length > 0
+src/pages/Clipping.tsx:713:                  ) : competitorClippings.length > 0 ? (
+src/pages/Clipping.tsx:764:                        {competitors && competitors.length > 0
+src/pages/Clipping.tsx:769:                      {(!competitors || competitors.length === 0) && (
+src/pages/Approvals.tsx:31:  status: "pending" | "approved" | "rejected";
+src/pages/Approvals.tsx:33:  priority: "low" | "medium" | "high";
+src/pages/Approvals.tsx:40:  const [filterClientId, setFilterClientId] = useState<Uuid | "all">("all");
+src/pages/Approvals.tsx:88:    const v = (s || "pending").toLowerCase();
+src/pages/Approvals.tsx:102:      feedback: form.feedback || undefined,
+src/pages/Approvals.tsx:235:          ) : approvalsList.length > 0 ? (
+src/pages/Home.tsx:11:  name: string | null;
+src/pages/Home.tsx:12:  description?: string | null;
+src/pages/Home.tsx:13:  status?: string | null;
+src/pages/Home.tsx:15:  created_by?: string | null;
+src/pages/Home.tsx:36:  const activeCount = clients?.filter((c) => (c.status ?? "active") === "active").length ?? 0;
+src/pages/Home.tsx:86:          ) : clients && clients.length > 0 ? (
+src/pages/Creation.tsx:46:  description: string | null;
+src/pages/Creation.tsx:50:type ContentStatus = "to_do" | "in_approval" | "done";
+src/pages/Creation.tsx:58:  status: ContentStatus | string;
+src/pages/Creation.tsx:65:  status: "pending" | "in_review" | "approved" | "rejected" | "revision_requested" | string;
+src/pages/Creation.tsx:66:  feedback?: string | null;
+src/pages/Creation.tsx:72:  approval: ApprovalRow | null;
+src/pages/Creation.tsx:144:  const [selectedClientId, setSelectedClientId] = useState<UUID | null>(null);
+src/pages/Creation.tsx:148:    clientId: "" as UUID | "",
+src/pages/Creation.tsx:189:      if (ids.length > 0) {
+src/pages/Creation.tsx:308:      const st = (item.content.status as ContentStatus) || "to_do";
+src/pages/Creation.tsx:309:      if (st === "to_do" || st === "in_approval" || st === "done") base[st].push(item);
+src/pages/Creation.tsx:473:          {!clientsLoading && (clients ?? []).length === 0 && (
+src/pages/Creation.tsx:490:                    {groupedContents?.[status]?.length || 0}
+src/pages/Creation.tsx:586:                          (!item.approval || item.approval.status === "approved") && (
+src/pages/Library.tsx:13:  type: "Modelo" | "Checklist" | "Guia" | "Arquivo";
+src/pages/Library.tsx:27:  const [tab, setTab] = useState<"all" | "modelos" | "processos">("all");
+src/pages/Library.tsx:35:          : seed.filter((i) => i.type === "Checklist" || i.type === "Guia");
+src/pages/Library.tsx:90:                  {items.length === 0 ? (
+src/pages/Production.tsx:38:  workspaceId?: UUID | null;
+src/pages/Production.tsx:39:  clientId?: UUID | null;
+src/pages/Production.tsx:41:  description?: string | null;
+src/pages/Production.tsx:42:  status?: "todo" | "doing" | "done" | string | null;
+src/pages/Production.tsx:43:  scheduledAt?: string | null; // ISO / timestamptz
+src/pages/Production.tsx:44:  createdAt?: string | null;
+src/pages/Production.tsx:51:  const [selectedClientId, setSelectedClientId] = useState<UUID | null>(null);
+src/pages/Production.tsx:54:  const [tab, setTab] = useState<"board" | "list">("board");
+src/pages/Production.tsx:58:    clientId: "" as UUID | "",
+src/pages/Production.tsx:62:    status: "todo" as "todo" | "doing" | "done",
+src/pages/Production.tsx:143:      description: eventForm.description.trim() || undefined,
+src/pages/Production.tsx:149:  const moveStatus = (id: UUID, status: "todo" | "doing" | "done") => {
+src/pages/Production.tsx:160:      const st = (ev.status as any) || "todo";
+src/pages/Production.tsx:168:  const clientName = (id?: UUID | null) => clients?.find((c: any) => c.id === id)?.name ?? "—";
+src/pages/Production.tsx:366:              {!isLoading && board.todo.length === 0 && (
+src/pages/Production.tsx:392:              {!isLoading && board.doing.length === 0 && (
+src/pages/Production.tsx:418:              {!isLoading && board.done.length === 0 && (
+src/pages/Production.tsx:508:  onMove: (st: "todo" | "doing" | "done") => void;
+src/pages/Clients.tsx:27:  name: string | null;
+src/pages/Clients.tsx:28:  description: string | null;
+src/pages/Clients.tsx:29:  status: string | null;
+src/pages/Clients.tsx:30:  workspace_id: string | null;
+src/pages/Clients.tsx:31:  created_at: string | null;
+src/pages/Clients.tsx:65:      const description = formData.description.trim() || null;
+src/pages/Clients.tsx:173:      ) : clients && clients.length > 0 ? (
+src/pages/Planning.tsx:79:  | "social_post"
+src/pages/Planning.tsx:80:  | "tv_broadcast"
+src/pages/Planning.tsx:81:  | "radio_broadcast"
+src/pages/Planning.tsx:82:  | "filming"
+src/pages/Planning.tsx:83:  | "recording"
+src/pages/Planning.tsx:84:  | "meeting"
+src/pages/Planning.tsx:85:  | "rally"
+src/pages/Planning.tsx:86:  | "deadline"
+src/pages/Planning.tsx:87:  | "other";
+src/pages/Planning.tsx:90:  | "instagram"
+src/pages/Planning.tsx:91:  | "facebook"
+src/pages/Planning.tsx:92:  | "tiktok"
+src/pages/Planning.tsx:93:  | "youtube"
+src/pages/Planning.tsx:94:  | "twitter"
+src/pages/Planning.tsx:95:  | "tv"
+src/pages/Planning.tsx:96:  | "radio"
+src/pages/Planning.tsx:97:  | "other";
+src/pages/Planning.tsx:125:  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+src/pages/Planning.tsx:128:  const [dragOverDay, setDragOverDay] = useState<Date | null>(null);
+src/pages/Planning.tsx:141:    platform: "" as Platform | "",
+src/pages/Planning.tsx:221:      `${formData.startDate}T${formData.startTime || "00:00"}`
+src/pages/Planning.tsx:225:      ? new Date(`${formData.endDate}T${formData.endTime || "23:59"}`)
+src/pages/Planning.tsx:231:      description: formData.description || undefined,
+src/pages/Planning.tsx:236:      platform: formData.platform || undefined,
+src/pages/Planning.tsx:269:    ) || [];
+src/pages/Performance.tsx:11:  name: string | null;
+src/pages/Performance.tsx:17:  platform: string | null;
+src/pages/Performance.tsx:19:  followers: number | null;
+src/pages/Performance.tsx:20:  reach: number | null;
+src/pages/Performance.tsx:21:  impressions: number | null;
+src/pages/Performance.tsx:22:  engagement: number | null;
+src/pages/Performance.tsx:23:  likes: number | null;
+src/pages/Performance.tsx:24:  comments: number | null;
+src/pages/Performance.tsx:25:  shares: number | null;
+src/pages/Performance.tsx:63:    const base = { followers: 0, reach: 0, impressions: 0, engagement: 0, likes: 0, comments: 0, shares: 0 };
+src/pages/Performance.tsx:67:      acc.followers += m.followers ?? 0;
+src/pages/Performance.tsx:68:      acc.reach += m.reach ?? 0;
+src/pages/Performance.tsx:69:      acc.impressions += m.impressions ?? 0;
+src/pages/Performance.tsx:70:      acc.engagement += m.engagement ?? 0;
+src/pages/Performance.tsx:71:      acc.likes += m.likes ?? 0;
+src/pages/Performance.tsx:72:      acc.comments += m.comments ?? 0;
+src/pages/Performance.tsx:73:      acc.shares += m.shares ?? 0;
+src/pages/Performance.tsx:171:              ) : metrics && metrics.length > 0 ? (
+src/pages/Performance.tsx:182:                        <div><p className="text-muted-foreground">Seguidores</p><p className="font-medium">{(m.followers ?? 0).toLocaleString()}</p></div>
+src/pages/Performance.tsx:183:                        <div><p className="text-muted-foreground">Alcance</p><p className="font-medium">{(m.reach ?? 0).toLocaleString()}</p></div>
+src/pages/Performance.tsx:184:                        <div><p className="text-muted-foreground">Impressões</p><p className="font-medium">{(m.impressions ?? 0).toLocaleString()}</p></div>
+src/pages/Performance.tsx:185:                        <div><p className="text-muted-foreground">Engajamento</p><p className="font-medium">{(m.engagement ?? 0).toLocaleString()}</p></div>
+src/pages/CampaignConfig.tsx:149:  const [freq, setFreq] = useState<"6h" | "12h" | "24h">("12h");
+src/pages/CampaignConfig.tsx:185:      instagram: profileForm.instagram || null,
+src/pages/CampaignConfig.tsx:186:      facebook: profileForm.facebook || null,
+src/pages/CampaignConfig.tsx:187:      tiktok: profileForm.tiktok || null,
+src/pages/CampaignConfig.tsx:188:      youtube: profileForm.youtube || null,
+src/pages/CampaignConfig.tsx:189:      website: profileForm.website || null,
+src/pages/CampaignConfig.tsx:190:      notes: profileForm.notes || null,
+src/pages/CampaignConfig.tsx:197:      title: promptForm.title || undefined,
+src/pages/CampaignConfig.tsx:198:      category: promptForm.category || undefined,
+src/pages/CampaignConfig.tsx:206:    if (!sourceForm.name.trim() || !sourceForm.url.trim()) return toast.error("Preencha nome e URL");
+src/pages/CampaignConfig.tsx:211:      region: sourceForm.region || null,
+src/pages/CampaignConfig.tsx:212:      keywords: sourceForm.keywords || null,
+src/pages/CampaignConfig.tsx:543:                <Button variant="outline" onClick={setFrequency} disabled={updateSchedule.isPending || createSchedule.isPending}>
+src/pages/CampaignConfig.tsx:580:                        <div>found: {l.news_found ?? 0}</div>
+src/pages/CampaignConfig.tsx:581:                        <div>saved: {l.news_saved ?? 0}</div>
+src/pages/PIT.tsx:28:type Priority = "low" | "medium" | "high" | "urgent";
+src/pages/PIT.tsx:29:type PitStatus = "pending" | "in_progress" | "completed" | "cancelled";
+src/pages/PIT.tsx:49:  const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
+src/pages/PIT.tsx:106:      assignedTo: formData.assignedTo || undefined, // UUID ou undefined
+src/pages/PIT.tsx:253:          ) : pits && pits.length > 0 ? (
+src/pages/Media.tsx:40:  const [selectedClientId, setSelectedClientId] = useState<Uuid | null>(null);
+src/pages/Media.tsx:111:    const insertions = Number(broadcastForm.insertionsCount || "1");
+src/pages/Media.tsx:112:    const duration = Number(broadcastForm.duration || "30");
+src/pages/Media.tsx:122:      notes: broadcastForm.notes.trim() || undefined,
+src/pages/Media.tsx:188:                    {(!channelsOptions || channelsOptions.length === 0) && (
+src/pages/Media.tsx:271:            ) : broadcastsList.length > 0 ? (
+src/pages/ScheduleMonitor.tsx:16:  status: "Agendado" | "Publicado" | "Falhou";
+src/pages/ScheduleMonitor.tsx:18:  channel: "Instagram" | "TikTok" | "YouTube" | "Site";
+src/pages/ScheduleMonitor.tsx:28:  { day: "Seg", ok: 3, fail: 0 },
+src/pages/ScheduleMonitor.tsx:30:  { day: "Qua", ok: 4, fail: 0 },
+src/pages/ScheduleMonitor.tsx:31:  { day: "Qui", ok: 6, fail: 0 },
+src/pages/ScheduleMonitor.tsx:33:  { day: "Sáb", ok: 1, fail: 0 },
+src/pages/ScheduleMonitor.tsx:34:  { day: "Dom", ok: 2, fail: 0 },

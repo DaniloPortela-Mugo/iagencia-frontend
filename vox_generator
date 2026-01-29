@@ -1,0 +1,362 @@
+import os
+import threading
+import tkinter as tk
+from io import BytesIO
+from tkinter import (
+    BOTH,
+    DISABLED,
+    END,
+    NORMAL,
+    filedialog,
+    messagebox,
+    ttk,
+)
+
+import requests
+from PIL import Image, ImageTk
+
+# ------------------------------------------------------------
+# 1. Configurações iniciais e chaves de API (exemplo)
+# ------------------------------------------------------------
+
+API_KEY = os.environ.get("OPENAI_API_KEY", "AQ4f7c8e1a9c8dbef2c5c3b7d0a4e5f6a9b5c4d3e2f7a8c1d2b6e4f7c8e1a9c8dUI")
+API_ENDPOINT = "https://api.openai.com/v1/images/generations"
+# Mapear as opções de orientação para tamanhos mínimos
+SIZE_MAP = {
+    "Portrait (2:3)": "512x768",
+    "Landscape (16:9)": "768x432",
+    "Square (1:1)": "512x512",
+}
+
+# ------------------------------------------------------------
+# 2. Função que chama o endpoint de geração de imagens
+# ------------------------------------------------------------
+def call_image_api(
+    prompt_text: str,
+    size: str,
+    n_images: int,
+    image_path: str = None,
+) -> list[Image.Image]:
+    """
+    Chama a API de gera��o de imagens (ex: OpenAI) e retorna lista de PIL.Images.
+    Se image_path for fornecido, envia como multipart (para variação a partir de imagem).
+    """
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+    }
+    data = {
+        "prompt": prompt_text,
+        "n": n_images,
+        "size": size,
+    }
+
+    files = None
+    if image_path:
+        try:
+            files = {"image": open(image_path, "rb")}
+        except Exception as e:
+            raise RuntimeError(f"Falha ao abrir arquivo de imagem: {e}")
+
+    try:
+        response = requests.post(API_ENDPOINT, headers=headers, data=data, files=files)
+    except Exception as e:
+        raise RuntimeError(f"Erro na requisição HTTP: {e}")
+
+    if response.status_code != 200:
+        raise RuntimeError(
+            f"Erro da API: Código {response.status_code} - {response.text}"
+        )
+
+    resp_json = response.json()
+    urls = []
+    # Dependendo da API, o campo pode ser resp_json["data"], cada item com "url"
+    if "data" in resp_json:
+        for item in resp_json["data"]:
+            url = item.get("url")
+            if url:
+                urls.append(url)
+    else:
+        raise RuntimeError("Formato inesperado de resposta da API.")
+
+    imagens_pil = []
+    for img_url in urls:
+        try:
+            r = requests.get(img_url)
+            img = Image.open(BytesIO(r.content)).convert("RGB")
+            imagens_pil.append(img)
+        except Exception as e:
+            print(f"Aviso: falhou ao baixar imagem de {img_url}: {e}")
+
+    return imagens_pil
+
+
+# ------------------------------------------------------------
+# 3. Classe principal da aplicação Tkinter
+# ------------------------------------------------------------
+class AIImageGeneratorApp(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("AI Image Generator (Tkinter)")
+        self.minsize(800, 500)
+
+        # --- Variáveis de estado ---
+        self.uploaded_image_path: str | None = None
+        self.uploaded_photo: ImageTk.PhotoImage | None = None
+        self.generated_photos: list[ImageTk.PhotoImage] = []
+
+        # Um contador de créditos fictício
+        self.creditos_restantes = 100
+
+        # --- Layout ---
+        self.columnconfigure(0, weight=1, minsize=300)
+        self.columnconfigure(1, weight=2)
+        self.rowconfigure(0, weight=1)
+
+        # Frame esquerdo (controles)
+        self.frame_esquerdo = ttk.Frame(self, padding=10)
+        self.frame_esquerdo.grid(row=0, column=0, sticky="nsew")
+
+        # Frame direito (exibição de resultados)
+        self.frame_direito = ttk.Frame(self, padding=10, relief="sunken")
+        self.frame_direito.grid(row=0, column=1, sticky="nsew")
+        self.frame_direito.columnconfigure(0, weight=1)
+        self.frame_direito.rowconfigure(0, weight=1)
+
+        self._build_frame_esquerdo()
+        self._build_frame_direito()
+
+    def _build_frame_esquerdo(self):
+        # 1. Label para preview de imagem carregada
+        self.lbl_preview = ttk.Label(
+            self.frame_esquerdo,
+            text="Nenhuma imagem carregada",
+            relief="solid",
+            width=40,
+            anchor="center",
+        )
+        self.lbl_preview.pack(pady=(0, 10), fill="both", expand=False)
+
+        # 2. Botão de upload
+        self.btn_upload = ttk.Button(
+            self.frame_esquerdo, text="Upload Image", command=self.upload_image
+        )
+        self.btn_upload.pack(pady=(0, 10), fill="x")
+
+        # 3. Campo de texto para prompt adicional
+        lbl_prompt = ttk.Label(self.frame_esquerdo, text="Specific requests (Optional):")
+        lbl_prompt.pack(anchor="w", pady=(10, 0))
+        self.txt_prompt = tk.Text(self.frame_esquerdo, height=4, width=40)
+        self.txt_prompt.pack(fill="x", pady=(0, 10))
+
+        # 4. Combobox para orientação
+        lbl_orient = ttk.Label(self.frame_esquerdo, text="Orientation:")
+        lbl_orient.pack(anchor="w")
+        self.cmb_orient = ttk.Combobox(
+            self.frame_esquerdo,
+            values=list(SIZE_MAP.keys()),
+            state="readonly",
+            width=37,
+        )
+        # Definimos valor padrão
+        self.cmb_orient.set("Portrait (2:3)")
+        self.cmb_orient.pack(fill="x", pady=(0, 10))
+
+        # 5. Combobox para número de imagens
+        lbl_n = ttk.Label(self.frame_esquerdo, text="Number of images:")
+        lbl_n.pack(anchor="w")
+        self.cmb_n = ttk.Combobox(
+            self.frame_esquerdo, values=["1", "2", "3", "4"], state="readonly", width=37
+        )
+        self.cmb_n.set("1")
+        self.cmb_n.pack(fill="x", pady=(0, 10))
+
+        # 6. Botão "Generate Images"
+        self.btn_generate = ttk.Button(
+            self.frame_esquerdo, text="Generate Images", command=self.generate_images
+        )
+        self.btn_generate.pack(pady=(10, 5), fill="x")
+
+        # 7. Label de créditos
+        self.lbl_creditos = ttk.Label(
+            self.frame_esquerdo, text=f"Créditos restantes: {self.creditos_restantes}"
+        )
+        self.lbl_creditos.pack(anchor="e", pady=(5, 0))
+
+    def _build_frame_direito(self):
+        # Rótulo inicial
+        self.lbl_resultado = ttk.Label(
+            self.frame_direito,
+            text="Generated images will appear here",
+            foreground="gray",
+            anchor="center",
+        )
+        self.lbl_resultado.grid(row=0, column=0, sticky="nsew")
+
+    def upload_image(self):
+        """Abre file dialog e exibe preview da imagem carregada."""
+        file_path = filedialog.askopenfilename(
+            title="Selecione uma imagem",
+            filetypes=[("Image files", "*.png *.jpg *.jpeg *.webp")],
+        )
+        if not file_path:
+            return
+
+        # Tenta abrir com PIL
+        try:
+            pil_img = Image.open(file_path).convert("RGB")
+        except Exception as e:
+            messagebox.showerror("Erro", f"Não foi possível abrir a imagem:\n{e}")
+            return
+
+        # Redimensionar para caber em 300x300 (mantendo proporção)
+        max_dim = 300
+        w, h = pil_img.size
+        ratio = min(max_dim / w, max_dim / h)
+        new_size = (int(w * ratio), int(h * ratio))
+        pil_img = pil_img.resize(new_size, Image.ANTIALIAS)
+
+        # Converter para ImageTk e exibir
+        self.uploaded_photo = ImageTk.PhotoImage(pil_img)
+        self.lbl_preview.configure(image=self.uploaded_photo, text="")  # esconde texto
+        self.uploaded_image_path = file_path
+
+    def generate_images(self):
+        """Dispara a chamada à API em outra thread para não travar a UI."""
+        prompt_text = self.txt_prompt.get("1.0", END).strip()
+        if not prompt_text:
+            messagebox.showwarning("Aviso", "Por favor, preencha o prompt antes de gerar.")
+            return
+
+        orientation_key = self.cmb_orient.get()
+        size = SIZE_MAP.get(orientation_key, "512x512")
+        try:
+            n_images = int(self.cmb_n.get())
+        except ValueError:
+            messagebox.showwarning("Aviso", "Selecione um número válido de imagens.")
+            return
+
+        # Verificar créditos (exemplo simplificado)
+        if self.creditos_restantes < n_images:
+            messagebox.showwarning(
+                "Créditos insuficientes",
+                "Você não possui créditos suficientes para gerar essa quantidade.",
+            )
+            return
+
+        # Desabilitar botões para evitar múltiplos cliques
+        self.btn_generate.configure(state=DISABLED, text="Gerando...")
+        self.btn_upload.configure(state=DISABLED)
+
+        # Limpar painel direito e mostrar texto de carregando
+        for widget in self.frame_direito.winfo_children():
+            widget.destroy()
+        lbl_loading = ttk.Label(
+            self.frame_direito, text="Gerando imagens...", foreground="blue"
+        )
+        lbl_loading.grid(row=0, column=0, sticky="nsew")
+
+        # Executar em thread separada para não travar a interface
+        thread = threading.Thread(
+            target=self._thread_generate,
+            args=(prompt_text, size, n_images, self.uploaded_image_path),
+            daemon=True,
+        )
+        thread.start()
+
+    def _thread_generate(
+        self,
+        prompt_text: str,
+        size: str,
+        n_images: int,
+        image_path: str | None,
+    ):
+        """Função executada em background para chamar a API e exibir resultados."""
+        try:
+            imagens_pil = call_image_api(
+                prompt_text=prompt_text,
+                size=size,
+                n_images=n_images,
+                image_path=image_path,
+            )
+
+            # Reduzir créditos
+            self.creditos_restantes -= n_images
+
+            # Preparar fotos para o Tkinter
+            self.generated_photos.clear()
+            for img in imagens_pil:
+                # Redimensionar cada imagem para caber num quadro de 350x350 (por exemplo)
+                max_dim = 350
+                w, h = img.size
+                ratio = min(max_dim / w, max_dim / h)
+                new_size = (int(w * ratio), int(h * ratio))
+                img_resized = img.resize(new_size, Image.ANTIALIAS)
+                photo = ImageTk.PhotoImage(img_resized)
+                self.generated_photos.append(photo)
+
+            # Chamar método que atualiza a UI, mas via método `after` do Tkinter
+            self.after(0, self._exibir_imagens_geradas)
+
+        except Exception as e:
+            erro_msg = str(e)
+            self.after(0, lambda: self._mostrar_erro(erro_msg))
+
+    def _exibir_imagens_geradas(self):
+        """Atualiza o frame direito com as imagens retornadas."""
+        # Limpa tudo
+        for widget in self.frame_direito.winfo_children():
+            widget.destroy()
+
+        total = len(self.generated_photos)
+        if total == 0:
+            lbl_no = ttk.Label(
+                self.frame_direito, text="Nenhuma imagem gerada.", foreground="red"
+            )
+            lbl_no.grid(row=0, column=0, sticky="nsew")
+        else:
+            # Exibir em grid, dois por linha (ajustável)
+            cols = 2
+            row = 0
+            col = 0
+            for photo in self.generated_photos:
+                lbl_img = ttk.Label(self.frame_direito, image=photo)
+                lbl_img.grid(row=row, column=col, padx=5, pady=5)
+                col += 1
+                if col >= cols:
+                    col = 0
+                    row += 1
+
+        # Atualizar contador de créditos
+        self.lbl_creditos.configure(text=f"Créditos restantes: {self.creditos_restantes}")
+
+        # Reabilitar botões
+        self.btn_generate.configure(state=NORMAL, text="Generate Images")
+        self.btn_upload.configure(state=NORMAL)
+
+    def _mostrar_erro(self, texto_erro: str):
+        """Mostra messagebox de erro e reabilita botões."""
+        messagebox.showerror("Erro ao gerar imagens", texto_erro)
+        # Limpamos painel direito
+        for widget in self.frame_direito.winfo_children():
+            widget.destroy()
+        lbl_error = ttk.Label(
+            self.frame_direito,
+            text="Erro ao gerar. Tente novamente.",
+            foreground="red",
+        )
+        lbl_error.grid(row=0, column=0, sticky="nsew")
+        # Reabilitar botões
+        self.btn_generate.configure(state=NORMAL, text="Generate Images")
+        self.btn_upload.configure(state=NORMAL)
+
+
+# ------------------------------------------------------------
+# 4. Função principal para rodar a aplicação
+# ------------------------------------------------------------
+def main():
+    app = AIImageGeneratorApp()
+    app.mainloop()
+
+
+if __name__ == "__main__":
+    main()

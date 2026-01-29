@@ -1,0 +1,20 @@
+# --- DEPENDÊNCIAS (O Vilão do VS Code) ---
+node_modules/
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# --- SEGURANÇA (Chaves de API) ---
+.env
+.env.local
+.DS_Store
+
+# --- BUILD & CACHE ---
+dist/
+build/
+.next/
+coverage/
+.idea/
+.vscode/

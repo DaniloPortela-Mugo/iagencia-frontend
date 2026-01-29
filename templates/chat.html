@@ -1,74 +1,346 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Chat</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='pagina3-chat.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vox Strategy - Chat com {{ cliente_id }}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .chat-message {
+            max-width: 80%;
+            border-radius: 12px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .user-message {
+            background-color: #dcf8c6;
+            align-self: flex-end;
+        }
+        .ai-message {
+            background-color: #ffffff;
+            align-self: flex-start;
+        }
+        .loading-dots span {
+            animation: bounce 0.6s infinite alternate;
+        }
+        .loading-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .loading-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <div class="logo">Logo</div>
-    <div class="logo" style="visibility: hidden;">Logo 2</div>
-  </header>
+<body class="flex flex-col h-screen antialiased">
+    <!-- Variáveis globais JavaScript para passar dados do Flask de forma robusta -->
+    <script>
+        window.flaskClienteId = "{{ cliente_id }}";
+        window.flaskDefaultAgent = "{{ agentes.keys() | first | default('planejamento') }}";
+        console.log("Debug (frontend - global): window.flaskClienteId definido como:", window.flaskClienteId);
+        console.log("Debug (frontend - global): window.flaskDefaultAgent definido como:", window.flaskDefaultAgent);
+    </script>
 
-  <main class="main-container">
-    <h1>Chat com {{ cliente_id }}</h1>
-    <h2>Envie sua pergunta</h2>
+    <header class="bg-gradient-to-r from-emerald-600 to-emerald-800 p-4 shadow-md flex justify-between items-center rounded-b-lg">
+        <h1 class="text-2xl font-bold text-white">
+            Vox Strategy - Chat com <span id="cliente-nome">{{ cliente_id }}</span>
+        </h1>
+        <nav>
+            <a href="{{ url_for('select_client') }}" class="text-white hover:text-emerald-200 px-3 py-2 rounded-md transition duration-300">
+                &larr; Voltar para Clientes
+            </a>
+            <a href="{{ url_for('logout') }}" class="ml-4 bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-md shadow-md transition duration-300">
+                Logout
+            </a>
+        </nav>
+    </header>
 
-    <div class="chat-container">
-      <div class="chat-output" id="chat-output">
-        <!-- Mensagens aparecerão aqui -->
-      </div>
+    <main class="flex-grow flex flex-col items-center p-6 bg-gray-100">
+        <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-4xl flex flex-col h-[70vh]">
+            <!-- Controles de seleção de agente e modelo -->
+            <div class="mb-6 flex space-x-4">
+                <div class="flex-1">
+                    <label for="agent-select" class="block text-gray-700 text-sm font-bold mb-2">
+                        Selecione o Agente:
+                    </label>
+                    <select id="agent-select" class="shadow-sm border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        {% for agent_id, agent_info in agentes.items() %}
+                            <option value="{{ agent_id }}" {% if loop.first %}selected{% endif %}>{{ agent_id | capitalize }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="flex-1">
+                    <label for="model-select" class="block text-gray-700 text-sm font-bold mb-2">
+                        Selecione o Modelo de IA:
+                    </label>
+                    <select id="model-select" class="shadow-sm border rounded-md w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        {% for model in ai_models %}
+                            <option value="{{ model.id }}">{{ model.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
 
-      <div class="chat-input">
-        <input type="text" id="mensagem" placeholder="Digite sua mensagem..." onkeydown="if(event.key === 'Enter') enviarMensagem()">
-        <button onclick="enviarMensagem()">+</button>
-      </div>
-    </div>
-  </main>
+            <!-- Área de mensagens do chat -->
+            <div id="chat-messages" class="flex-grow overflow-y-auto p-4 border border-gray-200 rounded-lg mb-6 bg-gray-50 flex flex-col space-y-4">
+                <!-- Mensagens serão adicionadas aqui pelo JavaScript -->
+            </div>
 
-  <footer>
-    <div style="visibility: hidden;"></div>
-    <div class="logo">LOGO 2</div>
-  </footer>
+            <!-- Área de entrada de mensagem -->
+            <div class="flex items-center space-x-4">
+                <!-- Alterado de input para textarea -->
+                <textarea id="message-input" placeholder="Digite sua mensagem..." rows="1"
+                       class="flex-grow shadow-sm border rounded-xl py-3 px-5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-emerald-500 text-lg resize-none overflow-y-auto max-h-[12rem]"></textarea>
+                <button id="send-button"
+                        class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transform transition duration-300 hover:scale-105 flex items-center justify-center">
+                    Enviar
+                    <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
 
-  <script>
-    function adicionarMensagem(texto, origem) {
-      const chat = document.getElementById('chat-output');
-      const msg = document.createElement('div');
-      msg.innerText = (origem === 'user' ? 'Você: ' : 'Bot: ') + texto;
-      chat.appendChild(msg);
-      chat.scrollTop = chat.scrollHeight;
-    }
+    <script>
+        // Agora, pegamos os valores das variáveis globais definidas acima
+        const clienteId = window.flaskClienteId;
+        const defaultAgentFromFlask = window.flaskDefaultAgent;
+        
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+        const agentSelect = document.getElementById('agent-select');
+        const modelSelect = document.getElementById('model-select');
 
-    function enviarMensagem() {
-      const input = document.getElementById('mensagem');
-      const texto = input.value.trim();
-      if (!texto) return;
+        // Logs de diagnóstico para verificar os valores iniciais
+        console.log("Debug (frontend - script principal): clienteId (JS) definido como:", clienteId);
+        console.log("Debug (frontend - script principal): defaultAgentFromFlask (JS) definido como:", defaultAgentFromFlask);
+        
+        // Garante que o select tenha um valor definido logo que o DOM esteja pronto
+        document.addEventListener('DOMContentLoaded', () => {
+            if (agentSelect && defaultAgentFromFlask) {
+                agentSelect.value = defaultAgentFromFlask;
+            }
+            console.log("Debug (frontend - DOMContentLoaded): Valor final de agentSelect.value:", agentSelect.value);
+            // Chama loadChatHistory aqui para garantir que agentSelect.value esteja populado
+            loadChatHistory(); 
+        });
 
-      adicionarMensagem(texto, 'user');
-      input.value = '';
+        // Função para adicionar uma mensagem ao chat
+        function addMessage(sender, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+            if (sender === 'user') {
+                messageDiv.classList.add('user-message', 'ml-auto');
+                // Para mensagens do usuário, apenas texto sem HTML
+                messageDiv.textContent = content;
+            } else {
+                messageDiv.classList.add('ai-message', 'mr-auto');
+                // Para mensagens da IA, use innerHTML para renderizar <br>
+                messageDiv.innerHTML = content.replace(/\n/g, '<br>');
+            }
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight; // Rolagem automática para o final
+        }
 
-      fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          cliente_id: "{{ cliente_id }}",
-          mensagem: texto
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        adicionarMensagem(data.resposta, 'bot');
-      })
-      .catch(err => {
-        adicionarMensagem("[Erro ao enviar mensagem]", 'bot');
-        console.error(err);
-      });
-    }
-  </script>
+        // Função para adicionar um placeholder de resposta da IA em streaming
+        function addStreamingPlaceholder() {
+            const placeholderDiv = document.createElement('div');
+            placeholderDiv.id = 'ai-streaming-placeholder';
+            placeholderDiv.classList.add('chat-message', 'ai-message', 'mr-auto');
+            placeholderDiv.innerHTML = `<div class="loading-dots flex space-x-1">
+                                            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+                                            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+                                            <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+                                        </div>`;
+            chatMessages.appendChild(placeholderDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return placeholderDiv;
+        }
+
+        // Função para atualizar o placeholder com o conteúdo do stream
+        function updateStreamingPlaceholder(placeholder, chunk) {
+            // Remove os pontos de carregamento se for o primeiro chunk
+            if (placeholder.querySelector('.loading-dots')) {
+                placeholder.innerHTML = '';
+            }
+            // Adiciona o chunk, convertendo \n para <br>
+            placeholder.innerHTML += chunk.replace(/\n/g, '<br>');
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Função para remover o placeholder do chat
+        function removeStreamingPlaceholder() {
+            const placeholder = document.getElementById('ai-streaming-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        }
+
+        // Função para carregar o histórico do chat
+        async function loadChatHistory() {
+            chatMessages.innerHTML = ''; // Limpa as mensagens ao carregar o chat ou mudar o agente/modelo
+
+            const selectedAgent = agentSelect.value; // Obtém o valor atual do select
+            // Logs de diagnóstico para verificar os valores antes do fetch
+            console.log("Debug (loadChatHistory): clienteId (JS) =", clienteId);
+            console.log("Debug (loadChatHistory): selectedAgent (JS) =", selectedAgent);
+
+            // Adiciona uma verificação extra para garantir que selectedAgent não esteja vazio
+            if (!selectedAgent) {
+                console.error('Erro: selectedAgent está vazio. Não foi possível carregar o histórico.');
+                addMessage('ai', 'Ops! O agente selecionado não é válido. Por favor, recarregue a página ou selecione um agente válido.');
+                return; // Impede a chamada fetch se selectedAgent for vazio
+            }
+
+            try {
+                const response = await fetch(`/api/history/${clienteId}/${selectedAgent}`);
+                if (!response.ok) {
+                    throw new Error(`Erro ao carregar histórico: ${response.statusText} (Status: ${response.status})`);
+                }
+                const data = await response.json();
+                console.log("Debug (frontend): Histórico recebido:", data.history); // Log do histórico recebido
+                if (data.history && data.history.length > 0) {
+                    data.history.forEach(msg => {
+                        addMessage(msg.sender, msg.content);
+                    });
+                } else {
+                    console.log("Debug (frontend): Histórico vazio ou inválido.");
+                }
+            } catch (error) {
+                console.error('Erro ao carregar histórico:', error);
+                addMessage('ai', `Ops! Não foi possível carregar o histórico: ${error.message}`);
+            }
+        }
+
+        // Event listener para o botão de envio
+        sendButton.addEventListener('click', async () => {
+            const message = messageInput.value.trim();
+            const selectedAgent = agentSelect.value;
+            const selectedModel = modelSelect.value;
+
+            if (message) {
+                addMessage('user', message);
+                messageInput.value = ''; // Limpa o input
+                messageInput.style.height = 'auto'; // Reseta a altura do textarea
+
+                // Adiciona o placeholder de streaming
+                const streamingPlaceholder = addStreamingPlaceholder();
+
+                try {
+                    // Faz a requisição POST e consome o stream diretamente do corpo da resposta
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            cliente_id: clienteId,
+                            agent_name: selectedAgent,
+                            ai_model: selectedModel,
+                            message: message
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.error || 'Erro desconhecido na API.');
+                    }
+
+                    const reader = response.body.getReader();
+                    const decoder = new TextDecoder('utf-8');
+                    let done = false;
+                    let fullResponseText = '';
+
+                    while (!done) {
+                        const { value, done: readerDone } = await reader.read();
+                        done = readerDone;
+                        const chunk = decoder.decode(value, { stream: !done });
+
+                        // Divide o chunk em eventos SSE individuais e processa
+                        const events = chunk.split('\n\n').filter(Boolean);
+
+                        for (const event of events) {
+                            if (event.startsWith('data: ')) {
+                                try {
+                                    const jsonData = JSON.parse(event.substring(6));
+                                    if (jsonData.chunk) {
+                                        console.log("Debug (frontend): Chunk recebido:", jsonData.chunk); // Log de chunks
+                                        updateStreamingPlaceholder(streamingPlaceholder, jsonData.chunk);
+                                        fullResponseText += jsonData.chunk;
+                                    } else if (jsonData.end) {
+                                        console.log("Debug (frontend): Fim do stream.");
+                                        done = true;
+                                    } else if (jsonData.error) {
+                                        console.error("Debug (frontend): Erro no stream:", jsonData.error);
+                                        addMessage('ai', `Erro na IA: ${jsonData.error}`);
+                                        done = true;
+                                    }
+                                } catch (parseError) {
+                                    console.warn('Debug (frontend): Não foi possível fazer parse do chunk SSE data:', event, parseError);
+                                }
+                            }
+                        }
+                    }
+
+                    // Após o término do stream, garante que o placeholder seja atualizado e remova pontos de carregamento
+                    if (streamingPlaceholder.querySelector('.loading-dots')) {
+                        streamingPlaceholder.innerHTML = streamingPlaceholder.textContent;
+                    }
+
+                } catch (error) {
+                    console.error('Erro ao enviar mensagem:', error);
+                    removeStreamingPlaceholder(); // Garante que o placeholder seja removido em caso de erro
+                    addMessage('ai', `Ops! Ocorreu um erro: ${error.message}`);
+                }
+            }
+        });
+
+        // Habilita o envio com a tecla Enter e a quebra de linha com Shift+Enter
+        messageInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault(); // Impede a quebra de linha padrão do textarea
+                sendButton.click();
+            } else if (event.key === 'Enter' && event.shiftKey) {
+                // Permite a quebra de linha normal do textarea quando Shift+Enter
+            }
+        });
+
+        // Ajusta a altura do textarea automaticamente e permite scroll
+        messageInput.addEventListener('input', () => {
+            messageInput.style.height = 'auto'; // Reset height to recalculate
+            const newHeight = messageInput.scrollHeight;
+            const maxHeight = parseInt(window.getComputedStyle(messageInput).maxHeight);
+
+            // Set height, clamping at maxHeight
+            if (newHeight > maxHeight) {
+                messageInput.style.height = maxHeight + 'px';
+                messageInput.style.overflowY = 'auto'; // Enable scrollbar
+            } else {
+                messageInput.style.height = newHeight + 'px';
+                messageInput.style.overflowY = 'hidden'; // Hide scrollbar
+            }
+        });
+
+
+        // window.onload foi substituído por DOMContentLoaded para carregar o histórico
+        // window.onload = loadChatHistory;
+
+        // Limpa o chat visualmente ao mudar de agente ou modelo
+        agentSelect.addEventListener('change', loadChatHistory);
+        modelSelect.addEventListener('change', loadChatHistory);
+
+    </script>
 </body>
 </html>

@@ -1,0 +1,330 @@
+===== TYPESCRIPT =====
+server/news-search.ts(3,15): error TS1003: Identifier expected.
+server/news-search.ts(3,22): error TS1005: ',' expected.
+
+===== ESLINT =====
+
+/Users/klebs/Desktop/eleicao_platform/api/index.ts
+  32:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  32:54  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/App.tsx
+  50:10  error  'PlaceholderPage' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/client/src/_core/useAuth.ts
+  38:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/CampaignLayout.tsx
+  72:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/NotificationBell.tsx
+  29:59  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  66:50  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/badge.tsx
+  46:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/button-group.tsx
+  82:3  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/button.tsx
+  60:18  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/dialog.tsx
+   19:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+  107:42  error  Unexpected any. Specify a different type                                                                                        @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/form.tsx
+  160:3  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/input.tsx
+  25:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/navigation-menu.tsx
+  167:3  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/sidebar.tsx
+  732:3  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/textarea.tsx
+  24:45  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/components/ui/toggle.tsx
+  45:18  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/const.ts
+  6:26  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/contexts/ThemeContext.tsx
+  58:17  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+/Users/klebs/Desktop/eleicao_platform/client/src/hooks/usePersistFn.ts
+  3:23  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  3:33  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Approvals.tsx
+   6:29  error  'CardDescription' is defined but never used  @typescript-eslint/no-unused-vars
+   6:46  error  'CardHeader' is defined but never used       @typescript-eslint/no-unused-vars
+   6:58  error  'CardTitle' is defined but never used        @typescript-eslint/no-unused-vars
+  45:3   error  'AlertCircle' is defined but never used      @typescript-eslint/no-unused-vars
+  56:3   error  'Filter' is defined but never used           @typescript-eslint/no-unused-vars
+  99:11  error  'user' is assigned a value but never used    @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/CampaignConfig.tsx
+    26:3   error  'Edit' is defined but never used                      @typescript-eslint/no-unused-vars
+    52:37  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+    96:45  error  'scheduleLoading' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   462:91  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+   794:89  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+   956:89  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  1358:91  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  1408:62  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  1421:32  error  'e' is defined but never used                         @typescript-eslint/no-unused-vars
+  1456:87  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  1469:87  error  Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  1732:26  error  'e' is defined but never used                         @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Clipping.tsx
+   64:7   error  'sourceTypeLabels' is assigned a value but never used  @typescript-eslint/no-unused-vars
+   74:39  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+   91:54  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  303:61  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+  440:94  error  Unexpected any. Specify a different type               @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/ComponentShowcase.tsx
+  180:10  error  'selectedFruits' is assigned a value but never used     @typescript-eslint/no-unused-vars
+  180:26  error  'setSelectedFruits' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Creation.tsx
+   42:23  error  'Check' is defined but never used         @typescript-eslint/no-unused-vars
+  317:44  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Library.tsx
+    9:10  error  'Tabs' is defined but never used          @typescript-eslint/no-unused-vars
+    9:16  error  'TabsContent' is defined but never used   @typescript-eslint/no-unused-vars
+    9:29  error  'TabsList' is defined but never used      @typescript-eslint/no-unused-vars
+    9:39  error  'TabsTrigger' is defined but never used   @typescript-eslint/no-unused-vars
+   23:3   error  'Calendar' is defined but never used      @typescript-eslint/no-unused-vars
+  575:56  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Media.tsx
+   54:3   error  'Clock' is defined but never used            @typescript-eslint/no-unused-vars
+   56:3   error  'Building2' is defined but never used        @typescript-eslint/no-unused-vars
+   59:3   error  'TrendingUp' is defined but never used       @typescript-eslint/no-unused-vars
+   74:6   error  'BroadcastStatus' is defined but never used  @typescript-eslint/no-unused-vars
+  251:56  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  252:60  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  424:37  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  440:41  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+  680:71  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/NotificationSettings.tsx
+  7:36  error  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Notifications.tsx
+   1:29  error  'CardDescription' is defined but never used  @typescript-eslint/no-unused-vars
+   1:46  error  'CardHeader' is defined but never used       @typescript-eslint/no-unused-vars
+   1:58  error  'CardTitle' is defined but never used        @typescript-eslint/no-unused-vars
+  24:59  error  Unexpected any. Specify a different type     @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/PIT.tsx
+   23:10  error  'Badge' is defined but never used         @typescript-eslint/no-unused-vars
+   98:38  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  104:51  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Planning.tsx
+  263:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  264:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  267:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  419:34  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  478:77  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/Production.tsx
+    2:29  error  'CardDescription' is defined but never used    @typescript-eslint/no-unused-vars
+   73:65  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  236:54  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  239:52  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  414:33  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  428:36  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+  481:11  error  'monthEnd' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  915:93  error  Unexpected any. Specify a different type       @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/client/src/pages/ScheduleMonitor.tsx
+   1:10  error  'useState' is defined but never used      @typescript-eslint/no-unused-vars
+  90:46  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/drizzle/schema.ts
+   9:3  error  'boolean' is defined but never used  @typescript-eslint/no-unused-vars
+  10:3  error  'jsonb' is defined but never used    @typescript-eslint/no-unused-vars
+  11:3  error  'date' is defined but never used     @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/server/_core/index.ts
+  20:41  error  'ctx' is defined but never used           @typescript-eslint/no-unused-vars
+  27:41  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/server/_core/trpc.ts
+  41:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  57:29  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/server/approvals.test.ts
+   49:79  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   65:79  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   95:84  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  136:78  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  186:78  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  219:86  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  275:80  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/server/db-helpers-extra.ts
+   24:8   error  'InsertClientCompetitor' is defined but never used       @typescript-eslint/no-unused-vars
+   25:8   error  'InsertClientSocialMedia' is defined but never used      @typescript-eslint/no-unused-vars
+   26:8   error  'InsertClientMediaPreference' is defined but never used  @typescript-eslint/no-unused-vars
+   36:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   36:84  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   41:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   44:34  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   45:38  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   50:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   50:74  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   51:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   60:34  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   60:79  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   61:30  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   63:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   63:99  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   68:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   68:75  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   69:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   74:16  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   74:57  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   74:91  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   82:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   85:38  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   86:42  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   91:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   91:78  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+   92:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  100:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  100:88  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  105:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  105:76  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  106:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  114:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  114:82  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  119:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  119:73  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  120:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  125:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  125:86  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  130:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  130:75  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  131:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  139:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  142:37  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  143:41  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  148:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  151:37  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  152:41  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  157:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  160:42  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  161:46  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  169:17  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  172:35  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  173:39  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  178:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  178:75  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  179:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  184:31  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  184:76  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+  185:28  error  Unexpected any. Specify a different type                 @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/server/db-helpers.ts
+   2:30  error  'lte' is defined but never used                       @typescript-eslint/no-unused-vars
+  13:3   error  'scheduledSearches' is defined but never used         @typescript-eslint/no-unused-vars
+  14:3   error  'scheduledSearchLogs' is defined but never used       @typescript-eslint/no-unused-vars
+  28:8   error  'InsertScheduledSearch' is defined but never used     @typescript-eslint/no-unused-vars
+  29:8   error  'InsertScheduledSearchLog' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/server/kanban-approval.test.ts
+  251:94  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  263:94  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  277:31  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/server/news-search.ts
+  3:14  error  Parsing error: Identifier expected
+
+/Users/klebs/Desktop/eleicao_platform/server/routers.ts
+   49:64   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   49:109  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   69:50   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   96:39   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   99:43   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  101:14   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  117:54   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  151:24   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  153:14   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  174:31   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  177:37   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  180:14   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  204:24   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  206:14   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  236:24   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  238:14   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  285:39   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  291:56   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  293:14   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  306:69   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  306:115  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  323:61   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  323:106  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  331:47   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  358:65   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  358:110  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  366:51   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  415:62   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  416:43   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  419:16   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  420:37   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  424:39   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  425:41   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  429:14   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  438:59   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  445:91   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  450:74   error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/server/routers/extra.ts
+   13:52  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   28:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   33:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   51:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   59:69  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  100:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  114:24  error  'input' is defined but never used         @typescript-eslint/no-unused-vars
+  155:57  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  157:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  194:49  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  195:62  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  197:28  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  198:12  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/klebs/Desktop/eleicao_platform/server/scheduled-search.test.ts
+  1:32  error  'vi' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/klebs/Desktop/eleicao_platform/server/storage.ts
+  60:27  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 223 problems (223 errors, 0 warnings)
+
+
+===== BUILD =====
+
+> eleicao_platform@1.0.0 build /Users/klebs/Desktop/eleicao_platform
+> pnpm build:client && pnpm build:server
+
+
+> eleicao_platform@1.0.0 build:client /Users/klebs/Desktop/eleicao_platform
+> pnpm -C client build
+
+ ERR_PNPM_NO_IMPORTER_MANIFEST_FOUND  No package.json (or package.yaml, or package.json5) was found in "/Users/klebs/Desktop/eleicao_platform/client".
+ ELIFECYCLE  Command failed with exit code 1.
+ ELIFECYCLE  Command failed with exit code 1.

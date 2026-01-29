@@ -1,0 +1,49 @@
+[{
+  "style": "ultrarrealista",
+  "character": {
+    "identidade": {
+      "gênero": "<feminino | masculino | não-binário | indefinido>",
+      "idade_aparente": "<anos ou faixa etária>",
+      "etnia/pele": "<descrição>",
+      "tipo_físico": "<atlético | magro | plus size | ...>"
+    },
+    "expressão_facial": "<séria | sorridente | surpresa | ...>",
+    "olhar": "<direto para a câmera | para a direita | para baixo | ...>",
+    "ângulo_personagem": "<frontal | 3/4 | perfil | ângulo baixo | ...>",
+    "postura/corpo": "<em pé | sentado | em movimento | ...>",
+    "roupa/estilo": "<terno, vestido futurista, uniforme escolar, ...>",
+    "acessórios": "<óculos, chapéu, brincos, arma futurista, ...>",
+    "cabelo": {
+      "estilo": "<curto, cacheado, moicano, ...>",
+      "cor": "<loiro, castanho, azul neon, ...>"
+    }
+  },
+  "câmera": {
+    "ângulo_câmera": "<olho | plongée | contra-plongée | ...>",
+    "distância_focal": "<35 mm | 50 mm | 85 mm, etc.>",
+    "profundidade_de_campo": "<raso | médio | profundo>"
+  },
+  "iluminação": {
+    "tipo": "<luz suave difusa | luz dura de estúdio | contra-luz | ...>",
+    "direção": "<frontal | lateral | traseira | ...>",
+    "temperatura_cor": "<quente | neutra | fria>"
+  },
+  "fundo/cenário": {
+    "ambiente": "<estúdio cinza, floresta neblinada, skyline cyberpunk, ...>",
+    "detalhes": "<chuva leve, partículas de poeira, néon, pôr-do-sol, ...>",
+    "profundidade": "<foco no personagem | background detalhado | ...>"
+  },
+  "mood/atmosfera": "<dramático | otimista | sombrio | épico | ...>",
+  "paleta_cores": "<pastel | muted | monocromático | neon | ...>",
+  "qualidade_técnica": {
+    "resolução": "<768×1152 | 4K | 8K | ...>",
+    "aspect_ratio": "<3:2 | 16:9 | 1:1 | ...>",
+    "detalhe_texturização": "<alto | médio | baixo>"
+  },
+  "extras_opcionais": {
+    "seed": "<número inteiro para reprodutibilidade>",
+    "negative_prompt": "<elementos a evitar>",
+    "engine/model": "<DALL·E 3 | SDXL Turbo | ...>"
+  }
+}
+]

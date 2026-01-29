@@ -1,0 +1,284 @@
+src/pages/ComponentShowcase.tsx:222:        content: `This is a **demo response**. In a real app, you would call a tRPC mutation here:\n\n\`\`\`typescript\nconst chatMutation = trpc.ai.chat.useMutation({\n  onSuccess: (response) => {\n    setChatMessages(prev => [...prev, {\n      role: "assistant",\n      content: response.choices[0].message.content\n    }]);\n  }\n});\n\nchatMutation.mutate({ messages: newMessages });\n\`\`\`\n\nYour message was: "${content}"`,
+src/pages/Clipping.tsx:68:  const utils = trpc.useUtils();
+src/pages/Clipping.tsx:71:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Clipping.tsx:78:    trpc.clippings.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:81:    trpc.clientNewsSources.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:84:    trpc.clientCompetitors.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:87:  const searchNews = trpc.newsSearch.search.useMutation({
+src/pages/Clipping.tsx:105:    trpc.newsSearch.history.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:107:  const createClipping = trpc.clippings.create.useMutation({
+src/pages/Approvals.tsx:37:  const utils = trpc.useUtils();
+src/pages/Approvals.tsx:38:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Approvals.tsx:50:  const { data: contents } = trpc.contents.list.useQuery(
+src/pages/Approvals.tsx:55:  const { data: approvals, isLoading } = trpc.approvals.list.useQuery({
+src/pages/Approvals.tsx:59:  const createApproval = trpc.approvals.create.useMutation({
+src/pages/Approvals.tsx:69:  const updateApproval = trpc.approvals.update.useMutation({
+src/pages/Approvals.tsx:77:  const deleteApproval = trpc.approvals.delete.useMutation({
+src/pages/Production.tsx:48:  const utils = trpc.useUtils();
+src/pages/Production.tsx:72:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Production.tsx:76:    trpc.productionEvents.listByClientId.useQuery(
+src/pages/Production.tsx:82:    trpc.productionEvents.list.useQuery(undefined, { enabled: !selectedClientId });
+src/pages/Production.tsx:89:  const createMutation = trpc.productionEvents.create.useMutation({
+src/pages/Production.tsx:99:  const updateMutation = trpc.productionEvents.update.useMutation({
+src/pages/Production.tsx:108:  const deleteMutation = trpc.productionEvents.delete.useMutation({
+src/pages/Planning.tsx:144:  const utils = trpc.useUtils();
+src/pages/Planning.tsx:150:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Planning.tsx:152:  const { data: events } = trpc.calendarEvents.listByClientId.useQuery(
+src/pages/Planning.tsx:157:  const { data: allEvents } = trpc.calendarEvents.list.useQuery(undefined, {
+src/pages/Planning.tsx:167:  const createMutation = trpc.calendarEvents.create.useMutation({
+src/pages/Planning.tsx:175:  const updateMutation = trpc.calendarEvents.update.useMutation({
+src/pages/Planning.tsx:183:  const deleteMutation = trpc.calendarEvents.delete.useMutation({
+src/pages/PIT.tsx:60:  const utils = trpc.useUtils();
+src/pages/PIT.tsx:62:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/PIT.tsx:64:  const { data: pits, isLoading } = trpc.pits.listByClientId.useQuery(
+src/pages/PIT.tsx:69:  const createMutation = trpc.pits.create.useMutation({
+src/pages/PIT.tsx:86:  const updateMutation = trpc.pits.update.useMutation({
+src/pages/Media.tsx:53:  const utils = trpc.useUtils();
+src/pages/Media.tsx:55:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Media.tsx:57:  const { data: channels } = trpc.mediaChannels.listByClientId.useQuery(
+src/pages/Media.tsx:62:  const { data: broadcasts, isLoading } = trpc.mediaBroadcasts.listByClientId.useQuery(
+src/pages/Media.tsx:67:  const createBroadcast = trpc.mediaBroadcasts.create.useMutation({
+src/pages/Media.tsx:85:  const deleteBroadcast = trpc.mediaBroadcasts.delete.useMutation({
+src/lib/trpc.ts.bak:204:    // garante que existe um list (porque seu front usa trpc.contents.list.useQuery)
+src/pages/Clipping.tsx:71:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Clipping.tsx:78:    trpc.clippings.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:81:    trpc.clientNewsSources.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:84:    trpc.clientCompetitors.listByClientId.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Clipping.tsx:105:    trpc.newsSearch.history.useQuery({ clientId }, { enabled: !!selectedClientId });
+src/pages/Approvals.tsx:38:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Approvals.tsx:50:  const { data: contents } = trpc.contents.list.useQuery(
+src/pages/Approvals.tsx:55:  const { data: approvals, isLoading } = trpc.approvals.list.useQuery({
+src/pages/Home.tsx:4:import { useQuery } from "@tanstack/react-query";
+src/pages/Home.tsx:22:  const { data: clients, isLoading } = useQuery({
+src/pages/Creation.tsx:3:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/pages/Creation.tsx:137:  const queryClient = useQueryClient();
+src/pages/Creation.tsx:157:  const { data: clients, isLoading: clientsLoading } = useQuery({
+src/pages/Creation.tsx:170:  const { data: contentsWithApproval, isLoading } = useQuery({
+src/pages/Production.tsx:72:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Production.tsx:76:    trpc.productionEvents.listByClientId.useQuery(
+src/pages/Production.tsx:82:    trpc.productionEvents.list.useQuery(undefined, { enabled: !selectedClientId });
+src/pages/Clients.tsx:2:import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+src/pages/Clients.tsx:36:  const queryClient = useQueryClient();
+src/pages/Clients.tsx:42:  const { data: clients, isLoading } = useQuery<Client[]>({
+src/pages/Planning.tsx:150:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Planning.tsx:152:  const { data: events } = trpc.calendarEvents.listByClientId.useQuery(
+src/pages/Planning.tsx:157:  const { data: allEvents } = trpc.calendarEvents.list.useQuery(undefined, {
+src/pages/Performance.tsx:5:import { useQuery } from "@tanstack/react-query";
+src/pages/Performance.tsx:32:  const { data: clients } = useQuery({
+src/pages/Performance.tsx:47:  const { data: metrics, isLoading } = useQuery({
+src/pages/CampaignConfig.tsx:3:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/pages/CampaignConfig.tsx:23:  const qc = useQueryClient();
+src/pages/CampaignConfig.tsx:26:  const { data: client, isLoading: clientLoading } = useQuery({
+src/pages/CampaignConfig.tsx:32:  const { data: profile } = useQuery({
+src/pages/CampaignConfig.tsx:38:  const { data: prompts, isLoading: promptsLoading } = useQuery({
+src/pages/CampaignConfig.tsx:44:  const { data: sources, isLoading: sourcesLoading } = useQuery({
+src/pages/CampaignConfig.tsx:50:  const { data: schedule, isLoading: scheduleLoading } = useQuery({
+src/pages/CampaignConfig.tsx:55:  const { data: logs } = useQuery({
+src/pages/PIT.tsx:62:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/PIT.tsx:64:  const { data: pits, isLoading } = trpc.pits.listByClientId.useQuery(
+src/pages/Media.tsx:55:  const { data: clients } = trpc.clients.list.useQuery();
+src/pages/Media.tsx:57:  const { data: channels } = trpc.mediaChannels.listByClientId.useQuery(
+src/pages/Media.tsx:62:  const { data: broadcasts, isLoading } = trpc.mediaBroadcasts.listByClientId.useQuery(
+src/lib/trpc.ts:1:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/lib/trpc.ts:23:  const qc = useQueryClient();
+src/lib/trpc.ts:52:      useQuery: () =>
+src/lib/trpc.ts:53:        useQuery({
+src/lib/trpc.ts:70:        const qc = useQueryClient();
+src/lib/trpc.ts:104:        const qc = useQueryClient();
+src/lib/trpc.ts:126:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:127:        useQuery({
+src/lib/trpc.ts:148:        const qc = useQueryClient();
+src/lib/trpc.ts:176:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:177:        useQuery({
+src/lib/trpc.ts:196:        const qc = useQueryClient();
+src/lib/trpc.ts:222:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:223:        useQuery({
+src/lib/trpc.ts:243:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:244:        useQuery({
+src/lib/trpc.ts:281:        const qc = useQueryClient();
+src/lib/trpc.ts:318:      useQuery: (input?: { clientId?: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:319:        useQuery({
+src/lib/trpc.ts:335:        const qc = useQueryClient();
+src/lib/trpc.ts:353:        const qc = useQueryClient();
+src/lib/trpc.ts:372:        const qc = useQueryClient();
+src/lib/trpc.ts:394:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:395:        useQuery({
+src/lib/trpc.ts:416:        const qc = useQueryClient();
+src/lib/trpc.ts:434:        const qc = useQueryClient();
+src/lib/trpc.ts:453:        const qc = useQueryClient();
+src/lib/trpc.ts:475:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:476:        useQuery({
+src/lib/trpc.ts:494:      useQuery: (_input?: AnyObj, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:495:        useQuery({
+src/lib/trpc.ts:511:        const qc = useQueryClient();
+src/lib/trpc.ts:530:        const qc = useQueryClient();
+src/lib/trpc.ts:555:        const qc = useQueryClient();
+src/lib/trpc.ts:578:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:579:        useQuery({
+src/lib/trpc.ts:597:      useQuery: (_input?: AnyObj, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:598:        useQuery({
+src/lib/trpc.ts:614:        const qc = useQueryClient();
+src/lib/trpc.ts:633:        const qc = useQueryClient();
+src/lib/trpc.ts:658:        const qc = useQueryClient();
+src/lib/trpc.ts:681:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:682:        useQuery({
+src/lib/trpc.ts:702:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:703:        useQuery({
+src/lib/trpc.ts:722:        const qc = useQueryClient();
+src/lib/trpc.ts:740:        const qc = useQueryClient();
+src/lib/trpc.ts:762:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:763:        useQuery({
+src/lib/trpc.ts:783:        const qc = useQueryClient();
+src/lib/trpc.ts:802:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:803:        useQuery({
+src/lib/trpc.ts:829:      useQuery: (_input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:830:        useQuery({
+src/lib/trpc.ts:843:      useQuery: () =>
+src/lib/trpc.ts:844:        useQuery({
+src/lib/trpc.ts:865:      useQuery: () =>
+src/lib/trpc.ts:866:        useQuery({
+src/lib/trpc.ts:888:        const qc = useQueryClient();
+src/lib/trpc.ts:913:      useQuery: (input?: { clientId?: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts:914:        useQuery({
+src/lib/trpc.ts.bak:1:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/lib/trpc.ts.bak:23:  const qc = useQueryClient();
+src/lib/trpc.ts.bak:52:      useQuery: () =>
+src/lib/trpc.ts.bak:53:        useQuery({
+src/lib/trpc.ts.bak:70:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:104:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:126:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:127:        useQuery({
+src/lib/trpc.ts.bak:141:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:170:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:171:        useQuery({
+src/lib/trpc.ts.bak:204:    // garante que existe um list (porque seu front usa trpc.contents.list.useQuery)
+src/lib/trpc.ts.bak:206:      useQuery: (input?: { clientId?: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:207:        useQuery({
+src/lib/trpc.ts.bak:223:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:260:      useQuery: (input?: { clientId?: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:261:        useQuery({
+src/lib/trpc.ts.bak:277:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:295:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:314:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:336:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:337:        useQuery({
+src/lib/trpc.ts.bak:356:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:374:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:393:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:415:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:416:        useQuery({
+src/lib/trpc.ts.bak:430:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:449:      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:450:        useQuery({
+src/lib/trpc.ts.bak:469:      useQuery: (_input: { clientId: string }, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:470:        useQuery({
+src/lib/trpc.ts.bak:480:      useQuery: () =>
+src/lib/trpc.ts.bak:481:        useQuery({
+src/lib/trpc.ts.bak:497:      useQuery: () =>
+src/lib/trpc.ts.bak:498:        useQuery({
+src/lib/trpc.ts.bak:515:        const qc = useQueryClient();
+src/lib/trpc.ts.bak:536:      useQuery: (_input?: AnyObj, options?: { enabled?: boolean }) =>
+src/lib/trpc.ts.bak:537:        useQuery({
+src/pages/ComponentShowcase.tsx:222:        content: `This is a **demo response**. In a real app, you would call a tRPC mutation here:\n\n\`\`\`typescript\nconst chatMutation = trpc.ai.chat.useMutation({\n  onSuccess: (response) => {\n    setChatMessages(prev => [...prev, {\n      role: "assistant",\n      content: response.choices[0].message.content\n    }]);\n  }\n});\n\nchatMutation.mutate({ messages: newMessages });\n\`\`\`\n\nYour message was: "${content}"`,
+src/pages/Clipping.tsx:87:  const searchNews = trpc.newsSearch.search.useMutation({
+src/pages/Clipping.tsx:107:  const createClipping = trpc.clippings.create.useMutation({
+src/pages/Approvals.tsx:59:  const createApproval = trpc.approvals.create.useMutation({
+src/pages/Approvals.tsx:69:  const updateApproval = trpc.approvals.update.useMutation({
+src/pages/Approvals.tsx:77:  const deleteApproval = trpc.approvals.delete.useMutation({
+src/pages/Creation.tsx:3:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/pages/Creation.tsx:212:  const createMutation = useMutation({
+src/pages/Creation.tsx:233:  const updateMutation = useMutation({
+src/pages/Creation.tsx:245:  const sendToApprovalMutation = useMutation({
+src/pages/Production.tsx:89:  const createMutation = trpc.productionEvents.create.useMutation({
+src/pages/Production.tsx:99:  const updateMutation = trpc.productionEvents.update.useMutation({
+src/pages/Production.tsx:108:  const deleteMutation = trpc.productionEvents.delete.useMutation({
+src/pages/Clients.tsx:2:import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+src/pages/Clients.tsx:60:  const createClient = useMutation({
+src/pages/Clients.tsx:101:  const deleteClient = useMutation({
+src/pages/Planning.tsx:167:  const createMutation = trpc.calendarEvents.create.useMutation({
+src/pages/Planning.tsx:175:  const updateMutation = trpc.calendarEvents.update.useMutation({
+src/pages/Planning.tsx:183:  const deleteMutation = trpc.calendarEvents.delete.useMutation({
+src/pages/CampaignConfig.tsx:3:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/pages/CampaignConfig.tsx:62:  const upsertProfile = useMutation({
+src/pages/CampaignConfig.tsx:71:  const createPrompt = useMutation({
+src/pages/CampaignConfig.tsx:81:  const deletePrompt = useMutation({
+src/pages/CampaignConfig.tsx:90:  const createSource = useMutation({
+src/pages/CampaignConfig.tsx:99:  const deleteSource = useMutation({
+src/pages/CampaignConfig.tsx:108:  const createSchedule = useMutation({
+src/pages/CampaignConfig.tsx:117:  const updateSchedule = useMutation({
+src/pages/PIT.tsx:69:  const createMutation = trpc.pits.create.useMutation({
+src/pages/PIT.tsx:86:  const updateMutation = trpc.pits.update.useMutation({
+src/pages/Media.tsx:67:  const createBroadcast = trpc.mediaBroadcasts.create.useMutation({
+src/pages/Media.tsx:85:  const deleteBroadcast = trpc.mediaBroadcasts.delete.useMutation({
+src/lib/trpc.ts:1:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/lib/trpc.ts:69:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:71:        return useMutation({
+src/lib/trpc.ts:103:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:105:        return useMutation({
+src/lib/trpc.ts:147:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:149:        return useMutation({
+src/lib/trpc.ts:195:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:197:        return useMutation({
+src/lib/trpc.ts:280:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:282:        return useMutation({
+src/lib/trpc.ts:334:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:336:        return useMutation({
+src/lib/trpc.ts:352:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:354:        return useMutation({
+src/lib/trpc.ts:371:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:373:        return useMutation({
+src/lib/trpc.ts:415:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:417:        return useMutation({
+src/lib/trpc.ts:433:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:435:        return useMutation({
+src/lib/trpc.ts:452:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:454:        return useMutation({
+src/lib/trpc.ts:510:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:512:        return useMutation({
+src/lib/trpc.ts:529:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:531:        return useMutation({
+src/lib/trpc.ts:554:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:556:        return useMutation({
+src/lib/trpc.ts:613:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:615:        return useMutation({
+src/lib/trpc.ts:632:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:634:        return useMutation({
+src/lib/trpc.ts:657:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:659:        return useMutation({
+src/lib/trpc.ts:721:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:723:        return useMutation({
+src/lib/trpc.ts:739:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:741:        return useMutation({
+src/lib/trpc.ts:782:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:784:        return useMutation({
+src/lib/trpc.ts:887:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts:889:        return useMutation({
+src/lib/trpc.ts:910:    search: { useMutation: () => useMutation({ mutationFn: async (x: AnyObj) => x }) },
+src/lib/trpc.ts:937:      useMutation: () =>
+src/lib/trpc.ts:938:        useMutation({
+src/lib/trpc.ts.bak:1:import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+src/lib/trpc.ts.bak:69:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:71:        return useMutation({
+src/lib/trpc.ts.bak:103:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:105:        return useMutation({
+src/lib/trpc.ts.bak:140:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:142:        return useMutation({
+src/lib/trpc.ts.bak:222:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:224:        return useMutation({
+src/lib/trpc.ts.bak:276:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:278:        return useMutation({
+src/lib/trpc.ts.bak:294:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:296:        return useMutation({
+src/lib/trpc.ts.bak:313:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:315:        return useMutation({
+src/lib/trpc.ts.bak:355:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:357:        return useMutation({
+src/lib/trpc.ts.bak:373:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:375:        return useMutation({
+src/lib/trpc.ts.bak:392:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:394:        return useMutation({
+src/lib/trpc.ts.bak:429:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:431:        return useMutation({
+src/lib/trpc.ts.bak:514:      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+src/lib/trpc.ts.bak:516:        return useMutation({
+src/lib/trpc.ts.bak:534:    search: { useMutation: () => useMutation({ mutationFn: async (x: AnyObj) => x }) },

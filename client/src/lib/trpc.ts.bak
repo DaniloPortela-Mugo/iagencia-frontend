@@ -1,0 +1,544 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/lib/supabase";
+
+/**
+ * Helpers
+ */
+type AnyObj = Record<string, any>;
+
+function qk(key: string, input?: unknown) {
+  return input ? [key, input] : [key];
+}
+
+async function safe<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn();
+  } catch (e) {
+    console.warn("[trpc] safe fallback:", e);
+    return fallback;
+  }
+}
+
+function useUtils() {
+  const qc = useQueryClient();
+  return {
+    invalidate: (key: string, input?: any) => qc.invalidateQueries({ queryKey: qk(key, input) }),
+    invalidateGroup: (prefix: string) => qc.invalidateQueries({ predicate: (q) => (q.queryKey?.[0] as any) === prefix }),
+  };
+}
+
+/**
+ * Tipos mínimos
+ */
+export type Client = {
+  id: string; // uuid
+  workspace_id: string; // uuid
+  name: string;
+  description?: string | null;
+  status?: string | null;
+  created_by?: string | null;
+  created_at?: string | null;
+  updated_at?: string | null;
+};
+
+export const trpc = {
+  useUtils,
+
+  /**
+   * CLIENTS (USANDO client_profile)
+   */
+  clients: {
+    list: {
+      useQuery: () =>
+        useQuery({
+          queryKey: qk("clients.list"),
+          queryFn: async (): Promise<Client[]> =>
+            safe(async () => {
+              const { data, error } = await supabase
+                .from("client_profile")
+                .select("id,workspace_id,name,description,status,created_by,created_at,updated_at")
+                .order("created_at", { ascending: false });
+
+              if (error) throw error;
+              return (data ?? []) as Client[];
+            }, []),
+        }),
+    },
+
+    create: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: { workspace_id: string; name: string; description?: string; status?: string }) => {
+            const { data: auth } = await supabase.auth.getUser();
+            const userId = auth.user?.id ?? null;
+
+            const { data, error } = await supabase
+              .from("client_profile")
+              .insert([
+                {
+                  workspace_id: input.workspace_id,
+                  name: input.name,
+                  description: input.description ?? null,
+                  status: input.status ?? "active",
+                  created_by: userId,
+                },
+              ])
+              .select("id,workspace_id,name,description,status,created_by,created_at,updated_at")
+              .single();
+
+            if (error) throw error;
+            return data as Client;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: qk("clients.list") });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+
+    delete: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: { id: string }) => {
+            const { error } = await supabase.from("client_profile").delete().eq("id", input.id);
+            if (error) throw error;
+            return true;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: qk("clients.list") });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+  },
+
+  /**
+   * CLIENT_PROFILE
+   */
+  clientProfile: {
+    get: {
+      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("clientProfile.get", input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () =>
+            safe(async () => {
+              const { data, error } = await supabase.from("client_profile").select("*").eq("id", input.clientId).maybeSingle();
+              if (error) throw error;
+              return data ?? null;
+            }, null),
+        }),
+    },
+
+    upsert: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: AnyObj & { id: string }) => {
+            const { data, error } = await supabase
+              .from("client_profile")
+              .upsert([input], { onConflict: "id" })
+              .select("*")
+              .single();
+
+            if (error) throw error;
+            return data;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["clientProfile.get"] as any });
+            await qc.invalidateQueries({ queryKey: qk("clients.list") });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+  },
+
+  /**
+   * CONTENTS + APPROVALS
+   */
+  contents: {
+    // mantém o seu existente
+    listWithApproval: {
+      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("contents.listWithApproval", input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () =>
+            safe(async () => {
+              const { data: contents, error: cErr } = await supabase
+                .from("contents")
+                .select("*")
+                .eq("client_id", input.clientId)
+                .order("created_at", { ascending: false });
+
+              if (cErr) throw cErr;
+
+              const ids = (contents ?? []).map((c: any) => c.id);
+              let approvals: any[] = [];
+
+              if (ids.length) {
+                const { data: appr, error: aErr } = await supabase.from("approvals").select("*").in("content_id", ids);
+                if (aErr) throw aErr;
+                approvals = appr ?? [];
+              }
+
+              const byContent = new Map<any, any>();
+              approvals.forEach((a) => byContent.set(a.content_id, a));
+
+              return (contents ?? []).map((content: any) => ({
+                content,
+                approval: byContent.get(content.id) ?? null,
+              }));
+            }, []),
+        }),
+    },
+
+    // garante que existe um list (porque seu front usa trpc.contents.list.useQuery)
+    list: {
+      useQuery: (input?: { clientId?: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("contents.list", input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () =>
+            safe(async () => {
+              let q = supabase.from("contents").select("*").order("created_at", { ascending: false });
+              if (input?.clientId) q = q.eq("client_id", input.clientId);
+              const { data, error } = await q;
+              if (error) throw error;
+              return data ?? [];
+            }, []),
+        }),
+    },
+
+    create: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: { clientId: string; title: string; contentType: string; content: string }) => {
+            const { data: auth } = await supabase.auth.getUser();
+            const userId = auth.user?.id ?? null;
+
+            const { data, error } = await supabase
+              .from("contents")
+              .insert([
+                {
+                  client_id: input.clientId,
+                  title: input.title,
+                  content_type: input.contentType,
+                  content: input.content,
+                  status: "to_do",
+                  created_by: userId,
+                },
+              ])
+              .select("*")
+              .single();
+
+            if (error) throw error;
+            return data;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: qk("contents.listWithApproval") });
+            await qc.invalidateQueries({ queryKey: qk("contents.list") });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+  },
+
+  approvals: {
+    list: {
+      useQuery: (input?: { clientId?: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("approvals.list", input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () =>
+            safe(async () => {
+              let q = supabase.from("approvals").select("*").order("created_at", { ascending: false });
+              if (input?.clientId) q = q.eq("client_id", input.clientId);
+              const { data, error } = await q;
+              if (error) throw error;
+              return data ?? [];
+            }, []),
+        }),
+    },
+
+    create: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: AnyObj & { client_id: string }) => {
+            const { data, error } = await supabase.from("approvals").insert([input]).select("*").single();
+            if (error) throw error;
+            return data;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["approvals.list"] as any });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+
+    update: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: AnyObj & { id: string }) => {
+            const { id, ...patch } = input;
+            const { data, error } = await supabase.from("approvals").update(patch).eq("id", id).select("*").single();
+            if (error) throw error;
+            return data;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["approvals.list"] as any });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+
+    delete: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: { id: string }) => {
+            const { error } = await supabase.from("approvals").delete().eq("id", input.id);
+            if (error) throw error;
+            return true;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["approvals.list"] as any });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+  },
+
+  /**
+   * PITs
+   */
+  pits: {
+    listByClientId: {
+      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("pits.listByClientId", input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () =>
+            safe(async () => {
+              const { data, error } = await supabase
+                .from("pits")
+                .select("*")
+                .eq("client_id", input.clientId)
+                .order("created_at", { ascending: false });
+
+              if (error) throw error;
+              return data ?? [];
+            }, []),
+        }),
+    },
+
+    create: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: AnyObj & { client_id: string }) => {
+            const { data, error } = await supabase.from("pits").insert([input]).select("*").single();
+            if (error) throw error;
+            return data;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["pits.listByClientId"] as any });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+
+    update: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: AnyObj & { id: string }) => {
+            const { id, ...patch } = input;
+            const { data, error } = await supabase.from("pits").update(patch).eq("id", id).select("*").single();
+            if (error) throw error;
+            return data;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["pits.listByClientId"] as any });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+
+    delete: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: { id: string }) => {
+            const { error } = await supabase.from("pits").delete().eq("id", input.id);
+            if (error) throw error;
+            return true;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["pits.listByClientId"] as any });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+  },
+
+  /**
+   * CLIPPING
+   */
+  clippings: {
+    listByClientId: {
+      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("clippings.listByClientId", input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () =>
+            safe(async () => {
+              const { data, error } = await supabase.from("clippings").select("*").eq("client_id", input.clientId).order("created_at", { ascending: false });
+              if (error) throw error;
+              return data ?? [];
+            }, []),
+        }),
+    },
+
+    create: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: AnyObj) => {
+            const { data, error } = await supabase.from("clippings").insert([input]).select("*").single();
+            if (error) throw error;
+            return data;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: ["clippings.listByClientId"] as any });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+  },
+
+  clientNewsSources: {
+    listByClientId: {
+      useQuery: (input: { clientId: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("clientNewsSources.listByClientId", input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () =>
+            safe(async () => {
+              const { data, error } = await supabase.from("client_news_sources").select("*").eq("client_id", input.clientId).order("created_at", { ascending: false });
+              if (error) throw error;
+              return data ?? [];
+            }, []),
+        }),
+    },
+  },
+
+  /**
+   * clientCompetitors removido/neutralizado porque a tabela não existe no seu schema atual.
+   * Se vocês criarem uma tabela no futuro, a gente ativa de novo.
+   */
+  clientCompetitors: {
+    listByClientId: {
+      useQuery: (_input: { clientId: string }, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("clientCompetitors.listByClientId", _input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () => [],
+        }),
+    },
+  },
+
+  notifications: {
+    list: {
+      useQuery: () =>
+        useQuery({
+          queryKey: qk("notifications.list"),
+          queryFn: async () =>
+            safe(async () => {
+              const { data: auth } = await supabase.auth.getUser();
+              const userId = auth.user?.id;
+              if (!userId) return [];
+
+              const { data, error } = await supabase.from("notifications").select("*").eq("user_id", userId).order("created_at", { ascending: false });
+              if (error) throw error;
+              return data ?? [];
+            }, []),
+        }),
+    },
+
+    unreadCount: {
+      useQuery: () =>
+        useQuery({
+          queryKey: qk("notifications.unreadCount"),
+          queryFn: async () =>
+            safe(async () => {
+              const { data: auth } = await supabase.auth.getUser();
+              const userId = auth.user?.id;
+              if (!userId) return 0;
+
+              const { data, error } = await supabase.from("notifications").select("id").eq("user_id", userId).eq("is_read", false);
+              if (error) throw error;
+              return (data ?? []).length;
+            }, 0),
+        }),
+    },
+
+    markAsRead: {
+      useMutation: (opts?: { onSuccess?: () => void; onError?: (e: any) => void }) => {
+        const qc = useQueryClient();
+        return useMutation({
+          mutationFn: async (input: { id: string }) => {
+            const { error } = await supabase.from("notifications").update({ is_read: true }).eq("id", input.id);
+            if (error) throw error;
+            return true;
+          },
+          onSuccess: async () => {
+            await qc.invalidateQueries({ queryKey: qk("notifications.list") });
+            await qc.invalidateQueries({ queryKey: qk("notifications.unreadCount") });
+            opts?.onSuccess?.();
+          },
+          onError: (e) => opts?.onError?.(e),
+        });
+      },
+    },
+  },
+
+  newsSearch: {
+    search: { useMutation: () => useMutation({ mutationFn: async (x: AnyObj) => x }) },
+    history: {
+      useQuery: (_input?: AnyObj, options?: { enabled?: boolean }) =>
+        useQuery({
+          queryKey: qk("newsSearch.history", _input),
+          enabled: options?.enabled ?? true,
+          queryFn: async () => [],
+        }),
+    },
+  },
+};

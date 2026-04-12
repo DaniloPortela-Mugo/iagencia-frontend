@@ -1,0 +1,1 @@
+ALTER TABLE `contents` ADD `approval_id` int;

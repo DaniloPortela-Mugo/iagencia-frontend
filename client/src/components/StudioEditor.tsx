@@ -35,7 +35,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { toast } from "sonner";
-import html2canvas from "html2canvas-pro";
+import html2canvas from "html2canvas";
 
 // -------------------- TIPAGEM --------------------
 type StrokeStyle = "solid" | "dashed" | "dotted";

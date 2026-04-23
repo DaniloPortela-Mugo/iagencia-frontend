@@ -1,314 +1,516 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import { toast } from "sonner";
 import { 
-  Grid, List, Search, Download, Share2, 
-  MoreVertical, Image as ImageIcon, Film, FileText, 
-  Tag, Plus, Cloud, CheckCircle2, Trash2, BrainCircuit,
-  Briefcase, FolderOpen
+  Grid, List, Search, Download, Upload,
+  Image as ImageIcon, Film, Plus, Cloud, 
+  RefreshCw, Eye, X, FolderOpen, ChevronRight, Trash2,
+  FileIcon, Loader2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger 
-} from "@/components/ui/dropdown-menu";
+import { useAuth } from "../contexts/AuthContext";
+import { supabase } from "../lib/supabase";
 
-// --- MOCK DATA: ATIVOS COM CONTEXTO DE AGÊNCIA ---
-const INITIAL_ASSETS = [
-  { 
-    id: 1, 
-    name: "Campanha_Verao_Feed_01.jpg", 
-    type: "image", 
-    url: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80", 
-    client: "Varejo S.A.", 
-    campaign: "Saldão de Janeiro", 
-    job: "Posts Feed Instagram",   
-    size: "2.4 MB", 
-    tags: ["produto", "relogio", "feed"] 
-  },
-  { 
-    id: 2, 
-    name: "Comercial_TV_30s_V2.mp4", 
-    type: "video", 
-    url: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80", 
-    client: "Moda Fashion", 
-    campaign: "Coleção Outono/Inverno",
-    job: "Filme Institucional",
-    size: "145 MB", 
-    tags: ["video", "tv", "landscape"] 
-  },
-  { 
-    id: 3, 
-    name: "Contrato_Influencers.pdf", 
-    type: "pdf", 
-    url: "", 
-    client: "Burger King", 
-    campaign: "Lançamento Whopper Jr",
-    job: "Gestão de Influenciadores",
-    size: "450 KB", 
-    tags: ["legal", "contrato"] 
-  },
-  { 
-    id: 4, 
-    name: "Banner_Site_BlackFriday.png", 
-    type: "image", 
-    url: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&w=800&q=80", 
-    client: "Tech Sol.", 
-    campaign: "Black Friday 2026",
-    job: "Assets Web",
-    size: "1.1 MB", 
-    tags: ["promo", "black friday"] 
-  },
-  { 
-    id: 5, 
-    name: "Shooting_Lookbook_05.jpg", 
-    type: "image", 
-    url: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80", 
-    client: "Moda Fashion", 
-    campaign: "Coleção Outono/Inverno",
-    job: "Lookbook Digital",
-    size: "5.6 MB", 
-    tags: ["fashion", "modelo"] 
-  },
-];
+const API_BASE = import.meta.env.VITE_API_BASE?.trim() || "http://localhost:8000";
+
+const getAuthHeaders = async (extra?: Record<string, string>) => {
+  const { data } = await supabase.auth.getSession();
+  const token = data?.session?.access_token;
+  return {
+    ...(extra || {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  };
+};
 
 export default function Library() {
+  const { activeTenant } = useAuth();
+  const [selectedFolder, setSelectedFolder] = useState('Todos');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [filterType, setFilterType] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [assets, setAssets] = useState(INITIAL_ASSETS);
+  const [assets, setAssets] = useState<any[]>([]);
+  const [isLoadingDB, setIsLoadingDB] = useState(false);
+  const [viewingAsset, setViewingAsset] = useState<any | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isAddingLink, setIsAddingLink] = useState(false);
+  const [linkUrl, setLinkUrl] = useState("");
+  const [linkTitle, setLinkTitle] = useState("");
+  const uploadInputRef = useRef<HTMLInputElement>(null);
 
-  // --- SIMULAÇÃO: Upload Inteligente (Contextual + Visual) ---
-  const handleSimulatedUpload = () => {
-    setIsUploading(true);
-    toast.info("Vinculando arquivo ao Job #892 (Nike Air)..."); // Simula a seleção do Job
-
-    // Simula tempo de processamento da IA
-    setTimeout(() => {
-        toast.info("🤖 A IA está analisando o conteúdo visual...");
-    }, 1500);
-
-    setTimeout(() => {
-        const newAsset = { 
-            id: Date.now(), 
-            name: "Nike_Air_Campaign_KV_Final.jpg", 
-            type: "image", 
-            url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80", 
-            client: "Nike Global", 
-            campaign: "Lançamento Air Max", // <--- Contexto Automático
-            job: "Key Visuals (KVs)",       // <--- Contexto Automático
-            size: "3.2 MB", 
-            tags: ["tenis", "esporte", "vermelho", "nike", "sneaker"] // Tags Visuais geradas
-        };
-        setAssets([newAsset, ...assets]);
-        setIsUploading(false);
-        toast.success("Upload concluído!", {
-            description: "Ativo vinculado à campanha 'Lançamento Air Max' e etiquetado pela IA."
-        });
-    }, 3500);
+ // --- 1. DOWNLOAD REAL DE ARQUIVOS ---
+  const getSignedUrl = async (path: string) => {
+    const { data, error } = await supabase
+      .storage
+      .from("library")
+      .createSignedUrl(path, 60 * 60);
+    if (error) throw error;
+    return data?.signedUrl || "";
   };
 
-  // --- LÓGICA DE FILTROS ---
-  const filteredAssets = assets.filter(asset => {
-    const searchLower = searchQuery.toLowerCase();
-    const matchesSearch = asset.name.toLowerCase().includes(searchLower) || 
-                          asset.tags.some(tag => tag.toLowerCase().includes(searchLower)) ||
-                          asset.campaign.toLowerCase().includes(searchLower) || // Busca por campanha
-                          asset.client.toLowerCase().includes(searchLower);     // Busca por cliente
-    const matchesType = filterType === 'all' || asset.type === filterType;
-    return matchesSearch && matchesType;
-  });
+  const resolveAssetUrl = async (rawUrl: string) => {
+    if (!rawUrl) return "";
+    if (rawUrl.startsWith("text:")) return rawUrl;
+    if (rawUrl.startsWith("gdrive:")) {
+      const id = rawUrl.replace("gdrive:", "");
+      if (!id) return "";
+      return `https://drive.google.com/uc?export=download&id=${id}`;
+    }
+    if (rawUrl.startsWith("http")) return rawUrl;
+    return await getSignedUrl(rawUrl);
+  };
 
-  // Helper para ícones
-  const getIconByType = (type: string) => {
-    switch(type) {
-        case 'video': return <Film className="w-8 h-8 text-blue-500" />;
-        case 'pdf': return <FileText className="w-8 h-8 text-red-500" />;
-        case 'audio': return <Cloud className="w-8 h-8 text-yellow-500" />;
-        default: return <ImageIcon className="w-8 h-8 text-pink-500" />;
+  const downloadAsset = async (url: string, fileName: string) => {
+    try {
+      if (url.startsWith("text:")) {
+        const text = decodeURIComponent(url.replace("text:", ""));
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        const blobUrl = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = fileName.endsWith(".txt") ? fileName : `${fileName}.txt`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        toast.success("Download iniciado!");
+        return;
+      }
+      const resolvedUrl = await resolveAssetUrl(url);
+      if (!resolvedUrl) throw new Error("URL inválida.");
+      const response = await fetch(resolvedUrl);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast.success("Download iniciado!");
+    } catch (err) {
+      toast.error("Erro ao baixar arquivo.");
     }
   };
 
-  return (
-    <div className="min-h-screen bg-black text-zinc-100 p-6 flex flex-col h-screen overflow-hidden">
+  const handleUploadClick = () => {
+    uploadInputRef.current?.click();
+  };
+
+  const handleOpenAddLink = () => {
+    if (!activeTenant || activeTenant === "all") {
+      toast.error("Selecione um cliente antes de adicionar links.");
+      return;
+    }
+    setLinkUrl("");
+    setLinkTitle("");
+    setIsAddingLink(true);
+  };
+
+  const handleAddLink = async () => {
+    const raw = linkUrl.trim();
+    if (!raw) {
+      toast.error("Informe a URL do conteúdo.");
+      return;
+    }
+    if (!/^https?:\/\//i.test(raw)) {
+      toast.error("A URL precisa começar com http:// ou https://");
+      return;
+    }
+
+    const name = linkTitle.trim();
+    const isVideo = /\.(mp4|mov|webm|m4v)$/i.test(raw) || raw.includes("youtube.com") || raw.includes("youtu.be");
+    const type = isVideo ? "video" : "image";
+
+    try {
+      const { error } = await supabase
+        .from("library")
+        .insert({
+          tenant_slug: activeTenant,
+          url: raw,
+          type,
+          title: name || null,
+          provider: "external",
+        });
+
+      if (error) throw error;
+      toast.success("Link adicionado à Biblioteca!");
+      setIsAddingLink(false);
+      await fetchLibrary();
+    } catch (err: any) {
+      console.error("library link insert error:", err);
+      toast.error(err?.message || "Erro ao adicionar link.");
+    }
+  };
+
+  const handleUploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!activeTenant || activeTenant === "all") {
+      toast.error("Selecione um cliente antes de enviar.");
+      e.target.value = "";
+      return;
+    }
+
+    const isVideo = file.type.startsWith("video/");
+    const isImage = file.type.startsWith("image/");
+    if (!isVideo && !isImage) {
+      toast.error("Formato não suportado. Envie imagem ou vídeo.");
+      e.target.value = "";
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const ext = file.name.split(".").pop() || (isVideo ? "mp4" : "png");
+      const safeName = file.name
+        .toLowerCase()
+        .replace(/[^a-z0-9-_]+/gi, "-")
+        .replace(/-+/g, "-")
+        .replace(/^-|-$/g, "");
+      const path = `${activeTenant}/${Date.now()}-${safeName || "asset"}.${ext}`;
+
+      const form = new FormData();
+      form.append("tenant_slug", activeTenant);
+      form.append("file", file);
+      const res = await fetch(`${API_BASE}/library/upload`, {
+        method: "POST",
+        headers: await getAuthHeaders(),
+        body: form,
+      });
+      if (!res.ok) {
+        const txt = await res.text().catch(() => "");
+        throw new Error(txt || "Erro ao enviar arquivo.");
+      }
+
+      toast.success("Arquivo enviado para a Biblioteca!");
+      await fetchLibrary();
+    } catch (err: any) {
+      toast.error(err?.message || "Erro ao enviar arquivo.");
+    } finally {
+      setIsUploading(false);
+      e.target.value = "";
+    }
+  };
+
+  // --- 2. BUSCA E REALTIME ---
+  const fetchLibrary = async () => {
+    setIsLoadingDB(true);
+    // Usamos a tabela 'library' do Supabase que você configurou no fluxo de Aprovação
+    const { data, error } = await supabase
+      .from('library')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      console.error("library fetch error:", error);
+      toast.error(error.message || "Erro ao sincronizar biblioteca.");
+      setIsLoadingDB(false);
+      return;
+    }
+
+    const formatted = await Promise.all(
+      data.map(async (item) => {
+        const resolvedUrl = await resolveAssetUrl(item.url);
+        return {
+          id: item.id,
+          name: item.title || (item.type === "text" ? `Texto_${item.id}` : `Asset_${item.id}`),
+          type: item.type, // 'image' | 'video' | 'text'
+          url: resolvedUrl || item.url,
+          raw_url: item.url,
+          client: item.tenant_slug.toUpperCase(),
+          campaign: "Geral",
+          size: "Varia",
+          date: new Date(item.created_at).toLocaleDateString('pt-BR')
+        };
+      })
+    );
+
+    setAssets(formatted);
+    setIsLoadingDB(false);
+  };
+
+  useEffect(() => {
+    fetchLibrary();
+
+    // ESCUTA REALTIME: Se algo for aprovado e salvo, a biblioteca atualiza na hora
+    const channel = supabase.channel('library-updates')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'library' }, 
+      () => { 
+        fetchLibrary();
+        toast.info("Novo ativo adicionado à biblioteca! ✨");
+      })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, [activeTenant]);
+
+  useEffect(() => {
+    if (activeTenant && activeTenant !== "all") {
+      setSelectedFolder(activeTenant.toUpperCase());
+    }
+  }, [activeTenant]);
+
+  // 3. GERAÇÃO DINÂMICA DE PASTAS BASEADA NOS CLIENTES EXISTENTES
+  const dynamicFolders = useMemo(() => {
+    const clients = assets.map(a => a.client);
+    const uniqueClients = Array.from(new Set(clients)).filter(Boolean);
+    return ['Todos', ...uniqueClients];
+  }, [assets]);
+
+  const handleDeleteAsset = async (id: string | number, e?: React.MouseEvent) => {
+      if (e) e.stopPropagation();
+      if (!confirm("Excluir este arquivo permanentemente da nuvem?")) return;
       
+      try {
+          const res = await fetch(`${API_BASE}/library/${id}`, {
+            method: "DELETE",
+            headers: await getAuthHeaders(),
+          });
+          if (!res.ok) throw new Error();
+          toast.success("Arquivo removido.");
+          if (viewingAsset?.id === id) setViewingAsset(null);
+          setAssets(prev => prev.filter(asset => asset.id !== id));
+      } catch (err) {
+          toast.error("Erro ao excluir arquivo.");
+      }
+  };
+
+  const filteredAssets = assets.filter(asset => {
+    if (selectedFolder !== 'Todos' && asset.client !== selectedFolder) return false;
+    const searchLower = searchQuery.toLowerCase();
+    return asset.name.toLowerCase().includes(searchLower) || 
+           asset.client.toLowerCase().includes(searchLower);
+  });
+
+  return (
+    <div className="bg-black text-zinc-100 p-6 flex flex-col h-full relative font-sans overflow-hidden">
       {/* HEADER */}
-      <header className="flex flex-col md:flex-row md:items-center justify-between border-b border-zinc-800 pb-6 gap-4 shrink-0">
-        <div className="flex items-center gap-3">
-          <div className="p-2 bg-pink-900/30 rounded-lg"><Cloud className="w-8 h-8 text-pink-500" /></div>
-          <div>
-              <h1 className="text-2xl font-bold">Biblioteca (DAM)</h1>
-              <p className="text-zinc-500 text-sm">Gestão de Ativos & Inteligência Visual</p>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-lg font-black text-zinc-100">Biblioteca</h1>
+          <p className="text-[11px] text-zinc-500">Arquivos do cliente selecionado</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={handleOpenAddLink}
+            className="bg-zinc-800 hover:bg-zinc-700 text-zinc-100 text-xs font-bold"
+          >
+            <Plus className="w-3 h-3 mr-2" />
+            Adicionar Link
+          </Button>
+          <Button
+            onClick={handleUploadClick}
+            disabled={isUploading}
+            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold"
+          >
+            <Upload className="w-3 h-3 mr-2" />
+            {isUploading ? "Enviando..." : "Enviar Arquivo"}
+          </Button>
+          <input
+            ref={uploadInputRef}
+            type="file"
+            accept="image/*,video/*"
+            className="hidden"
+            onChange={handleUploadFile}
+          />
+        </div>
+      </div>
+      
+
+      {/* ÁREA DE CONTEÚDO */}
+      {filteredAssets.length === 0 && !isLoadingDB ? (
+        <div className="h-full flex flex-col items-center justify-center text-zinc-500 border-2 border-dashed border-zinc-800 rounded-3xl bg-zinc-900/5 p-20">
+            <div className="p-6 bg-zinc-900 rounded-full mb-6">
+                <FolderOpen className="w-12 h-12 opacity-20" />
+            </div>
+            <p className="text-lg font-bold text-white">Sua Nuvem está vazia</p>
+            <p className="text-sm text-zinc-600 mt-2 mb-8 text-center max-w-xs">
+              Aprove conteúdos no portal para que eles apareçam automaticamente aqui.
+            </p>
+            <div className="text-xs text-zinc-600 font-medium">
+              Nenhum item encontrado para o cliente selecionado.
+            </div>
+        </div>
+      ) : (
+        <main className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
+          {viewMode === "grid" ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {filteredAssets.map((asset) => {
+                const isText = asset.type === "text" || (asset.url || "").startsWith("text:");
+                const isVideo = asset.type === "video" || /\.(mp4|mov|webm|m4v)$/i.test(asset.url || "");
+                return (
+                <div
+                  key={asset.id}
+                  className="bg-zinc-900/60 border border-zinc-800 rounded-2xl overflow-hidden hover:border-zinc-600 transition cursor-pointer"
+                  onClick={() => setViewingAsset(asset)}
+                >
+                  <div className="aspect-video bg-black/80 flex items-center justify-center p-2">
+                    {isText ? (
+                      <div className="w-full h-full bg-zinc-900 border border-zinc-800 rounded flex flex-col items-center justify-center text-center p-3">
+                        <FileIcon className="w-6 h-6 text-zinc-400 mb-2" />
+                        <p className="text-[10px] text-zinc-400">Texto da Redação</p>
+                      </div>
+                    ) : isVideo ? (
+                      <video src={asset.url} className="w-full h-full object-contain" muted controls preload="metadata" />
+                    ) : (
+                      <img src={asset.url} alt={asset.name} className="w-full h-full object-contain" />
+                    )}
+                  </div>
+                  <div className="p-4 flex items-center justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="text-sm font-bold text-zinc-100 truncate">{asset.name}</p>
+                      <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-widest">{asset.client}</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        onClick={(e) => { e.stopPropagation(); downloadAsset(asset.raw_url || asset.url, asset.name); }}
+                        variant="outline"
+                        size="sm"
+                        className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 text-[10px]"
+                      >
+                        <Download className="w-3 h-3 mr-2" /> Baixar
+                      </Button>
+                      <Button
+                        onClick={(e) => { e.stopPropagation(); handleDeleteAsset(asset.id); }}
+                        variant="outline"
+                        size="sm"
+                        className="border-red-800 text-red-300 hover:bg-red-900/30 text-[10px]"
+                      >
+                        <Trash2 className="w-3 h-3 mr-2" /> Excluir
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {filteredAssets.map((asset) => {
+                const isText = asset.type === "text" || (asset.url || "").startsWith("text:");
+                const isVideo = asset.type === "video" || /\.(mp4|mov|webm|m4v)$/i.test(asset.url || "");
+                return (
+                <div
+                  key={asset.id}
+                  className="flex items-center gap-4 bg-zinc-900/60 border border-zinc-800 rounded-xl p-3 hover:border-zinc-600 transition cursor-pointer"
+                  onClick={() => setViewingAsset(asset)}
+                >
+                  <div className="w-20 h-12 bg-black/80 rounded overflow-hidden flex items-center justify-center p-1">
+                    {isText ? (
+                      <div className="w-full h-full bg-zinc-900 border border-zinc-800 rounded flex items-center justify-center">
+                        <FileIcon className="w-4 h-4 text-zinc-400" />
+                      </div>
+                    ) : isVideo ? (
+                      <video src={asset.url} className="w-full h-full object-contain" muted />
+                    ) : (
+                      <img src={asset.url} alt={asset.name} className="w-full h-full object-contain" />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-zinc-100 truncate">{asset.name}</p>
+                    <p className="text-[10px] text-zinc-500 font-semibold uppercase tracking-widest">{asset.client}</p>
+                  </div>
+                  <div className="text-[10px] text-zinc-500 font-semibold uppercase">{asset.type}</div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                    onClick={(e) => { e.stopPropagation(); downloadAsset(asset.raw_url || asset.url, asset.name); }}
+                      variant="outline"
+                      size="sm"
+                      className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 text-[10px]"
+                    >
+                      <Download className="w-3 h-3 mr-2" /> Baixar
+                    </Button>
+                    <Button
+                      onClick={(e) => { e.stopPropagation(); handleDeleteAsset(asset.id); }}
+                      variant="outline"
+                      size="sm"
+                      className="border-red-800 text-red-300 hover:bg-red-900/30 text-[10px]"
+                    >
+                      <Trash2 className="w-3 h-3 mr-2" /> Excluir
+                    </Button>
+                  </div>
+                </div>
+                );
+              })}
+            </div>
+          )}
+        </main>
+      )}
+
+      {/* LIGHTBOX (Botão de Download real aqui também) */}
+      {viewingAsset && (
+          <div className="fixed inset-0 z-50 bg-black/98 flex flex-col animate-in fade-in">
+              {/* ... (cabeçalho do viewer) ... */}
+              <Button 
+                onClick={() => downloadAsset(viewingAsset.raw_url || viewingAsset.url, viewingAsset.name)}
+                variant="outline" size="sm" className="..."
+              >
+                  <Download className="w-3.5 h-3.5 mr-2" /> Download Original
+              </Button>
+              <Button
+                onClick={(e) => { e.stopPropagation(); handleDeleteAsset(viewingAsset.id); }}
+                variant="outline"
+                size="sm"
+                className="border-red-800 text-red-300 hover:bg-red-900/30"
+              >
+                <Trash2 className="w-3.5 h-3.5 mr-2" /> Excluir
+              </Button>
+              {/* ... (resto do viewer) ... */}
+          </div>
+      )}
+
+      {isAddingLink && (
+        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
+          <div className="w-full max-w-lg bg-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-bold text-white">Adicionar Link Externo</h2>
+              <button
+                onClick={() => setIsAddingLink(false)}
+                className="text-zinc-400 hover:text-zinc-200"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            <div className="space-y-3">
+              <div>
+                <label className="text-[11px] text-zinc-400 font-semibold">URL do arquivo</label>
+                <Input
+                  value={linkUrl}
+                  onChange={(e) => setLinkUrl(e.target.value)}
+                  placeholder="https://exemplo.com/arquivo.mp4"
+                  className="mt-1 bg-zinc-900 border-zinc-800 text-zinc-100"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] text-zinc-400 font-semibold">Título (opcional)</label>
+                <Input
+                  value={linkTitle}
+                  onChange={(e) => setLinkTitle(e.target.value)}
+                  placeholder="Nome do conteúdo"
+                  className="mt-1 bg-zinc-900 border-zinc-800 text-zinc-100"
+                />
+              </div>
+              <div className="text-[11px] text-zinc-500">
+                O link ficará disponível para o tenant selecionado.
+              </div>
+            </div>
+            <div className="flex items-center justify-end gap-2 pt-2">
+              <Button
+                variant="outline"
+                className="border-zinc-700 text-zinc-300 hover:bg-zinc-800 text-xs"
+                onClick={() => setIsAddingLink(false)}
+              >
+                Cancelar
+              </Button>
+              <Button
+                className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold"
+                onClick={handleAddLink}
+              >
+                Salvar Link
+              </Button>
+            </div>
           </div>
         </div>
-
-        <div className="flex items-center gap-3">
-            <div className="relative w-64">
-                <Search className="absolute left-2 top-2.5 w-4 h-4 text-zinc-500" />
-                <Input 
-                    placeholder="Buscar por tag, job ou cliente..." 
-                    className="pl-8 bg-zinc-900 border-zinc-800 focus:ring-pink-500 text-white"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </div>
-            
-            <div className="flex bg-zinc-900 p-1 rounded-lg border border-zinc-800">
-                <button onClick={() => setViewMode('grid')} className={`p-2 rounded transition-all ${viewMode === 'grid' ? 'bg-zinc-700 text-white shadow' : 'text-zinc-400 hover:text-white'}`}><Grid className="w-4 h-4"/></button>
-                <button onClick={() => setViewMode('list')} className={`p-2 rounded transition-all ${viewMode === 'list' ? 'bg-zinc-700 text-white shadow' : 'text-zinc-400 hover:text-white'}`}><List className="w-4 h-4"/></button>
-            </div>
-
-            <Button onClick={handleSimulatedUpload} disabled={isUploading} className="bg-pink-600 hover:bg-pink-500 text-white font-bold gap-2 shadow-lg shadow-pink-900/20">
-                {isUploading ? <BrainCircuit className="w-4 h-4 animate-pulse" /> : <Plus className="w-4 h-4" />}
-                {isUploading ? "IA Analisando..." : "Upload Inteligente"}
-            </Button>
-        </div>
-      </header>
-
-      {/* BODY */}
-      <div className="flex flex-1 overflow-hidden pt-6 gap-6">
-        
-        {/* SIDEBAR FILTROS */}
-        <aside className="w-48 shrink-0 hidden md:block space-y-6">
-            <div>
-                <h3 className="text-xs font-bold text-zinc-500 uppercase mb-3 px-2">Tipo de Arquivo</h3>
-                <div className="space-y-1">
-                    {['all', 'image', 'video', 'pdf', 'audio'].map(type => (
-                        <button 
-                            key={type}
-                            onClick={() => setFilterType(type)}
-                            className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors flex justify-between items-center ${filterType === type ? 'bg-zinc-800 text-white' : 'text-zinc-400 hover:bg-zinc-900 hover:text-white'}`}
-                        >
-                            <span className="capitalize">{type === 'all' ? 'Todos' : type}</span>
-                            {filterType === type && <CheckCircle2 className="w-3 h-3 text-pink-500"/>}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            <div className="bg-zinc-900/50 p-4 rounded-xl border border-zinc-800">
-                <div className="flex items-center gap-2 mb-2 text-pink-400">
-                    <BrainCircuit className="w-4 h-4" />
-                    <span className="text-xs font-bold">Auto-Tagging</span>
-                </div>
-                <p className="text-[10px] text-zinc-500 leading-relaxed">
-                    A IA cataloga o conteúdo visual (ex: "praia") e o sistema vincula automaticamente à Campanha do Atendimento.
-                </p>
-            </div>
-
-            <div className="bg-zinc-900/50 p-4 rounded-xl border border-zinc-800">
-                <h4 className="text-xs font-bold text-white mb-2">Armazenamento</h4>
-                <div className="w-full bg-black h-2 rounded-full overflow-hidden mb-1">
-                    <div className="bg-pink-600 w-[65%] h-full rounded-full"></div>
-                </div>
-                <p className="text-[10px] text-zinc-500 flex justify-between">
-                    <span>650 GB usados</span>
-                    <span>1 TB</span>
-                </p>
-            </div>
-        </aside>
-
-        {/* ÁREA PRINCIPAL (GRID/LIST) */}
-        <main className="flex-1 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-zinc-800">
-            
-            {filteredAssets.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-zinc-500 border-2 border-dashed border-zinc-800 rounded-xl bg-zinc-900/20">
-                    <Search className="w-16 h-16 mb-4 opacity-20" />
-                    <p>Nenhum arquivo encontrado.</p>
-                </div>
-            ) : viewMode === 'grid' ? (
-                // --- VISÃO EM GRID ---
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                    {filteredAssets.map(asset => (
-                        <div key={asset.id} className="group relative bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden hover:border-pink-500/50 transition-all hover:shadow-2xl hover:shadow-pink-900/20 flex flex-col">
-                            {/* Thumbnail */}
-                            <div className="aspect-square bg-black relative flex items-center justify-center overflow-hidden">
-                                {asset.type === 'image' || asset.type === 'video' ? (
-                                    <img src={asset.url} alt={asset.name} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
-                                ) : (
-                                    getIconByType(asset.type)
-                                )}
-                                {/* Overlay on Hover */}
-                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                    <Button size="icon" variant="secondary" className="rounded-full w-8 h-8"><Download className="w-4 h-4" /></Button>
-                                    <Button size="icon" variant="secondary" className="rounded-full w-8 h-8"><Share2 className="w-4 h-4" /></Button>
-                                </div>
-                                <div className="absolute top-2 left-2">
-                                    <Badge className="bg-black/50 backdrop-blur text-[10px] border-none text-white hover:bg-black/70">{asset.type.toUpperCase()}</Badge>
-                                </div>
-                            </div>
-
-                            {/* Info */}
-                            <div className="p-3 flex-1 flex flex-col">
-                                <div className="flex justify-between items-start mb-1">
-                                    <h4 className="text-sm font-medium text-white truncate pr-2 w-full" title={asset.name}>{asset.name}</h4>
-                                    <DropdownMenu>
-                                        <DropdownMenuTrigger><MoreVertical className="w-4 h-4 text-zinc-500 hover:text-white shrink-0" /></DropdownMenuTrigger>
-                                        <DropdownMenuContent>
-                                            <DropdownMenuItem>Ver Detalhes</DropdownMenuItem>
-                                            <DropdownMenuItem className="text-red-500"><Trash2 className="w-3 h-3 mr-2"/> Excluir</DropdownMenuItem>
-                                        </DropdownMenuContent>
-                                    </DropdownMenu>
-                                </div>
-                                
-                                {/* CONTEXTO DO ATENDIMENTO */}
-                                <div className="mb-3 space-y-0.5 border-t border-zinc-800/50 pt-2 mt-1">
-                                    <p className="text-[10px] text-zinc-300 font-bold flex items-center gap-1">
-                                        <Briefcase className="w-3 h-3 text-pink-500" /> {asset.client}
-                                    </p>
-                                    <p className="text-[10px] text-zinc-500 truncate" title={`${asset.campaign} > ${asset.job}`}>
-                                        {asset.campaign}
-                                    </p>
-                                </div>
-
-                                <div className="flex flex-wrap gap-1 mt-auto">
-                                    {asset.tags.slice(0, 3).map(tag => (
-                                        <span key={tag} className="text-[9px] px-1.5 py-0.5 bg-zinc-800 text-zinc-400 rounded-md flex items-center border border-zinc-700">
-                                            <Tag className="w-2 h-2 mr-1 opacity-50"/> {tag}
-                                        </span>
-                                    ))}
-                                    {asset.tags.length > 3 && (
-                                        <span className="text-[9px] px-1.5 py-0.5 bg-zinc-800 text-zinc-500 rounded-md border border-zinc-700">+{asset.tags.length - 3}</span>
-                                    )}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                // --- VISÃO EM LISTA ---
-                <div className="space-y-2">
-                    {filteredAssets.map(asset => (
-                        <div key={asset.id} className="flex items-center justify-between bg-zinc-900 border border-zinc-800 p-3 rounded-lg hover:border-pink-500/30 transition group">
-                            <div className="flex items-center gap-4 flex-1">
-                                <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center overflow-hidden shrink-0 border border-zinc-800">
-                                    {asset.type === 'image' ? <img src={asset.url} alt={asset.name} className="w-full h-full object-cover"/> : getIconByType(asset.type)}
-                                </div>
-                                <div className="min-w-0">
-                                    <h4 className="text-sm font-medium text-white truncate">{asset.name}</h4>
-                                    <div className="flex items-center gap-2 mt-1 text-[10px] text-zinc-500">
-                                        <Badge variant="outline" className="text-[10px] h-5 border-zinc-700 text-zinc-300 bg-zinc-800">{asset.client}</Badge>
-                                        <span className="flex items-center gap-1 text-zinc-400"><FolderOpen className="w-3 h-3"/> {asset.campaign}</span>
-                                        <span>• {asset.size}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                                <div className="hidden md:flex gap-1">
-                                    {asset.tags.map(tag => <span key={tag} className="text-[10px] bg-zinc-800 px-2 py-1 rounded text-zinc-400 border border-zinc-700">#{tag}</span>)}
-                                </div>
-                                <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <Button size="sm" variant="ghost" className="hover:bg-zinc-800"><Download className="w-4 h-4 text-zinc-400"/></Button>
-                                    <Button size="sm" variant="ghost" className="hover:bg-zinc-800"><Share2 className="w-4 h-4 text-zinc-400"/></Button>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
-        </main>
-      </div>
+      )}
     </div>
   );
 }

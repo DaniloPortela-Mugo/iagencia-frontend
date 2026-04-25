@@ -191,6 +191,7 @@ useEffect(() => {
         if (savedState.productImage) setProductImage(savedState.productImage);
         if (savedState.clothingImage) setClothingImage(savedState.clothingImage);
         if (savedState.styleImage) setStyleImage(savedState.styleImage);
+        if (savedState.generatedResult) setGeneratedResult(savedState.generatedResult);
       }
       const localConfigs = localStorage.getItem("iagencia_saved_configs");
       if (localConfigs) setSavedConfigs(JSON.parse(localConfigs));
@@ -1204,21 +1205,18 @@ onSaveToApproval={async (dataUrl, draft) => {
 
   let finalImageUrl = dataUrl;
   if (dataUrl.startsWith("data:")) {
-    const up = await fetch(`${API_BASE}/api/media/upload-base64`, {
-      method: "POST",
-      headers: await getAuthHeaders({ "Content-Type": "application/json" }),
-      body: JSON.stringify({
-        tenant_slug: safeTenant,
-        filename_prefix: "aprovacao",
-        data_url: dataUrl,
-      }),
-    });
-    if (!up.ok) {
-      const txt = await up.text().catch(() => "");
-      throw new Error(`Erro HTTP ${up.status} ${txt}`);
-    }
-    const upJson = await up.json();
-    finalImageUrl = toAbsoluteMediaUrl(upJson.url || "");
+    const mimeType = dataUrl.split(";")[0].split(":")[1] || "image/jpeg";
+    const ext = mimeType.split("/")[1] || "jpg";
+    const base64 = dataUrl.split(",")[1];
+    const byteArray = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+    const blob = new Blob([byteArray], { type: mimeType });
+    const filename = `${safeTenant}/aprovacao_${Date.now()}.${ext}`;
+    const { error: upError } = await supabase.storage
+      .from("library")
+      .upload(filename, blob, { contentType: mimeType, upsert: false });
+    if (upError) throw new Error(upError.message || "Erro ao fazer upload da imagem.");
+    const { data: { publicUrl } } = supabase.storage.from("library").getPublicUrl(filename);
+    finalImageUrl = publicUrl;
   } else {
     finalImageUrl = toAbsoluteMediaUrl(dataUrl);
   }

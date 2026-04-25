@@ -49,9 +49,13 @@ export default function Library() {
     return data?.signedUrl || "";
   };
 
+  const isLocalhostUrl = (url: string) =>
+    /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?/i.test(url);
+
   const resolveAssetUrl = async (rawUrl: string) => {
     if (!rawUrl) return "";
     if (rawUrl.startsWith("text:")) return rawUrl;
+    if (isLocalhostUrl(rawUrl)) return ""; // inacessível em produção
     if (rawUrl.startsWith("gdrive:")) {
       const id = rawUrl.replace("gdrive:", "");
       if (!id) return "";
@@ -266,12 +270,14 @@ export default function Library() {
     const formatted = await Promise.all(
       data.map(async (item) => {
         const resolvedUrl = await resolveAssetUrl(item.url);
+        const unavailable = !resolvedUrl && !item.url?.startsWith("text:");
         return {
           id: item.id,
           name: item.title || (item.type === "text" ? `Texto_${item.id}` : `Asset_${item.id}`),
-          type: item.type, // 'image' | 'video' | 'text'
-          url: resolvedUrl || item.url,
+          type: item.type,
+          url: resolvedUrl,
           raw_url: item.url,
+          unavailable,
           client: item.tenant_slug.toUpperCase(),
           campaign: "Geral",
           size: "Varia",
@@ -421,7 +427,13 @@ export default function Library() {
                   onClick={() => setViewingAsset(asset)}
                 >
                   <div className="aspect-video bg-black/80 flex items-center justify-center p-2">
-                    {isText ? (
+                    {asset.unavailable ? (
+                      <div className="w-full h-full bg-zinc-900 border border-zinc-800 rounded flex flex-col items-center justify-center text-center p-3">
+                        <Film className="w-6 h-6 text-zinc-600 mb-2" />
+                        <p className="text-[10px] text-zinc-500 font-medium">Mídia indisponível</p>
+                        <p className="text-[9px] text-zinc-600 mt-1">Gerada localmente</p>
+                      </div>
+                    ) : isText ? (
                       <div className="w-full h-full bg-zinc-900 border border-zinc-800 rounded flex flex-col items-center justify-center text-center p-3">
                         <FileIcon className="w-6 h-6 text-zinc-400 mb-2" />
                         <p className="text-[10px] text-zinc-400">Texto da Redação</p>

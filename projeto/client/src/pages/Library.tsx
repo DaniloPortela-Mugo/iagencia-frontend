@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "../contexts/AuthContext";
-import { supabase } from "../lib/supabase";
+import { supabase, supabaseUrl } from "../lib/supabase";
 
 const API_BASE = import.meta.env.VITE_API_BASE?.trim() || "http://localhost:8000";
 
@@ -32,6 +32,8 @@ export default function Library() {
   const [isLoadingDB, setIsLoadingDB] = useState(false);
   const [viewingAsset, setViewingAsset] = useState<any | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<number | null>(null);
+  const [uploadFileName, setUploadFileName] = useState("");
   const [isAddingLink, setIsAddingLink] = useState(false);
   const [linkUrl, setLinkUrl] = useState("");
   const [linkTitle, setLinkTitle] = useState("");
@@ -94,6 +96,31 @@ export default function Library() {
   const handleUploadClick = () => {
     uploadInputRef.current?.click();
   };
+
+  // Upload direto ao Supabase Storage via XHR com progresso real
+  const uploadVideoWithProgress = (
+    storagePath: string,
+    file: File,
+    token: string,
+    onProgress: (pct: number) => void
+  ): Promise<void> =>
+    new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", `${supabaseUrl}/storage/v1/object/library/${storagePath}`);
+      xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+      xhr.setRequestHeader("x-upsert", "true");
+      xhr.setRequestHeader("Content-Type", file.type || "video/mp4");
+      xhr.upload.onprogress = (e) => {
+        if (e.lengthComputable) onProgress(Math.round((e.loaded / e.total) * 100));
+      };
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) resolve();
+        else reject(new Error(`Falha no upload (${xhr.status}): ${xhr.responseText}`));
+      };
+      xhr.onerror = () => reject(new Error("Erro de rede durante o upload."));
+      xhr.onabort = () => reject(new Error("Upload cancelado."));
+      xhr.send(file);
+    });
 
   const handleOpenAddLink = () => {
     if (!activeTenant || activeTenant === "all") {
@@ -158,35 +185,64 @@ export default function Library() {
       return;
     }
 
-    setIsUploading(true);
-    try {
-      const ext = file.name.split(".").pop() || (isVideo ? "mp4" : "png");
-      const safeName = file.name
-        .toLowerCase()
-        .replace(/[^a-z0-9-_]+/gi, "-")
-        .replace(/-+/g, "-")
-        .replace(/^-|-$/g, "");
-      const path = `${activeTenant}/${Date.now()}-${safeName || "asset"}.${ext}`;
+    const ext = (file.name.split(".").pop() || (isVideo ? "mp4" : "png")).toLowerCase();
+    const safeName = file.name
+      .toLowerCase()
+      .replace(/\.[^.]+$/, "")
+      .replace(/[^a-z0-9-_]+/gi, "-")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "") || "asset";
+    const storagePath = `${activeTenant}/${Date.now()}-${safeName}.${ext}`;
 
-      const form = new FormData();
-      form.append("tenant_slug", activeTenant);
-      form.append("file", file);
-      const res = await fetch(`${API_BASE}/library/upload`, {
-        method: "POST",
-        headers: await getAuthHeaders(),
-        body: form,
-      });
-      if (!res.ok) {
-        const txt = await res.text().catch(() => "");
-        throw new Error(txt || "Erro ao enviar arquivo.");
+    setIsUploading(true);
+    setUploadFileName(file.name);
+    setUploadProgress(0);
+
+    try {
+      if (isVideo) {
+        // Vídeos: upload direto ao Supabase Storage via XHR com progresso
+        const { data: sessionData } = await supabase.auth.getSession();
+        const token = sessionData?.session?.access_token;
+        if (!token) throw new Error("Sessão expirada. Faça login novamente.");
+
+        await uploadVideoWithProgress(storagePath, file, token, setUploadProgress);
+
+        // Registra na tabela library
+        const publicUrl = `${supabaseUrl}/storage/v1/object/public/library/${storagePath}`;
+        const { error: dbErr } = await supabase.from("library").insert({
+          tenant_slug: activeTenant,
+          url: publicUrl,
+          type: "video",
+          title: file.name,
+          provider: "supabase",
+        });
+        if (dbErr) throw dbErr;
+        toast.success("Vídeo enviado para a Biblioteca!");
+      } else {
+        // Imagens: via backend (permite processamento/resize)
+        const form = new FormData();
+        form.append("tenant_slug", activeTenant);
+        form.append("file", file);
+        const res = await fetch(`${API_BASE}/library/upload`, {
+          method: "POST",
+          headers: await getAuthHeaders(),
+          body: form,
+        });
+        if (!res.ok) {
+          const txt = await res.text().catch(() => "");
+          throw new Error(txt || "Erro ao enviar imagem.");
+        }
+        setUploadProgress(100);
+        toast.success("Imagem enviada para a Biblioteca!");
       }
 
-      toast.success("Arquivo enviado para a Biblioteca!");
       await fetchLibrary();
     } catch (err: any) {
       toast.error(err?.message || "Erro ao enviar arquivo.");
     } finally {
       setIsUploading(false);
+      setUploadProgress(null);
+      setUploadFileName("");
       e.target.value = "";
     }
   };
@@ -297,14 +353,35 @@ export default function Library() {
             <Plus className="w-3 h-3 mr-2" />
             Adicionar Link
           </Button>
-          <Button
-            onClick={handleUploadClick}
-            disabled={isUploading}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold"
-          >
-            <Upload className="w-3 h-3 mr-2" />
-            {isUploading ? "Enviando..." : "Enviar Arquivo"}
-          </Button>
+          <div className="flex flex-col items-end gap-1">
+            <Button
+              onClick={handleUploadClick}
+              disabled={isUploading}
+              className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold min-w-[130px]"
+            >
+              {isUploading ? (
+                <><Loader2 className="w-3 h-3 mr-2 animate-spin" /> Enviando {uploadProgress !== null ? `${uploadProgress}%` : "..."}</>
+              ) : (
+                <><Upload className="w-3 h-3 mr-2" /> Enviar Arquivo</>
+              )}
+            </Button>
+
+            {/* Barra de progresso — aparece só durante upload de vídeo */}
+            {isUploading && uploadProgress !== null && (
+              <div className="w-[130px] space-y-0.5">
+                <div className="w-full h-1 bg-zinc-800 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-blue-500 transition-all duration-200 rounded-full"
+                    style={{ width: `${uploadProgress}%` }}
+                  />
+                </div>
+                {uploadFileName && (
+                  <p className="text-[9px] text-zinc-500 truncate max-w-[130px]">{uploadFileName}</p>
+                )}
+              </div>
+            )}
+          </div>
+
           <input
             ref={uploadInputRef}
             type="file"

@@ -71,14 +71,23 @@ export default function AppLayout({ children }: AppLayoutProps) {
 
       if (error || !data) return;
 
-      let options = data.filter((t: any) => t.is_active !== false);
-      if (user?.id && !INTERNAL_ADMIN_IDS.has(user.id)) {
-        options = options.filter((t) => t.slug !== "mugo-ag");
+      const isInternalAdmin = user?.id ? INTERNAL_ADMIN_IDS.has(user.id) : false;
+
+      // Admin interno vê todos os tenants ativos sem restrição
+      if (isInternalAdmin) {
+        if (!cancelled) setTenantOptions(data.filter((t: any) => t.is_active !== false));
+        return;
       }
+
+      let options = data.filter((t: any) => t.is_active !== false);
+      options = options.filter((t) => t.slug !== "mugo-ag");
+
       if (tenantAccess.length > 0) {
         const allowed = new Set(tenantAccess.map((t) => t.tenantSlug));
         options = options.filter((t) => allowed.has(t.slug));
-      } else if (!user.allowedTenants.includes("all")) {
+      } else if (user.allowedTenants.includes("all")) {
+        // acesso total via flag no perfil — sem filtro adicional
+      } else {
         options = options.filter((t) => user.allowedTenants.includes(t.slug));
       }
 
@@ -193,24 +202,27 @@ export default function AppLayout({ children }: AppLayoutProps) {
               </div>
               <div className="flex flex-col">
                 <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-wider leading-none mb-0.5">Cliente Ativo</span>
-                {canSeeAllTenants ? (
-                  <select 
+                {tenantOptions.length > 1 ? (
+                  <select
                     className="bg-transparent text-sm font-bold text-white outline-none cursor-pointer appearance-none hover:text-purple-300 transition-colors"
                     value={activeTenant || ""}
-                    onChange={(e) => setActiveTenant(e.target.value)}
+                    onChange={(e) => {
+                      setActiveTenant(e.target.value);
+                      localStorage.setItem("iagencia_tenant", e.target.value);
+                    }}
                   >
-                    {(tenantOptions.length ? tenantOptions : (user?.allowedTenants || []).map((slug) => ({ slug, name: slug }))).map(tenant => (
+                    {tenantOptions.map(tenant => (
                       <option key={tenant.slug} value={tenant.slug} className="bg-zinc-900 text-white">
-                        {tenant.name || (tenant.slug === 'mugo' ? 'MUGÔ' : tenant.slug === 'ssavon' ? 'SSAVON' : tenant.slug.toUpperCase())}
+                        {tenant.name || tenant.slug.toUpperCase()}
                       </option>
                     ))}
-                    {user?.allowedTenants.includes("all") && (
+                    {canSeeAllTenants && (
                       <option value="all" className="bg-zinc-900 text-white">TODOS OS CLIENTES</option>
                     )}
                   </select>
                 ) : (
                   <span className="text-sm font-bold text-white">
-                    {tenantOptions.find(t => t.slug === activeTenant)?.name || activeTenant || "Selecione um cliente"}
+                    {tenantOptions[0]?.name || activeTenant || "Carregando..."}
                   </span>
                 )}
               </div>

@@ -15,9 +15,16 @@ const MODULES = [
   { id: "creation", label: "Criação (AI Studio)", icon: PenTool },
   { id: "planning", label: "Planejamento", icon: LayoutDashboard },
   { id: "media", label: "Mídia & GRP", icon: BarChart3 },
-  { id: "production", label: "Produção RTV", icon: Clapperboard },
+  { id: "production", label: "Produção", icon: Clapperboard },
   { id: "atendimento", label: "Gestão Clientes", icon: Megaphone },
 ];
+
+const [sourceValue, setSourceValue] = useState("");        // URL
+const [uploadFile, setUploadFile] = useState<File | null>(null);
+const [analysisId, setAnalysisId] = useState<string | null>(null);
+
+const [brandPalette, setBrandPalette] = useState<string[]>([]);
+const [voiceTone, setVoiceTone] = useState<string>("");
 
 export default function OnboardingWizard() {
   const [, setLocation] = useLocation();
@@ -28,36 +35,110 @@ export default function OnboardingWizard() {
   const [selectedModules, setSelectedModules] = useState<string[]>(["creation"]);
 
   // Passo 1: Analisar (Site ou Arquivo)
-  const handleAnalyze = () => {
-    if (!companyName) return toast.error("Digite o nome da empresa.");
+  const handleAnalyze = async () => {
+  if (!companyName) return toast.error("Digite o nome da empresa.");
+
+  if (sourceType === "site" && !sourceValue) {
+    return toast.error("Digite a URL do site.");
+  }
+  if (sourceType === "file" && !uploadFile) {
+    return toast.error("Envie um arquivo.");
+  }
+
+  try {
     setIsLoading(true);
-    
-    // Simula tempo de processamento da IA
-    setTimeout(() => {
-        setIsLoading(false);
-        setStep(2);
-        toast.success(sourceType === 'site' 
-            ? "Site escaneado! Cores detectadas." 
-            : "Dossiê processado! Tom de voz indexado."
-        );
-    }, 2500);
-  };
+
+    let res: Response;
+
+    if (sourceType === "site") {
+      res = await fetch("/api/onboarding/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          companyName,
+          sourceType: "site",
+          url: sourceValue,
+        }),
+      });
+    } else {
+      const form = new FormData();
+      form.append("companyName", companyName);
+      form.append("sourceType", "file");
+      form.append("file", uploadFile as File);
+
+      res = await fetch("/api/onboarding/analyze", {
+        method: "POST",
+        body: form,
+      });
+    }
+
+    if (!res.ok) throw new Error("Falha ao iniciar análise.");
+    const data = await res.json();
+
+    setAnalysisId(data.analysisId);
+
+    // Se sua análise for assíncrona, faça polling:
+    const result = await pollAnalysis(data.analysisId);
+
+    setBrandPalette(result.palette ?? []);
+    setVoiceTone(result.voiceTone ?? "");
+
+    setStep(2);
+
+    toast.success(
+      sourceType === "site"
+        ? "Site escaneado! Cores detectadas."
+        : "Dossiê processado! Tom de voz indexado."
+    );
+  } catch (err) {
+    toast.error("Não consegui analisar. Tente novamente.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+const pollAnalysis = async (id: string) => {
+  const maxTries = 30;
+  for (let i = 0; i < maxTries; i++) {
+    const r = await fetch(`/api/onboarding/analyze/${id}`);
+    if (!r.ok) throw new Error("Falha no status da análise.");
+    const data = await r.json();
+
+    if (data.status === "done") return data;
+    if (data.status === "error") throw new Error("Análise falhou.");
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+  }
+  throw new Error("Timeout da análise.");
+};
 
   // Passo 2: Finalizar
-  const handleFinish = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-        setIsLoading(false);
-        toast.success("Ambiente IAgência criado!");
-        setLocation("/"); // Vai para o Dashboard
-    }, 1500);
-  };
+  const handleFinish = async () => {
+  if (!analysisId) return toast.error("Análise não finalizada.");
 
-  const toggleModule = (id: string) => {
-      setSelectedModules(prev => 
-        prev.includes(id) ? prev.filter(m => m !== id) : [...prev, id]
-      );
-  };
+  try {
+    setIsLoading(true);
+
+    const res = await fetch("/api/onboarding/finish", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        companyName,
+        sourceType,
+        analysisId,
+        selectedModules,
+      }),
+    });
+
+    if (!res.ok) throw new Error("Falha ao criar ambiente.");
+    toast.success("Ambiente IAgência criado!");
+    setLocation("/");
+  } catch (err) {
+    toast.error("Não consegui finalizar. Tente novamente.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center p-4 overflow-hidden relative">

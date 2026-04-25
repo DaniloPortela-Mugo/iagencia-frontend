@@ -1,9 +1,6 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
-import { authService } from "../services/authService"; // Importe o serviço novo
-// Se der erro no import do 'useAuth', verifique onde ele está no seu projeto.
-// Geralmente está em ../contexts/AuthContext ou similar. 
-// Para simplificar, vou assumir que você salva no localStorage ou session aqui.
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -11,6 +8,40 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [, setLocation] = useLocation();
+  const { login } = useAuth();
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  // useLayoutEffect roda antes da pintura — garante que pointer-events
+  // esteja correto antes do usuário ver/interagir com a página.
+  // Também limpa qualquer lock de scroll/pointer do Radix UI que possa
+  // ter ficado preso de uma sessão anterior.
+  useLayoutEffect(() => {
+    document.documentElement.style.pointerEvents = "auto";
+    document.body.style.pointerEvents = "auto";
+    document.body.removeAttribute("data-scroll-locked");
+    document.body.removeAttribute("inert");
+    document.querySelectorAll("[inert]").forEach((el) => el.removeAttribute("inert"));
+    document.body.style.overflow = "";
+    return () => {
+      document.documentElement.style.pointerEvents = "";
+      document.body.style.pointerEvents = "";
+    };
+  }, []);
+
+  const handleClearSession = () => {
+    try {
+      localStorage.clear();
+      sessionStorage.clear();
+      document.cookie.split(";").forEach((c) => {
+        const eqPos = c.indexOf("=");
+        const name = eqPos > -1 ? c.slice(0, eqPos) : c;
+        document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`;
+      });
+      window.location.reload();
+    } catch {
+      // no-op
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,16 +49,9 @@ export default function Login() {
     setError("");
 
     try {
-      // 1. Chama o Python
-      const response = await authService.login(email, password);
-      
-      // 2. Salva o usuário na sessão (Simulação de Auth)
-      // O ideal é usar seu AuthContext aqui, mas isso resolve o bloqueio imediato:
-      localStorage.setItem("user_session", JSON.stringify(response.user));
-      
-      // 3. Redireciona para o Dashboard
-      window.location.href = "/"; // Força um reload para o App pegar o localStorage
-      
+      await login(email, password);
+      setLocation("/dashboard");
+
     } catch (err: any) {
       setError(err.message || "Erro ao fazer login");
     } finally {
@@ -36,8 +60,14 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-950 text-white">
-      <div className="w-full max-w-md p-8 space-y-6 bg-zinc-900 rounded-xl border border-zinc-800">
+    <div
+      className="min-h-screen flex items-center justify-center bg-zinc-950 text-white relative z-50"
+      style={{ pointerEvents: "auto" }}
+    >
+      <div
+        className="w-full max-w-md p-8 space-y-6 bg-zinc-900 rounded-xl border border-zinc-800"
+        style={{ pointerEvents: "auto" }}
+      >
         <div className="text-center">
           <h1 className="text-3xl font-bold text-red-600">IAgência</h1>
           <p className="text-zinc-400 mt-2">Entre para acessar o sistema</p>
@@ -49,24 +79,34 @@ export default function Login() {
           </div>
         )}
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleLogin} className="space-y-4" style={{ pointerEvents: "auto" }} autoComplete="off">
           <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
+            <label htmlFor="login-email" className="block text-sm font-medium mb-1">Email</label>
             <input
+              id="login-email"
+              name="login_email"
               type="email"
+              autoFocus
+              ref={emailRef}
+              autoComplete="off"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              style={{ pointerEvents: "auto" }}
               className="w-full p-2 rounded bg-zinc-950 border border-zinc-800 focus:border-red-600 outline-none transition-colors"
               placeholder="seu@email.com"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Senha</label>
+            <label htmlFor="login-password" className="block text-sm font-medium mb-1">Senha</label>
             <input
+              id="login-password"
+              name="login_password"
               type="password"
+              autoComplete="new-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              style={{ pointerEvents: "auto" }}
               className="w-full p-2 rounded bg-zinc-950 border border-zinc-800 focus:border-red-600 outline-none transition-colors"
               placeholder="••••••"
               required
@@ -81,6 +121,14 @@ export default function Login() {
             {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
+
+        <button
+          type="button"
+          onClick={handleClearSession}
+          className="w-full py-2 bg-zinc-800 hover:bg-zinc-700 text-white font-bold rounded transition-all text-sm"
+        >
+          Limpar sessão
+        </button>
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/_core/useAuth";
 
+
 type Client = {
   id: string; // UUID
   name: string | null;

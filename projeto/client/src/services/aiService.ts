@@ -1,6 +1,4 @@
-// projeto/client/src/services/aiService.ts
-
-const API_URL = 'http://localhost:8000';
+import { API_BASE } from "@/config/api";
 
 export interface JobRequest {
   user_email: string;
@@ -24,11 +22,10 @@ export interface JobResponse {
 }
 
 export const aiService = {
-  // Busca configuração e saldo do cliente
   async getClientConfig(tenant: string, client: string) {
     try {
-      const res = await fetch(`${API_URL}/client-config/${tenant}/${client}`);
-      if (!res.ok) throw new Error('Falha ao buscar config');
+      const res = await fetch(`${API_BASE}/client-config/${tenant}/${client}`);
+      if (!res.ok) throw new Error("Falha ao buscar config");
       return await res.json();
     } catch (error) {
       console.error("Erro de conexão com Python:", error);
@@ -36,21 +33,18 @@ export const aiService = {
     }
   },
 
-  // Envia o pedido para a IA
   async startJob(data: JobRequest): Promise<JobResponse> {
-    const res = await fetch(`${API_URL}/start-job`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const res = await fetch(`${API_BASE}/start-job`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
 
     if (!res.ok) {
-      const error = await res.json();
-      throw new Error(error.detail || 'Erro ao processar job');
+      const error = await res.json().catch(() => ({}));
+      throw new Error(error.detail || "Erro ao processar job");
     }
 
     return await res.json();
-  }
+  },
 };

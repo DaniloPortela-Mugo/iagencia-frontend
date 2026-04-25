@@ -149,6 +149,24 @@ body {
   }
 }
 
+/* Evita overlays fechados do Radix bloquearem interação */
+[data-slot$="-overlay"][data-state="closed"] {
+  pointer-events: none;
+}
+
+/* Garante interação mesmo com locks residuais */
+html,
+body,
+#root {
+  pointer-events: auto !important;
+}
+
+/* Overlays invisíveis/fechados não podem capturar clique */
+[aria-hidden="true"][data-slot$="-overlay"],
+[data-state="closed"][data-slot$="-overlay"] {
+  pointer-events: none !important;
+}
+
 /* (opcional) teus utilitários */
 @layer components {
   .container {

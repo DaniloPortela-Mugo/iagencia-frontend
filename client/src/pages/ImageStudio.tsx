@@ -21,6 +21,8 @@ import { supabase } from "../lib/supabase";
 import { updateTaskStatus } from "../lib/tasks";
 import { PROMPT_LIBRARY, SUPER_PRESETS } from "../lib/promptLibrary";
 import localforage from "localforage";
+import { buildImagePrompt, buildImagePromptPt, IMAGE_PLATFORMS } from "../lib/platformConfig";
+import { PlatformSelector } from "../components/Studio/PlatformSelector";
 
 const RAW_API_BASE = import.meta.env.VITE_API_BASE?.trim() || "http://localhost:8000";
 const API_BASE =
@@ -118,7 +120,8 @@ const [isViewingJob, setIsViewingJob] = useState(false);
 
 // engine fixo: NanaBanana
 const [generalIdea, setGeneralIdea] = useState("");
-const [finalPrompt, setFinalPrompt] = useState("");
+const [finalPrompt, setFinalPrompt] = useState("");      // PT — exibido ao usuário
+const [finalPromptEn, setFinalPromptEn] = useState(""); // EN — enviado à API
 const [negativePrompt, setNegativePrompt] = useState("texto, marca d'água, deformado, feio, mãos distorcidas, desfocado, baixa qualidade");
 
 const [config, setConfig] = useState({ format: "Horizontal (16:9)", lighting: "", camera: "", style: "Fotorrealista", view: "", angle: "" });
@@ -181,6 +184,7 @@ useEffect(() => {
         if (savedState.config) setConfig(savedState.config);
         if (savedState.generalIdea) setGeneralIdea(savedState.generalIdea);
         if (savedState.finalPrompt) setFinalPrompt(savedState.finalPrompt);
+        if (savedState.finalPromptEn) setFinalPromptEn(savedState.finalPromptEn);
         if (savedState.negativePrompt) setNegativePrompt(savedState.negativePrompt);
         if (savedState.faceImage) setFaceImage(savedState.faceImage);
         if (savedState.bodyImage) setBodyImage(savedState.bodyImage);
@@ -290,6 +294,7 @@ const handleLoadVersion = (v: any) => {
   if (s.config) setConfig(s.config);
   if (s.generalIdea) setGeneralIdea(s.generalIdea);
   if (s.finalPrompt) setFinalPrompt(s.finalPrompt);
+  if (s.finalPromptEn) setFinalPromptEn(s.finalPromptEn);
   if (s.negativePrompt) setNegativePrompt(s.negativePrompt);
   if (s.generatedResult) setGeneratedResult(s.generatedResult);
   if (s.faceImage) setFaceImage(s.faceImage);
@@ -397,6 +402,7 @@ const handleLoadJobSnapshot = (job: any) => {
   if (p.config) setConfig(p.config);
   setGeneralIdea(p.generalIdea || "");
   setFinalPrompt(p.finalPrompt || "");
+  setFinalPromptEn(p.finalPromptEn || "");
   setNegativePrompt(p.negativePrompt || "");
   setFaceImage(p.faceImage || null);
   setBodyImage(p.bodyImage || null);
@@ -511,7 +517,7 @@ useEffect(() => {
 useEffect(() => {
   if (!isStateLoaded) return;
   const stateToSave = {
-    characters, config, generalIdea, finalPrompt, negativePrompt,
+    characters, config, generalIdea, finalPrompt, finalPromptEn, negativePrompt,
     generatedResult, faceImage, bodyImage, productImage, clothingImage, styleImage
   };
   localforage.setItem("iagencia_image_studio_state", stateToSave).catch(() => {
@@ -538,7 +544,7 @@ useEffect(() => {
       }, { onConflict: "tenant_slug,task_id,studio_type" });
     }, 800);
   }
-}, [characters, config, generalIdea, finalPrompt, negativePrompt, generatedResult, faceImage, bodyImage, productImage, clothingImage, styleImage, isStateLoaded, activeTenant, activeTask?.id, user?.id]);
+}, [characters, config, generalIdea, finalPrompt, finalPromptEn, negativePrompt, generatedResult, faceImage, bodyImage, productImage, clothingImage, styleImage, isStateLoaded, activeTenant, activeTask?.id, user?.id]);
 
 useEffect(() => {
   const safeTenant = activeTenant && activeTenant !== "all" ? activeTenant : "";
@@ -749,58 +755,19 @@ setter(canvas.toDataURL("image/jpeg", 0.8));
 };
 
 const handleEnhancePrompt = async () => {
-if (!generalIdea.trim()) return toast.warning("Descreva o cenário/atmosfera primeiro.");
-setIsThinking(true);
-await new Promise(r => setTimeout(r, 600));
+  if (!generalIdea.trim()) return toast.warning("Descreva o cenário/atmosfera primeiro.");
+  setIsThinking(true);
+  await new Promise(r => setTimeout(r, 400));
 
-const parts: string[] = [];
+  const promptParams = { generalIdea, characters, config, negativePrompt };
+  const builtEn = buildImagePrompt(selectedEngine, promptParams);
+  const builtPt = buildImagePromptPt(selectedEngine, promptParams);
 
-// PERSONAGENS — prosa natural, sem labels ou dois pontos
-characters.forEach((c) => {
-  if (!c.physical_details && !c.clothing_details && !c.name) return;
-  const subject = c.name || "A pessoa";
-  const sentences: string[] = [];
-  if (c.physical_details) {
-    const phys = c.physical_details.trim().replace(/\.+$/, "");
-    sentences.push(`${subject} é ${phys}`);
-  }
-  if (c.clothing_details) {
-    sentences.push(`usa ${c.clothing_details.trim().replace(/\.+$/, "")}`);
-  }
-  const expAction = [
-    c.expression ? `com expressão ${c.expression.trim()}` : "",
-    c.action     ? `e está ${c.action.trim()}`            : "",
-  ].filter(Boolean).join(" ");
-  if (expAction) sentences.push(expAction);
-  if (sentences.length > 0) parts.push(sentences.join(", ").replace(/,\s*$/, "") + ".");
-});
-
-// CENÁRIO — texto direto, sem chaves nem labels
-const sceneText = generalIdea.trim().replace(/\.+$/, "");
-if (sceneText) parts.push(sceneText + ".");
-
-// COMPOSIÇÃO ESPACIAL — só se houver personagem e cenário
-const hasChars = characters.some(c => c.physical_details || c.name);
-if (hasChars && sceneText) {
-  parts.push("A composição deixa claras as relações espaciais entre pessoa, objetos e ambiente com elementos em primeiro plano e ao fundo conforme descrito.");
-}
-
-// DIREÇÃO DE FOTOGRAFIA — prosa contínua, sem labels
-const techBits = [
-  config.style    ? `estilo ${config.style}`       : "",
-  config.lighting ? `iluminação ${config.lighting}` : "",
-  config.camera   ? `lente ${config.camera}`        : "",
-  config.view     ? `visão ${config.view}`          : "",
-  config.angle    ? `ângulo ${config.angle}`        : "",
-].filter(Boolean);
-if (techBits.length > 0) parts.push(`Direção de fotografia com ${techBits.join(" e ")}.`);
-
-// QUALIDADE
-parts.push("Fotografia crua sem recorte hiper realista com alto detalhe e textura cinematográfica.");
-
-setFinalPrompt(parts.join(" ").replace(/\s+/g, " ").trim());
-setIsThinking(false);
-toast.success("Prompt Técnico montado!");
+  setFinalPromptEn(builtEn); // enviado à API (inglês técnico)
+  setFinalPrompt(builtPt);   // exibido ao usuário (português)
+  setIsThinking(false);
+  const platform = IMAGE_PLATFORMS.find(p => p.id === selectedEngine);
+  toast.success(`Prompt montado para ${platform?.label || selectedEngine}!`);
 };
 
 const handleGenerate = async () => {
@@ -833,22 +800,27 @@ try {
   };
 
   const dims = aspectRatios[config.format] || { w: 1024, h: 1024 };
-  const finalEngine =
-    selectedEngine === "replicate" ? "flux" :
-    selectedEngine === "gemini" ? "gemini" :
-    selectedEngine === "stability" ? "stability" :
-    "nana";
+  // Map UI platform IDs to backend engine IDs
+  const ENGINE_MAP: Record<string, string> = {
+    flux: "flux", replicate: "flux",
+    midjourney: "midjourney",
+    dalle3: "dalle3",
+    gemini_imagen: "gemini", gemini: "gemini",
+    stable_diffusion: "stability", stability: "stability",
+  };
+  const finalEngine = ENGINE_MAP[selectedEngine] ?? selectedEngine;
   const tenantSlug = activeTenant && activeTenant !== "all" ? activeTenant : "mugo";
 
   // PAYLOAD ESTRUTURADO PARA O REFINER
+  const promptToSend = finalPromptEn || buildImagePrompt(selectedEngine, { generalIdea, characters, config, negativePrompt });
   const payload = {
     tenant_slug: tenantSlug,
     media_type: "image",
     engine: finalEngine,
-    prompt: finalPrompt,
+    prompt: promptToSend,
     negative_prompt: negativePrompt,
     refiner_data: {
-      idea: finalPrompt,
+      idea: promptToSend,
       characters: characters.map(c => ({
         name: c.name,
         physical: c.physical_details || "",
@@ -1075,25 +1047,14 @@ return (
           />
         </div>
 
+        <PlatformSelector
+          type="image"
+          value={selectedEngine}
+          onChange={(id) => setSelectedEngine(id as any)}
+          tenantSlug={activeTenant && activeTenant !== "all" ? activeTenant : ""}
+        />
+
         <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-[10px] font-bold text-zinc-500">Engine</label>
-            <select
-              className="w-full bg-black border border-zinc-700 rounded p-1.5 text-xs text-zinc-300 outline-none focus:border-purple-500"
-              value={selectedEngine}
-              onChange={(e) => setSelectedEngine(e.target.value as any)}
-            >
-              <option value="replicate">Replicate (Flux)</option>
-              {SHOW_OTHER_ENGINES && (
-                <>
-                  <option value="nana">Nana Banana</option>
-                  <option value="gemini">Gemini</option>
-                  <option value="stability">Stability</option>
-                </>
-              )}
-            </select>
-            <p className="text-[10px] text-zinc-500 mt-1">Provider ativo: {selectedEngine === "replicate" ? "Replicate" : selectedEngine}</p>
-          </div>
           <div><label className="text-[10px] font-bold text-zinc-500">Formato</label><select className="w-full bg-black border border-zinc-700 rounded p-1.5 text-xs text-zinc-300 outline-none focus:border-purple-500" value={config.format} onChange={(e) => setConfig({ ...config, format: e.target.value })}>{CONSTANTS.FORMATOS.map((f) => (<option key={f} value={f}>{f}</option>))}</select></div>
           <div><label className="text-[10px] font-bold text-zinc-500">Estilo</label><select className="w-full bg-black border border-zinc-700 rounded p-1.5 text-xs text-zinc-300 outline-none focus:border-purple-500" value={config.style} onChange={(e) => setConfig({ ...config, style: e.target.value })}>{CONSTANTS.ESTILOS.map((f) => (<option key={f} value={f}>{f}</option>))}</select></div>
           <div><label className="text-[10px] font-bold text-zinc-500">Câmera</label><select className="w-full bg-black border border-zinc-700 rounded p-1.5 text-xs text-zinc-300 outline-none focus:border-purple-500" value={config.camera} onChange={(e) => setConfig({ ...config, camera: e.target.value })}><option value="">Auto</option>{CONSTANTS.CAMERA.map((f) => (<option key={f} value={f}>{f}</option>))}</select></div>
@@ -1121,7 +1082,7 @@ return (
 
         <div className={`transition-opacity duration-300 space-y-2 ${finalPrompt ? "opacity-100" : "opacity-50"}`}>
           <div className="flex items-center justify-between">
-            <label className="text-[10px] font-bold text-zinc-500 uppercase">Prompt Final Editável</label>
+            <label className="text-[10px] font-bold text-zinc-500 uppercase">Prompt Final Editável <span className="normal-case font-normal text-zinc-600">(PT · traduzido ao enviar)</span></label>
             <button
               onClick={async () => {
                 if (!finalPrompt.trim()) return toast.error("Prompt vazio.");

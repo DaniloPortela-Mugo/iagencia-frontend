@@ -234,6 +234,7 @@ export default function VideoStudio() {
   const [isThinking, setIsThinking] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedResult, setGeneratedResult] = useState<string | null>(null);
+  const [isStateLoaded, setIsStateLoaded] = useState(false);
   const storageErrorToastShownRef = useRef(false);
   const remoteSaveTimerRef = useRef<number | null>(null);
 
@@ -282,6 +283,50 @@ export default function VideoStudio() {
       mounted = false;
     };
   }, []);
+
+  // Carrega estado global no mount (sem depender de tenant/task)
+  useEffect(() => {
+    let mounted = true;
+    localforage.getItem("iagencia_video_studio_state").then((saved: any) => {
+      if (!mounted || !saved) return;
+      if (saved.characters) setCharacters(saved.characters);
+      if (saved.config) setConfig(saved.config);
+      if (saved.generalIdea) setGeneralIdea(saved.generalIdea);
+      if (saved.finalPrompt) setFinalPrompt(saved.finalPrompt);
+      if (saved.finalPromptEn) setFinalPromptEn(saved.finalPromptEn);
+      if (saved.negativePrompt) setNegativePrompt(saved.negativePrompt);
+      if (saved.ttsText) setTtsText(saved.ttsText);
+      if (saved.faceImage) setFaceImage(saved.faceImage);
+      if (saved.bodyImage) setBodyImage(saved.bodyImage);
+      if (saved.productImage) setProductImage(saved.productImage);
+      if (saved.clothingImage) setClothingImage(saved.clothingImage);
+      if (saved.styleImage) setStyleImage(saved.styleImage);
+      if (saved.audioFile) setAudioFile(saved.audioFile);
+      if (saved.selectedEngine) setSelectedEngine(saved.selectedEngine);
+      if (saved.veoPromptJsonPt) setVeoPromptJsonPt(saved.veoPromptJsonPt);
+      if (saved.finalPromptFormat) setFinalPromptFormat(saved.finalPromptFormat);
+      if (saved.generatedResult) setGeneratedResult(saved.generatedResult);
+    }).finally(() => {
+      if (mounted) setIsStateLoaded(true);
+    });
+    return () => { mounted = false; };
+  }, []);
+
+  // Carrega último vídeo gerado da library quando tenant muda
+  useEffect(() => {
+    if (!safeTenant) return;
+    supabase
+      .from("library")
+      .select("url, created_at")
+      .eq("tenant_slug", safeTenant)
+      .eq("type", "video")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        const url = data?.[0]?.url || null;
+        if (url) setGeneratedResult(url);
+      });
+  }, [safeTenant]);
 
   useEffect(() => {
     if (!safeTenant || !activeTask?.id) return;
@@ -384,11 +429,14 @@ export default function VideoStudio() {
   }, [safeTenant, activeTask?.id]);
 
   useEffect(() => {
+    if (!isStateLoaded) return;
     const stateToSave = {
       characters, config, generalIdea, finalPrompt, negativePrompt,
       ttsText, faceImage, bodyImage, productImage, clothingImage, styleImage,
       audioFile, selectedEngine, generatedResult, veoPromptJsonPt, finalPromptFormat,
+      finalPromptEn,
     };
+    localforage.setItem("iagencia_video_studio_state", stateToSave).catch(() => {});
     const key = getStateKey(safeTenant, activeTask?.id || null);
     localforage.setItem(key, stateToSave).catch(() => {
       if (!storageErrorToastShownRef.current) {
@@ -408,7 +456,7 @@ export default function VideoStudio() {
         }, { onConflict: "tenant_slug,task_id,studio_type" });
       }, 800);
     }
-  }, [characters, config, generalIdea, finalPrompt, negativePrompt, ttsText, faceImage, bodyImage, productImage, clothingImage, styleImage, audioFile, selectedEngine, generatedResult, veoPromptJsonPt, finalPromptFormat, safeTenant, activeTask?.id]);
+  }, [characters, config, generalIdea, finalPrompt, finalPromptEn, negativePrompt, ttsText, faceImage, bodyImage, productImage, clothingImage, styleImage, audioFile, selectedEngine, generatedResult, veoPromptJsonPt, finalPromptFormat, safeTenant, activeTask?.id, isStateLoaded]);
 
   useEffect(() => {
     if (!safeTenant || !activeTask?.id) return;

@@ -32,6 +32,8 @@ import { toast } from "sonner";
 import { useAuth } from "../contexts/AuthContext";
 import { supabase } from "../lib/supabase";
 import { updateTaskStatus } from "../lib/tasks";
+import { buildVideoPrompt, buildVideoPromptPt, VIDEO_PLATFORMS } from "../lib/platformConfig";
+import { PlatformSelector } from "../components/Studio/PlatformSelector";
 
 const API_BASE = import.meta.env.VITE_API_BASE?.trim() || "http://localhost:8000";
 const GENERATE_ENDPOINT = "/creation/generate-video";
@@ -180,7 +182,8 @@ export default function VideoStudio() {
   });
   const [selectedEngine, setSelectedEngine] = useState("kling");
   const [generalIdea, setGeneralIdea] = useState("");
-  const [finalPrompt, setFinalPrompt] = useState("");
+  const [finalPrompt, setFinalPrompt] = useState("");      // PT — exibido ao usuário
+  const [finalPromptEn, setFinalPromptEn] = useState(""); // EN — enviado à API
   const [finalPromptFormat, setFinalPromptFormat] = useState<"text" | "json">("text");
   const [negativePrompt, setNegativePrompt] = useState(
     "texto, letras, logotipo, marca d'água, assinatura, borda decorativa, watermark, logo, low quality, deformed"
@@ -289,6 +292,7 @@ export default function VideoStudio() {
       if (savedState.config) setConfig(savedState.config);
       setGeneralIdea(savedState.generalIdea || "");
       setFinalPrompt(savedState.finalPrompt || "");
+      setFinalPromptEn(savedState.finalPromptEn || "");
       setNegativePrompt(savedState.negativePrompt || "");
       setTtsText(savedState.ttsText || "");
       setFaceImage(savedState.faceImage || null);
@@ -328,6 +332,7 @@ export default function VideoStudio() {
     const stateToSave = {
       generalIdea,
       finalPrompt,
+      finalPromptEn,
       finalPromptFormat,
       veoPromptJsonPt,
     };
@@ -363,6 +368,7 @@ export default function VideoStudio() {
         if (savedState.config) setConfig(savedState.config);
         setGeneralIdea(savedState.generalIdea || "");
         setFinalPrompt(savedState.finalPrompt || "");
+      setFinalPromptEn(savedState.finalPromptEn || "");
         setNegativePrompt(savedState.negativePrompt || "");
         setTtsText(savedState.ttsText || "");
         setFaceImage(savedState.faceImage || null);
@@ -443,6 +449,7 @@ export default function VideoStudio() {
     if (p.config) setConfig(p.config);
     setGeneralIdea(p.generalIdea || "");
     setFinalPrompt(p.finalPrompt || "");
+    setFinalPromptEn(p.finalPromptEn || "");
     setNegativePrompt(p.negativePrompt || "");
     setTtsText(p.ttsText || "");
     setFaceImage(p.faceImage || null);
@@ -537,6 +544,7 @@ export default function VideoStudio() {
     if (s.config) setConfig(s.config);
     setGeneralIdea(s.generalIdea || "");
     setFinalPrompt(s.finalPrompt || "");
+    setFinalPromptEn(s.finalPromptEn || "");
     setNegativePrompt(s.negativePrompt || "");
     setTtsText(s.ttsText || "");
     setFaceImage(s.faceImage || null);
@@ -814,68 +822,46 @@ export default function VideoStudio() {
     setIsThinking(true);
     await new Promise((r) => setTimeout(r, 350));
 
-    let charString = "";
-    characters.forEach((c, i) => {
-      if (c.gender || c.age || c.name) {
-        const beardText = c.gender === "Homem" ? formatBeardTrait(c.beard || "") : "";
-        const parts = [
-          c.age ? `${c.age} anos` : "",
-          normalizePromptTrait(c.ethnicity || ""),
-          normalizePromptTrait(c.gender || ""),
-          c.body ? `corpo ${normalizePromptTrait(c.body)}` : "",
-          c.hair ? `cabelo ${normalizePromptTrait(c.hair)}` : "",
-          c.eyes ? `olhos ${normalizePromptTrait(c.eyes)}` : "",
-          beardText,
-          c.clothing ? `vestindo ${normalizePromptTrait(c.clothing)}` : "",
-          c.expression ? `expressão ${normalizePromptTrait(c.expression)}` : "",
-        ]
-          .filter(Boolean)
-          .join(", ");
-        charString += `${c.name ? `Personagem "${c.name}"` : `Ator ${i + 1}`}: ${parts}. `;
-      }
-    });
+    // Map CastingForm fields to the generic character shape expected by buildVideoPrompt
+    const mappedChars = characters.map((c: any) => ({
+      name: c.name || "",
+      physical_details: [
+        c.age ? `${c.age} years old` : "",
+        c.ethnicity || "",
+        c.gender || "",
+        c.body ? `${c.body} body` : "",
+        c.hair ? `${c.hair} hair` : "",
+        c.eyes ? `${c.eyes} eyes` : "",
+        c.gender === "Homem" ? formatBeardTrait(c.beard || "") : "",
+      ].filter(Boolean).join(", "),
+      clothing_details: c.clothing || "",
+      expression: c.expression || "",
+      action: c.action || "",
+    }));
 
-    const techString = [
-  config.style ? `Estilo: ${config.style}` : "",
-  config.lighting ? `Luz: ${config.lighting}` : "",
-  config.camera ? `Câmera: ${config.camera}` : "",
-  config.view ? `Visão: ${config.view}` : "",
-  config.angle ? `Ângulo: ${config.angle}` : "",
-  config.pacing ? `Ritmo: ${config.pacing}` : "",
-  config.format ? `Formato: ${config.format}` : "",
-  config.movement ? `Movimento: ${config.movement}` : "",
-].filter(Boolean).join(". ");
+    const promptParams = { generalIdea, characters: mappedChars, config, negativePrompt };
+    const builtEn = buildVideoPrompt(selectedEngine, promptParams);
+    const builtPt = buildVideoPromptPt(selectedEngine, promptParams);
 
-const movementString = config.movement ? `Movement: ${config.movement}.` : "";
+    setFinalPromptEn(builtEn); // enviado à API (inglês técnico)
 
-    // Tags de refs: alinhando com o padrão @img1...@img5
-    const refTags = [
-      faceImage ? "Use @img1 as face reference." : "",
-      bodyImage ? "Use @img2 as body reference." : "",
-      productImage ? "Use @img3 as product reference." : "",
-      clothingImage ? "Use @img4 as clothing reference." : "",
-      styleImage ? "Use @img5 as style reference." : "",
-    ]
-      .filter(Boolean)
-      .join(" ");
-
-   setFinalPrompt(
-  `[VIDEO PROMPT] ${charString} ${generalIdea}. ` +
-  `${refTags ? `${refTags} ` : ""}` +
-  `Technical specs: ${techString}. ` +
-  `${movementString} ` +
-  `Quality: cinematic, smooth, stable.`
-    .replace(/\s+/g, " ")
-    .trim()
-);
+    // Veo JSON goes into its own state; all others go to finalPrompt (PT)
+    if (selectedEngine === "veo" && finalPromptFormat === "json") {
+      setVeoPromptJsonPt(builtPt);
+    } else {
+      setFinalPrompt(builtPt); // exibido ao usuário (português)
+    }
 
     setIsThinking(false);
-    toast.success("Prompt de Vídeo montado!");
+    const platform = VIDEO_PLATFORMS.find(p => p.id === selectedEngine);
+    toast.success(`Prompt montado para ${platform?.label || selectedEngine}!`);
   };
 
   const handleGenerate = async () => {
-    const scriptPt = (finalPrompt || generalIdea || "").trim();
-    const veoJsonFromFinal = finalPromptFormat === "json" ? (veoPromptJsonPt || finalPrompt).trim() : "";
+    // Send the English prompt to the API; fall back to rebuilding from params if needed
+    const scriptToSend = (finalPromptEn || finalPrompt || generalIdea || "").trim();
+    const scriptPt = scriptToSend;
+    const veoJsonFromFinal = finalPromptFormat === "json" ? (veoPromptJsonPt || finalPromptEn || finalPrompt).trim() : "";
     if (!scriptPt && !(selectedEngine === "veo" && veoJsonFromFinal)) {
       return toast.warning("Escreva o roteiro em português antes de gerar.");
     }
@@ -890,9 +876,17 @@ const movementString = config.movement ? `Movement: ${config.movement}.` : "";
   setGeneratedResult(null);
 
   try {
+  const VIDEO_ENGINE_MAP: Record<string, string> = {
+    kling: "kling",
+    veo: "veo",
+    runway: "runway",
+    sora: "sora",
+  };
+  const resolvedEngine = VIDEO_ENGINE_MAP[selectedEngine] ?? selectedEngine;
+
   const refinerData = {
   script_pt: scriptPt,
-  engine: selectedEngine,
+  engine: resolvedEngine,
   config: {
     ...config,
     // redundância útil: garante que o refiner receba sempre
@@ -920,10 +914,10 @@ const movementString = config.movement ? `Movement: ${config.movement}.` : "";
     headers: await getAuthHeaders({ "Content-Type": "application/json" }),
     body: JSON.stringify({
       tenant_slug: safeTenant,
-      engine: selectedEngine,
+      engine: resolvedEngine,
       refiner_data: {
         ...refinerData,
-        ...(selectedEngine === "veo" && veoJsonFromFinal ? { veo_prompt_pt_json: veoJsonFromFinal } : {}),
+        ...(resolvedEngine === "veo" && veoJsonFromFinal ? { veo_prompt_pt_json: veoJsonFromFinal } : {}),
       },
   }),
 });
@@ -1173,31 +1167,12 @@ const movementString = config.movement ? `Movement: ${config.movement}.` : "";
 
           {/* ESCOLHA A PLATAFORMA */}
           <div className="p-5 space-y-4 border-b border-zinc-900 bg-black/20">
-            <label className="text-[10px] font-black text-zinc-500 uppercase tracking-widest">
-              Escolha a Plataforma
-            </label>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setSelectedEngine("kling")}
-                className={`flex-1 h-10 rounded-xl text-[10px] font-bold border transition ${
-                  selectedEngine === "kling"
-                    ? "bg-blue-600 border-blue-500 text-white"
-                    : "bg-zinc-900 border-zinc-800 text-zinc-500"
-                }`}
-              >
-                KLING 1.5
-              </button>
-              <button
-                onClick={() => setSelectedEngine("veo")}
-                className={`flex-1 h-10 rounded-xl text-[10px] font-bold border transition ${
-                  selectedEngine === "veo"
-                    ? "bg-cyan-600 border-cyan-500 text-white"
-                    : "bg-zinc-900 border-zinc-800 text-zinc-500"
-                }`}
-              >
-                GOOGLE VEO
-              </button>
-            </div>
+            <PlatformSelector
+              type="video"
+              value={selectedEngine}
+              onChange={setSelectedEngine}
+              tenantSlug={safeTenant}
+            />
 
             {/* LOCUÇÃO + ÁUDIO (SÓ VEO) */}
             {selectedEngine === "veo" && finalPromptFormat !== "json" && (
@@ -1429,7 +1404,7 @@ const movementString = config.movement ? `Movement: ${config.movement}.` : "";
 
             <div className="space-y-2">
               <div className="flex items-center justify-between gap-2">
-                <label className="text-[10px] font-bold text-zinc-500 uppercase">Prompt Final Editável</label>
+                <label className="text-[10px] font-bold text-zinc-500 uppercase">Prompt Final Editável <span className="normal-case font-normal text-zinc-600">(PT · traduzido ao enviar)</span></label>
                 {selectedEngine === "veo" && (
                   <div className="flex items-center gap-2">
                     <div className="flex gap-1 bg-zinc-900/60 border border-zinc-800 rounded p-1">

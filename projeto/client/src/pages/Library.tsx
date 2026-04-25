@@ -255,10 +255,10 @@ export default function Library() {
   const fetchLibrary = async () => {
     setIsLoadingDB(true);
     // Usamos a tabela 'library' do Supabase que você configurou no fluxo de Aprovação
-    const { data, error } = await supabase
-      .from('library')
-      .select('*')
-      .order('created_at', { ascending: false });
+    const safeTenant = activeTenant && activeTenant !== "all" ? activeTenant : null;
+    let query = supabase.from('library').select('*').order('created_at', { ascending: false });
+    if (safeTenant) query = query.eq('tenant_slug', safeTenant);
+    const { data, error } = await query;
 
     if (error) {
       console.error("library fetch error:", error);

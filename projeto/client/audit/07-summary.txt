@@ -1,0 +1,21 @@
+== 7) Resumo rápido (top 30 ocorrências por arquivo) ==
+--- parseInt top ---
+   2 src/pages/ComponentShowcase.tsx
+--- selectedClientId top ---
+  22 src/pages/Clipping.tsx
+  12 src/pages/Media.tsx
+   9 src/pages/Production.tsx
+   9 src/pages/Creation.tsx
+   7 src/pages/PIT.tsx
+   6 src/pages/Planning.tsx
+   6 src/pages/Performance.tsx
+--- trpc. usage top ---
+   8 src/pages/Clipping.tsx
+   7 src/pages/Production.tsx
+   7 src/pages/Planning.tsx
+   7 src/pages/Approvals.tsx
+   6 src/pages/Media.tsx
+   5 src/pages/PIT.tsx
+   1 src/pages/ComponentShowcase.tsx
+   1 src/lib/trpc.ts.bak
+   1 src/components/AIChatBox.tsx

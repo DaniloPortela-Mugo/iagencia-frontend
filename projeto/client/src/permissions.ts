@@ -1,0 +1,45 @@
+export const ROLE_PERMISSIONS: Record<string, string[]> = {
+  admin: [
+    "dashboard",
+    "atendimento",
+    "planning",
+    "social_media",
+    "copy",
+    "image_studio",
+    "video_studio",
+    "production",
+    "media",
+    "media_offline",
+    "library",
+    "approvals",
+    "suppliers",
+    "cadastro",
+  ],
+  da: ["dashboard", "image_studio", "video_studio", "library", "approvals"],
+  redator: ["dashboard", "copy", "library", "approvals"],
+  atendimento: ["dashboard", "atendimento", "planning", "social_media", "approvals", "library"],
+  social_media: ["dashboard", "social_media", "library", "approvals"],
+  midia: ["dashboard", "media", "media_offline", "library", "approvals"],
+  planejamento: ["dashboard", "planning", "atendimento", "library", "approvals"],
+  cliente: ["dashboard", "approvals"],
+};
+
+export const MODULE_ROUTE_MAP: Record<string, string> = {
+  "/": "dashboard",
+  "/dashboard": "dashboard",
+  "/atendimento": "atendimento",
+  "/planning": "planning",
+  "/social-media": "social_media",
+  "/creation": "copy",
+  "/image-studio": "image_studio",
+  "/video-studio": "video_studio",
+  "/production": "production",
+  "/media": "media",
+  "/mediaoff": "media_offline",
+  "/library": "library",
+  "/approvals": "approvals",
+  "/suppliers": "suppliers",
+  "/cadastro": "cadastro",
+};
+
+export const DEFAULT_MODULE = "dashboard";

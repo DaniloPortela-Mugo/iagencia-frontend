@@ -1,0 +1,556 @@
+{
+  "Treelife": {
+    "nome": "Tree Life",
+    "descricao": "Farmácia de manipulação com foco em performance, inovação e personalização, desenvolvendo fórmulas premium que se adaptam à sua rotina em formatos como chocolates funcionais, gomas, pirulitos, chicletes, cremes e cápsulas especiais, focadas em longevidade, performance, qualidade de vida, energia, equilíbrio hormonal, melhora do sono, saúde digestiva e suporte cardiovascular."
+  },
+  "segmento": {
+    "categoria": "farmácia de manipulação",
+    "segmento": "farmácia de manipulação e suplementos personalizados"
+  },
+  "persona": {
+    "nome": "Vivi",
+    "idade": 45,
+    "profissao": "nutricionista esportiva autônoma",
+    "interesses": ["performance física", "longevidade", "culinária saudável"],
+    "comportamento": ["acompanha pesquisas científicas", "compra online", "segue perfis de saúde no Instagram"]
+  },
+  "publico": {
+    "faixa_etaria": "25-55",
+    "genero": "todos",
+    "localizacao": "Brasil urbano (foco em São Paulo)",
+    "interesses": ["suplementação", "medicina integrativa", "fitness", "autocuidado"],
+    "dor_principal": "tornar a rotina saudável mais prática e eficaz",
+    "objetivo": "manter saúde preventiva e alta performance diária"
+  },
+  "voz": {
+    "tom": "acolhedor, confiável, motivador",
+    "arquetipo": "Cuidador",
+    "humor": 2,
+    "formalidade": 1,
+    "energia": 3
+  },
+  "palavras_chave": ["longevidade", "medicina personalizada", "pureza", "qualidade de vida", "saúde"],
+  "palavras_proibidas": ["milagroso", "cura garantida"],
+  "hashtags_preferidas": ["#SaúdeIntegrada", "#QualidadeDeVida", "#Longevidade"],
+  "cta_padrao": "Acesse o site e faça o seu pedido.",
+  "cores": ["#1A7F5A", "#E8F5E9"],
+  "tipografia": ["Garet", "Caviar_Dreams", "Majoran", "Nexa", "Open_Sans"],
+  "estilo": "clean, natural, inspirado na natureza",
+  "logo_url": "https://treelifepharmah.com.br/wp-content/uploads/2023/11/Logo-Treelife-Pharmah.png",
+  "formatos": ["1:1", "16:9", "4:5", "9:16"],
+  "duracao_video_max": 60,
+  "descricao_video": "Vídeos curtos com cenas e avatares digitais, mostrando os benefícios e a praticidade das formas farmacêuticas inovadoras.",
+  "descricao_imagem": "Fotos luminosas de frascos e gomas coloridas sobre fundos claros com elementos naturais (folhas, madeira).",
+  "descricao_texto": "Copy educativo e inspirador, enfatizando os benefícios e resultados reais.",
+  "descricao_audio": "Trilhas alegres e confiáveis, com ritmo bem marcado.",
+  "descricao_story": "Stories com imagens inspiradoras, dicas sobre saúde e stickers de pergunta para orientar.",
+  "descricao_reels": "Reels com cenas inspiradoras de saúde e qualidade de vida e ‘formas farmacêuticas fora do óbvio’, usando cortes dinâmicos e texto em tela.",
+  "descricao_carrossel": "Carrosséis educativos (5-7 lâminas) explicando benefícios de ativos e modos de uso.",
+  "descricao_banner": "Banners em tons verdes suaves com callouts de benefícios dos produtos.",
+  "descricao_post": "Posts mixando mockups de produtos e fotos inspiradoras.",
+  "descricao_story_ad": "Stories patrocinados com oferta ‘Primeira fórmula com 10% off’ + swipe up para WhatsApp.",
+  "descricao_reels_ad": "Reels patrocinados mostrando a transformação de cápsulas convencionais para pirulitos/gomas, com call para clicar no link.",
+  "descricao_carrossel_ad": "Carrossel patrocinado com 3 protocolos (Emagrecimento, Performance, Skin Care) e CTAs para consulta.",
+  "descricao_banner_ad": "Banner display (Google/Meta) com headline ‘Sua saúde, nossa fórmula’ e botão ‘Peça já’.",
+  "objetivo": "conversão para o site https://treelifepharmah.com.br/",
+  "kpi_chave": "conversões (pedidos no site)",
+  "assinatura": "Escolha o melhor pra você",
+  "exemplos": [
+    "carrossel inspirador sobre Ômega 3",
+    "story sobre qualidade de vida com Ômega 3",
+    "reels mostrando a transformação de cápsulas convencionais para gomas funcionais"
+  ],
+  "produtos": [
+    {
+      "nome": "Ômega 3 Neural",
+      "descricao": "Ômega 3 ultraconcentrado, com 400 mg de EPA e 1000 mg de DHA em apenas duas cápsulas, formulado para nutrir o cérebro e otimizar função cognitiva e saúde neuronal.",
+      "beneficios": [
+        "Suporte à memória e concentração",
+        "Proteção contra inflamações neuroexcitotóxicas",
+        "Equilíbrio de neurotransmissores"
+      ]
+    },
+    {
+      "nome": "Adaptógeno Matinal",
+      "descricao": "Fórmula exclusiva à base de adaptógenos naturais para estimular a disposição logo ao acordar, promovendo energia sustentável ao longo do dia.",
+      "beneficios": [
+        "Aumento de energia sem picos de fadiga",
+        "Melhora da resistência ao estresse físico e mental",
+        "Suporte ao metabolismo energético"
+      ]
+    },
+    {
+      "nome": "Creatina",
+      "descricao": "Suplemento de creatina micronizada para aumento de força e resistência muscular.",
+      "beneficios": [
+        "Aumento de força e resistência muscular",
+        "Melhora do desempenho em atividades de alta intensidade",
+        "Auxílio no ganho de massa magra"
+      ]
+    },
+    {
+      "nome": "Creamelo",
+      "descricao": "Combinado de creatina de alta qualidade com sabor de caramelo.",
+      "beneficios": [
+        "Aumento de força e resistência muscular",
+        "Complemento ideal para a rotina de treinos",
+        "Auxilia no metabolismo energético"
+      ]
+    },
+    {
+      "nome": "Low Homocysteine",
+      "descricao": "Complexo de vitaminas do complexo B e cofatores essenciais para regular os níveis de homocisteína, beneficiando a saúde cardiovascular.",
+      "beneficios": [
+        "Redução dos níveis de homocisteína no sangue",
+        "Equilíbrio do metabolismo de aminoácidos",
+        "Proteção vascular e redução de riscos cardiovasculares"
+      ]
+    },
+    {
+      "nome": "Block Carb",
+      "descricao": "Blend de ativos que auxilia na modulação da absorção de carboidratos, contribuindo para o controle do apetite e a manutenção dos níveis de glicose.",
+      "beneficios": [
+        "Inibição parcial da digestão de carboidratos",
+        "Melhora do controle do apetite e saciedade prolongada",
+        "Suporte ao controle glicêmico"
+      ]
+    },
+    {
+      "nome": "BurnKcal",
+      "descricao": "Complexo termogênico desenvolvido para aumentar o gasto calórico diário sem a necessidade de atividade física intensa.",
+      "beneficios": [
+        "Elevação da termogênese basal",
+        "Melhora do metabolismo lipídico",
+        "Potencialização da queima calórica"
+      ]
+    },
+    {
+      "nome": "Skin Glow",
+      "descricao": "Fórmula avançada com ativos antioxidantes e anti-inflamatórios para promover uma pele saudável, radiante e com menos sinais de envelhecimento.",
+      "beneficios": [
+        "Aumento da hidratação e elasticidade da pele",
+        "Redução de rugas e linhas finas",
+        "Proteção contra danos oxidativos"
+      ]
+    },
+    {
+      "nome": "Sleep Well",
+      "descricao": "Suplemento com melatonina e extratos naturais para promover um sono reparador e de qualidade, ajudando a regular o ciclo circadiano.",
+      "beneficios": [
+        "Melhora da qualidade do sono",
+        "Redução do tempo para adormecer",
+        "Regulação do ritmo circadiano"
+      ]
+    },
+    {
+      "nome": "Digestive Balance",
+      "descricao": "Fórmula com prebióticos e probióticos para promover um microbioma intestinal saudável, melhorando a digestão e a absorção de nutrientes.",
+      "beneficios": [
+        "Melhora da saúde intestinal",
+        "Aumento da absorção de nutrientes",
+        "Regulação do trânsito intestinal"
+      ]
+    },
+    {
+      "nome": "Cardio Support",
+      "descricao": "Suplemento com ativos que auxiliam na saúde cardiovascular, promovendo a circulação sanguínea e o equilíbrio lipídico.",
+      "beneficios": [
+        "Melhora da circulação sanguínea",
+        "Redução do colesterol LDL",
+        "Apoio à saúde arterial"
+      ]
+    },
+    {
+      "nome": "Hormone Balance",
+      "descricao": "Fórmula com extratos naturais para ajudar a equilibrar os hormônios, especialmente em mulheres na menopausa.",
+      "beneficios": [
+        "Alívio dos sintomas da menopausa",
+        "Equilíbrio hormonal geral",
+        "Melhora do bem-estar emocional"
+      ]
+    },
+    {
+      "nome": "Energy Boost",
+      "descricao": "Suplemento energético com vitaminas e minerais essenciais para aumentar a disposição e reduzir a fadiga.",
+      "beneficios": [
+        "Aumento da energia física e mental",
+        "Redução da fadiga crônica",
+        "Melhora do desempenho atlético"
+      ]
+    },
+    {
+      "nome": "Immunity Shield",
+      "descricao": "Fórmula com antioxidantes e vitaminas para fortalecer o sistema imunológico e proteger contra infecções.",
+      "beneficios": [
+        "Aumento da resistência a infecções",
+        "Melhora da resposta imunológica",
+        "Proteção antioxidante"
+      ]
+    },
+    {
+      "nome": "Joint Flex",
+      "descricao": "Suplemento com colágeno e ativos anti-inflamatórios para promover a saúde das articulações e reduzir dores.",
+      "beneficios": [
+        "Melhora da mobilidade articular",
+        "Redução de dores e inflamações",
+        "Apoio à regeneração da cartilagem"
+      ]
+    },
+    {
+      "nome": "Focus Formula",
+      "descricao": "Fórmula com nootrópicos naturais para melhorar a concentração, foco e clareza mental.",
+      "beneficios": [
+        "Aumento da capacidade de foco",
+        "Melhora da memória de curto prazo",
+        "Aumento da clareza mental"
+      ]
+    },
+    {
+      "nome": "Vitality Complex",
+      "descricao": "Suplemento multivitamínico completo para suprir as necessidades diárias de vitaminas e minerais, promovendo energia e bem-estar geral.",
+      "beneficios": [
+        "Suporte nutricional completo",
+        "Aumento da energia diária",
+        "Melhora do bem-estar geral"
+      ]
+    },
+    {
+      "nome": "Mood Enhancer",
+      "descricao": "Fórmula com extratos naturais para melhorar o humor e reduzir sintomas de ansiedade e depressão.",
+      "beneficios": [
+        "Melhora do humor geral",
+        "Redução de sintomas de ansiedade",
+        "Apoio à saúde mental"
+      ]
+    },
+    {
+      "nome": "Detox Cleanse",
+      "descricao": "Suplemento detox com ervas e antioxidantes para ajudar na desintoxicação do organismo e promover a saúde hepática.",
+      "beneficios": [
+        "Apoio à função hepática",
+        "Melhora da eliminação de toxinas",
+        "Aumento da energia geral"
+      ]
+    },
+    {
+      "nome": "Anti-Aging Formula",
+      "descricao": "Fórmula com antioxidantes potentes para combater os sinais de envelhecimento e promover uma pele saudável.",
+      "beneficios": [
+        "Redução de rugas e linhas finas",
+        "Melhora da elasticidade da pele",
+        "Proteção contra danos oxidativos"
+      ]
+    },
+    {
+      "nome": "Stress Relief",
+      "descricao": "Suplemento com adaptógenos naturais para ajudar a reduzir o estresse e promover o relaxamento.",
+      "beneficios": [
+        "Redução do estresse diário",
+        "Melhora do bem-estar emocional",
+        "Apoio à saúde mental"
+      ]
+    },
+    {
+      "nome": "Hair & Nails Complex",
+      "descricao": "Fórmula com biotina e colágeno para fortalecer cabelos e unhas, promovendo crescimento saudável.",
+      "beneficios": [
+        "Fortalecimento de cabelos e unhas",
+        "Promoção do crescimento saudável",
+        "Melhora da aparência geral"
+      ]
+    },
+    {
+      "nome": "Sleep Aid",
+      "descricao": "Suplemento com melatonina e ervas relaxantes para ajudar a melhorar a qualidade do sono.",
+      "beneficios": [
+        "Melhora da qualidade do sono",
+        "Redução do tempo para adormecer",
+        "Regulação do ciclo circadiano"
+      ]
+    },
+    {
+      "nome": "Gut Health",
+      "descricao": "Fórmula com probióticos e prebióticos para promover a saúde intestinal e melhorar a digestão.",
+      "beneficios": [
+        "Melhora da saúde intestinal",
+        "Aumento da absorção de nutrientes",
+        "Regulação do trânsito intestinal"
+      ]
+    }
+  ],
+  "cliente2": {
+    "nome": "DermaCare",
+    "descricao": "Clínica de dermatologia especializada em tratamentos estéticos e saúde da pele.",
+    "segmento": "saúde e estética",
+    "persona": {
+      "nome": "Mariana",
+      "idade": 38,
+      "profissao": "advogada",
+      "interesses": ["cuidados com a pele", "lifestyle saudável", "viagens"],
+      "comportamento": ["pesquisa tratamentos antes de agendar", "segue influenciadores de skincare"]
+    },
+    "publico": {
+      "faixa_etaria": "30-55",
+      "genero": "predominantemente feminino",
+      "localizacao": "grandes centros urbanos",
+      "interesses": ["antiaging", "tratamentos estéticos", "bem-estar"],
+      "dor_principal": "linhas de expressão e manchas",
+      "objetivo": "ter pele mais jovem e saudável"
+    },
+    "voz": {
+      "tom": "profissional, acolhedor, confiante",
+      "arquetipo": "Cuidador",
+      "humor": 2,
+      "formalidade": 3,
+      "energia": 3
+    },
+    "palavras_chave": ["skincare", "rejuvenescimento", "dermatologia", "saúde da pele"],
+    "palavras_proibidas": ["caseiro", "genérico"],
+    "hashtags_preferidas": ["#PeleSaudavel", "#DermaCare"],
+    "cta_padrao": "Agende sua avaliação agora!",
+    "cores": ["#00A8E8", "#FFFFFF"],
+    "tipografia": ["Lato", "sans-serif"],
+    "estilo": "clean, sofisticado, minimalista",
+    "logo_url": "https://…/dermacare_logo.png",
+    "formatos": ["1:1", "9:16"],
+    "duracao_video_max": 30,
+    "descricao_video": "Vídeos educativos que mostram procedimentos e cuidados com a pele, com linguagem acessível e imagens nítidas.",
+    "descricao_imagem": "Fotos de antes e depois, com close nas áreas tratadas, ilustrando resultados reais.",
+    "descricao_texto": "Textos informativos sobre tratamentos, ingredientes e dicas de cuidado diário.",
+    "descricao_audio": "Voz calma e explicativa, com música ambiente suave de fundo.",
+    "descricao_story": "Stories de depoimentos de pacientes e Q&A sobre cuidados com a pele.",
+    "descricao_reels": "Reels mostrando passo a passo de procedimentos rápidos e dicas de rotina de skincare.",
+    "descricao_carrossel": "Carrosséis explicando benefícios de cada tratamento, com dados e ilustrações.",
+    "descricao_banner": "Banners claros com chamadas para avaliação gratuita e destaque para promoções.",
+    "descricao_post": "Posts combinando imagem de tratamento e texto detalhado sobre benefícios.",
+    "descricao_story_ad": "Stories patrocinados com swipe up para agendamento.",
+    "descricao_reels_ad": "Reels patrocinados com clipes de procedimentos e links diretos para agendamento.",
+    "descricao_carrossel_ad": "Carrosséis patrocinados mostrando antes e depois com link para site.",
+    "descricao_banner_ad": "Banners patrocinados destacando ofertas e pacotes promocionais.",
+    "objetivo": "conversão",
+    "kpi_chave": "agendamentos"
+  },
+  "cliente3": {
+    "nome": "Bacio di Latte",
+    "descricao": "Fábrica de sorvetes artesanais, com foco em gelato premium e ingredientes naturais.",
+    "segmento": "alimentação artesanal",
+    "persona": {
+      "nome": "Lucas",
+      "idade": 28,
+      "profissao": "publicitário",
+      "interesses": ["gastronomia", "viagens", "experiências gourmet"],
+      "comportamento": ["compartilha fotos de comidas", "procura ingredientes naturais"]
+    },
+    "publico": {
+      "faixa_etaria": "15-45",
+      "genero": "todos",
+      "localizacao": "capitais e grandes cidades",
+      "interesses": ["sorvetes artesanais", "sabores exclusivos", "momentos de lazer"],
+      "dor_principal": "falta de opções de sorvetes premium",
+      "objetivo": "desfrutar de sorvete artesanal de alta qualidade"
+    },
+    "voz": {
+      "tom": "doce, convidativo, leve",
+      "arquetipo": "Amigo",
+      "humor": 5,
+      "formalidade": 1,
+      "energia": 4
+    },
+    "palavras_chave": ["gelato", "artesanal", "premium", "gourmet"],
+    "palavras_proibidas": ["industrial", "comum"],
+    "hashtags_preferidas": ["#BacioDiLatte", "#GelatoArt"],
+    "cta_padrao": "Venha provar hoje mesmo!",
+    "cores": ["#FDEBD0", "#D35400"],
+    "tipografia": ["Raleway", "sans-serif"],
+    "estilo": "aconchegante, sofisticado, artesanal",
+    "logo_url": "https://…/bacio_logo.png",
+    "formatos": ["1:1", "9:16"],
+    "duracao_video_max": 30,
+    "descricao_video": "Vídeos atraentes mostrando o processo de produção artesanal e pessoas saboreando o gelato.",
+    "descricao_imagem": "Fotos de close nos sabores coloridos e texturas cremosas em ambientes acolhedores.",
+    "descricao_texto": "Textos que destacam a origem dos ingredientes e exclusividade dos sabores.",
+    "descricao_audio": "Trilha sonora leve, com sons de natureza e risadas de pessoas felizes.",
+    "descricao_story": "Stories apresentando o ‘sabor do dia’ e enquetes sobre preferências.",
+    "descricao_reels": "Reels dinâmicos mostrando o preparo e reação de clientes experimentando.",
+    "descricao_carrossel": "Carrosséis que contam a história de cada ingrediente e receita.",
+    "descricao_banner": "Banners convidativos com destaque para promoções e novos sabores.",
+    "descricao_post": "Posts que misturam fotos de gelato e citações de clientes satisfeitos.",
+    "descricao_story_ad": "Stories patrocinados com link para localização da loja.",
+    "descricao_reels_ad": "Reels patrocinados com ofertas exclusivas para seguidores.",
+    "descricao_carrossel_ad": "Carrosséis patrocinados exibindo variedade de sabores e opções de presentes.",
+    "descricao_banner_ad": "Banners patrocinados promovendo combos e descontos.",
+    "objetivo": "awareness",
+    "kpi_chave": "engajamento"
+  },
+  "cliente4": {
+    "nome": "WatchDog",
+    "descricao": "Clínica veterinária com atendimento humanizado e foco no bem-estar animal.",
+    "segmento": "saúde animal",
+    "persona": {
+      "nome": "Ana",
+      "idade": 30,
+      "profissao": "arquiteta",
+      "interesses": ["pets", "bem-estar animal", "viagens"],
+      "comportamento": ["busca clínicas de confiança", "participa de grupos de tutores de pets"]
+    },
+    "publico": {
+      "faixa_etaria": "25-50",
+      "genero": "todos",
+      "localizacao": "áreas urbanas e suburbanas",
+      "interesses": ["saúde do pet", "nutrição animal", "proteção"],
+      "dor_principal": "dificuldade em encontrar atendimento veterinário de qualidade",
+      "objetivo": "garantir saúde e longevidade do pet"
+    },
+    "voz": {
+      "tom": "acolhedor, confiável, empático",
+      "arquetipo": "Cuidador",
+      "humor": 3,
+      "formalidade": 2,
+      "energia": 3
+    },
+    "palavras_chave": ["veterinário", "vacinação", "check-up", "bem-estar"],
+    "palavras_proibidas": ["negligência", "rápido demais"],
+    "hashtags_preferidas": ["#PetBem", "#SaúdeAnimal"],
+    "cta_padrao": "Agende a consulta do seu pet!",
+    "cores": ["#27AE60", "#ECF0F1"],
+    "tipografia": ["Montserrat", "sans-serif"],
+    "estilo": "amigável, profissional, limpo",
+    "logo_url": "https://…/petbem_logo.png",
+    "formatos": ["1:1", "9:16"],
+    "duracao_video_max": 30,
+    "descricao_video": "Vídeos mostrando atendimentos, tutoriais de cuidados e depoimentos de tutores.",
+    "descricao_imagem": "Fotos de pets saudáveis em ambientes acolhedores com a equipe veterinária.",
+    "descricao_texto": "Textos que explicam procedimentos, sintomas e dicas de cuidados em casa.",
+    "descricao_audio": "Voz suave e empática, com música suave de fundo.",
+    "descricao_story": "Stories com checklists de vacinação e curiosidades sobre cuidados pet.",
+    "descricao_reels": "Reels mostrando dia a dia na clínica e transformações de pets.",
+    "descricao_carrossel": "Carrosséis informativos sobre nutrição e prevenção de doenças.",
+    "descricao_banner": "Banners convidando para campanha de vacinação e check-up.",
+    "descricao_post": "Posts com fotos de pets em recuperação e dicas de bem-estar.",
+    "descricao_story_ad": "Stories patrocinados com botão de agendamento.",
+    "descricao_reels_ad": "Reels patrocinados mostrando promoções em pacotes de saúde anual.",
+    "descricao_carrossel_ad": "Carrosséis patrocinados sobre serviços e planos de saúde pet.",
+    "descricao_banner_ad": "Banners patrocinados anunciando ofertas de pacotes.",
+    "objetivo": "conversão",
+    "kpi_chave": "agendamentos"
+  },
+  "cliente5": {
+    "nome": "Mackenzie",
+    "descricao": "Universidade tradicional com foco em inovação, pesquisa e formação de líderes.",
+    "segmento": "educação superior",
+    "persona": {
+      "nome": "Pedro",
+      "idade": 17,
+      "profissao": "estudante de ensino médio",
+      "interesses": ["tecnologia", "ciências sociais", "futebol"],
+      "comportamento": ["visita feiras de vestibular", "pesquisa notas de corte"]
+    },
+    "publico": {
+      "faixa_etaria": "17-25",
+      "genero": "todos",
+      "localizacao": "Brasil",
+      "interesses": ["graduação", "posicionamento acadêmico", "carreira"],
+      "dor_principal": "insegurança sobre escolha de curso e processo seletivo competitivo",
+      "objetivo": "ingressar em uma universidade renomada"
+    },
+    "voz": {
+      "tom": "inspirador, informativo, acessível",
+      "arquetipo": "Sábio",
+      "humor": 3,
+      "formalidade": 3,
+      "energia": 4
+    },
+    "palavras_chave": ["educação", "inovação", "excelência", "tradição"],
+    "palavras_proibidas": ["mínimo", "faculdade comum"],
+    "hashtags_preferidas": ["#Mackenzie", "#FuturoComVc"],
+    "cta_padrao": "Inscreva-se já!",
+    "cores": ["#003366", "#FFFFFF"],
+    "tipografia": ["Georgia", "serif"],
+    "estilo": "clássico, acadêmico, moderno",
+    "logo_url": "https://…/mackenzie_logo.png",
+    "formatos": ["1:1", "9:16"],
+    "duracao_video_max": 60,
+    "descricao_video": "Vídeos institucionais mostrando campus, infraestrutura e depoimentos de alunos e professores.",
+    "descricao_imagem": "Fotos do campus, salas de aula e eventos acadêmicos, destacando tradição e inovação.",
+    "descricao_texto": "Textos que explicam cursos, diferenciais e processos seletivos de forma clara.",
+    "descricao_audio": "Narração confiante com trilha inspiradora.",
+    "descricao_story": "Stories com tours rápidos pelo campus e dicas de inscrições.",
+    "descricao_reels": "Reels mostrando desafios de alunos e cenas de vida universitária.",
+    "descricao_carrossel": "Carrosséis detalhando perfil de cada curso e áreas de atuação.",
+    "descricao_banner": "Banners com datas de vestibular e chamadas para inscrições.",
+    "descricao_post": "Posts que combinam fotos do campus com depoimentos de sucesso de ex-alunos.",
+    "descricao_story_ad": "Stories patrocinados com link para página de inscrição.",
+    "descricao_reels_ad": "Reels patrocinados mostrando benefícios e bolsas de estudo.",
+    "descricao_carrossel_ad": "Carrosséis patrocinados com destaque para diferenciais de cada curso e link para edital.",
+    "descricao_banner_ad": "Banners patrocinados anunciando datas de vestibular e próxima aula aberta.",
+    "objetivo": "awareness",
+    "kpi_chave": "inscrições"
+  },
+  "cliente6": {
+    "nome": "Vox Strategy",
+    "descricao": "Agência de marketing estratégico focada em criação, growth, branding e performance.",
+    "segmento": "marketing e comunicação",
+    "system_prompt": "Você é o estrategista da agência Vox Strategy responsável por planejar, criar e revisar campanhas de marketing para a marca TreeLife Pharmah. Seu interlocutor é a equipe interna da agência; nunca converse diretamente com o consumidor final. Foque em insights, roteiros, copies e conceitos visuais que reforcem longevidade, pureza e confiança. Sempre adote o tom acolhedor da marca.",
+    "agentes": {
+      "planejamento": {
+        "contexto": "Você é planner da Vox Strategy, altamente qualificado, expert em Marketing Digital, mídias sociais e publicidade online para negócios B2C e B2B. Sua função é auxiliar na criação de estratégias eficazes de marketing digital, desenvolvimento de campanhas e produção de conteúdo para Instagram, Linkedin, site e Facebook, responsável por coletar e analisar dados de campanhas para a Vox Strategy, com foco em comportamento do consumidor, plataformas digitais e movimentos culturais. Sua missão é analisar o briefing da campanha e identificar as tendências mais relevantes que podem influenciar o sucesso da comunicação. Inclua: Comportamentos recentes do público-alvo, Hashtags, memes ou linguagem em alta. Plataformas ou formatos em ascensão (ex: reels, carrosséis, colabs). Tendências visuais, textuais ou sociais que podem inspirar a criação. Foque no mercado brasileiro e sempre traga exemplos atuais. Seja direto, criativo e objetivo. Se não houver informação suficiente no briefing, diga claramente o que está faltando."
+      },
+      "textos": {
+        "contexto": "Você é um Redator Publicitário experiente, criativo e genial da Vox Strategy. Sua habilidade é escrever copies criativos, persuasivos, inspiradores com clareza, gramática correta e estilo adaptável a diferentes públicos, para diferentes formatos como roteiros para filmes, postagens em redes sociais e textos corporativos. Criar mensagens que motivem a ação do público-alvo, com conhecimento sobre como influenciar e persuadir um público, através de parcerias com outras marcas ou influenciadores e capacidade de contar histórias envolventes. O seu objetivo é criar conteúdo envolvente e de alta qualidade que atenda às necessidades e requisitos específicos do cliente. Você tem entendimento de como a redação se encaixa nas estratégias de marketing da marca ou produto."
+      },
+      "imagens": {
+        "contexto": "Você é diretor de arte da Vox Strategy criando visuais criativos e bonitos para reforçar a imagem da marca."
+      },
+      "apresentacao": {
+        "contexto": "Você monta apresentações de campanha (Keynote/PPT) para aprovação do cliente, valorizando dados, storytelling e identidade visual natural."
+      }
+    },
+    "persona": {
+      "nome": "Danilo",
+      "idade": 57,
+      "profissao": "gerente de marketing",
+      "interesses": ["redator", "estratégia digital", "ROI", "inovações"],
+      "comportamento": ["cria campanhas", "analisa relatórios", "busca cases de sucesso"]
+    },
+    "publico": {
+      "faixa_etaria": "25-50",
+      "genero": "todos",
+      "localizacao": "Brasil e América Latina",
+      "interesses": ["criação", "marketing digital", "branding", "growth hacking"],
+      "dor_principal": "dificuldade em criar estratégias eficazes com orçamento limitado",
+      "objetivo": "aumentar visibilidade e resultados de marketing"
+    },
+    "voz": {
+      "tom": "estratégico, autoritário, inspirador",
+      "arquetipo": "Governante",
+      "humor": 2,
+      "formalidade": 4,
+      "energia": 4
+    },
+    "palavras_chave": ["criação", "estratégia", "ROI", "branding", "performance"],
+    "palavras_proibidas": ["tático", "genérico"],
+    "hashtags_preferidas": ["#VoxStrategy", "#Growth", "IA"],
+    "cta_padrao": "Vamos escalar seu negócio!",
+    "cores": ["#1F3A93", "#F5F7FA"],
+    "tipografia": ["Helvetica Neue", "sans-serif"],
+    "estilo": "corporativo, moderno, elegante",
+    "logo_url": "https://…/voxstrategy_logo.png",
+    "formatos": ["1:1", "16:9", "9:16"],
+    "duracao_video_max": 60,
+    "descricao_video": "Vídeos institucionais e cases de sucesso, exibindo resultados e metodologia.",
+    "descricao_imagem": "Imagens de gráficos de performance e equipes em reuniões, transmitindo profissionalismo.",
+    "descricao_texto": "Textos que apresentam insights, dados de mercado e propostas de valor.",
+    "descricao_audio": "Narração confiante com trilha dinâmica e inspiradora.",
+    "descricao_story": "Stories com dicas rápidas de marketing e estatísticas relevantes.",
+    "descricao_reels": "Reels mostrando before/after de campanhas e depoimentos de clientes.",
+    "descricao_carrossel": "Carrosséis detalhando serviços e etapas do processo estratégico.",
+    "descricao_banner": "Banners com chamadas para reuniões e downloads de whitepapers.",
+    "descricao_post": "Posts que mesclam gráficos e quotes de líderes do setor.",
+    "descricao_story_ad": "Stories patrocinados com link para agendar consultoria gratuita.",
+    "descricao_reels_ad": "Reels patrocinados com highlights de cases de sucesso.",
+    "descricao_carrossel_ad": "Carrosséis patrocinados com oferta de diagnóstico gratuito e link.",
+    "descricao_banner_ad": "Banners patrocinados promovendo webinars e workshops.",
+    "objetivo": "lead generation",
+    "kpi_chave": "leads qualificados"
+  }
+}

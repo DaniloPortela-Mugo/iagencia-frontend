@@ -1,0 +1,17 @@
+{
+  "Rafa": {
+    "gender": "homem",
+    "age": "30",
+    "ethnicity": "brasileiro branco",
+    "hair": "preto curto e levemente ondulado, barba rente",
+    "clothing": "camisa azul clara, calça bege clara, conto preto e sapato preto",
+    "accessories": "iphone"
+  },
+  "Teste 1": {
+    "gender": "Mulher alta, com formas levemente arredondadas",
+    "age": "30 anos",
+    "hair": "Castanho, cacheado longo",
+    "clothing": "biquini preto",
+    "accessories": "Chapéu grande de praia"
+  }
+}

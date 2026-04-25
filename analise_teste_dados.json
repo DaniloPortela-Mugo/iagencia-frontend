@@ -1,0 +1,602 @@
+{
+  "ATENDIMENTO": {
+    "SIM": [
+      {
+        "NOME": "Graziella Sartori Dutra",
+        "TELEFONE": "19991857467",
+        "EMAIL": "grazidutra@hotmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-22 13:21:06",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-22"
+      },
+      {
+        "NOME": "Stela",
+        "TELEFONE": "11984010615",
+        "EMAIL": "stela.romeiro@gmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 22:23:15",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "bruno siqueira",
+        "TELEFONE": "11974323410",
+        "EMAIL": "siqueirabn75@gmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-04 18:10:54",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-04"
+      }
+    ],
+    "NAO": [
+      {
+        "NOME": "Andrea Zamin",
+        "TELEFONE": "54993170000",
+        "EMAIL": "andreazamin@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-08 03:43:05",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-08"
+      },
+      {
+        "NOME": "Eliane Colaço Magno da Silva",
+        "TELEFONE": "11997452204",
+        "EMAIL": "emdasilv@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 22:26:18",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "Daniele Aparecida Paparoto",
+        "TELEFONE": "11995699282",
+        "EMAIL": "dani_paparoto@hotmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 21:04:42",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "Elizeu Mrowska",
+        "TELEFONE": "45998160968",
+        "EMAIL": "elizeumrowska@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-02 23:00:52",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Viviane de Oliveira Santos",
+        "TELEFONE": "11984318535",
+        "EMAIL": "viviane.santos574@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-02 20:09:11",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Ricardo Bucalon dos Reis",
+        "TELEFONE": "1698214800",
+        "EMAIL": "kadobuca10@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-02 12:49:52",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Celeste Maria Abreu de Carvalho",
+        "TELEFONE": "351938321338",
+        "EMAIL": "celestegatos171@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "",
+        "DATA": "2025-09-02 07:10:59",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Tania",
+        "TELEFONE": "11975207474",
+        "EMAIL": "taniasabine@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-01 21:51:04",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-01"
+      },
+      {
+        "NOME": "Helen",
+        "TELEFONE": "27997528867",
+        "EMAIL": "lila.it@hotmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-01 09:45:17",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-01"
+      },
+      {
+        "NOME": "Luís Eduardo Rodrigues Diogenes",
+        "TELEFONE": "31982849795",
+        "EMAIL": "rodriguesdiogenes99@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-30 19:05:38",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-30"
+      },
+      {
+        "NOME": "Adrieli Fernanda do Nascimento Silva Pereira",
+        "TELEFONE": "19971599040",
+        "EMAIL": "adrielinascimentoadv@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-29 21:07:31",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-29"
+      },
+      {
+        "NOME": "Jessica Aparecida Alves Portugal",
+        "TELEFONE": "11952819746",
+        "EMAIL": "jessicaapaportugal@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-28 15:51:50",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-28"
+      },
+      {
+        "NOME": "Thaís caroline sanches",
+        "TELEFONE": "11972820886",
+        "EMAIL": "thais.sanches@yahoo.com.br",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-26 04:42:17",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-26"
+      },
+      {
+        "NOME": "Patrícia Amaral",
+        "TELEFONE": "53981109000",
+        "EMAIL": "pbafisio70@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "15000",
+        "DATA": "2025-08-25 00:26:10",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-25"
+      },
+      {
+        "NOME": "Benildo Silva Soares",
+        "TELEFONE": "18997175436",
+        "EMAIL": "benildo1975bss@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-24 13:29:13",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-24"
+      },
+      {
+        "NOME": "Cristiane de vargas",
+        "TELEFONE": "53981364925",
+        "EMAIL": "cristianevargass77@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-24 05:08:32",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-24"
+      }
+    ]
+  },
+  "MEDIA_SALARIAL": {
+    "10000": [
+      {
+        "NOME": "Viviane de Oliveira Santos",
+        "TELEFONE": "11984318535",
+        "EMAIL": "viviane.santos574@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-02 20:09:11",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Tania",
+        "TELEFONE": "11975207474",
+        "EMAIL": "taniasabine@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-01 21:51:04",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-01"
+      },
+      {
+        "NOME": "Helen",
+        "TELEFONE": "27997528867",
+        "EMAIL": "lila.it@hotmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-01 09:45:17",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-01"
+      }
+    ],
+    "15000": [
+      {
+        "NOME": "Patrícia Amaral",
+        "TELEFONE": "53981109000",
+        "EMAIL": "pbafisio70@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "15000",
+        "DATA": "2025-08-25 00:26:10",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-25"
+      }
+    ],
+    "5000": [
+      {
+        "NOME": "Graziella Sartori Dutra",
+        "TELEFONE": "19991857467",
+        "EMAIL": "grazidutra@hotmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-22 13:21:06",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-22"
+      },
+      {
+        "NOME": "Andrea Zamin",
+        "TELEFONE": "54993170000",
+        "EMAIL": "andreazamin@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-08 03:43:05",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-08"
+      },
+      {
+        "NOME": "Eliane Colaço Magno da Silva",
+        "TELEFONE": "11997452204",
+        "EMAIL": "emdasilv@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 22:26:18",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "Stela",
+        "TELEFONE": "11984010615",
+        "EMAIL": "stela.romeiro@gmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 22:23:15",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "Daniele Aparecida Paparoto",
+        "TELEFONE": "11995699282",
+        "EMAIL": "dani_paparoto@hotmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 21:04:42",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "bruno siqueira",
+        "TELEFONE": "11974323410",
+        "EMAIL": "siqueirabn75@gmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-04 18:10:54",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-04"
+      },
+      {
+        "NOME": "Elizeu Mrowska",
+        "TELEFONE": "45998160968",
+        "EMAIL": "elizeumrowska@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-02 23:00:52",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Ricardo Bucalon dos Reis",
+        "TELEFONE": "1698214800",
+        "EMAIL": "kadobuca10@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-02 12:49:52",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Luís Eduardo Rodrigues Diogenes",
+        "TELEFONE": "31982849795",
+        "EMAIL": "rodriguesdiogenes99@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-30 19:05:38",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-30"
+      },
+      {
+        "NOME": "Adrieli Fernanda do Nascimento Silva Pereira",
+        "TELEFONE": "19971599040",
+        "EMAIL": "adrielinascimentoadv@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-29 21:07:31",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-29"
+      },
+      {
+        "NOME": "Jessica Aparecida Alves Portugal",
+        "TELEFONE": "11952819746",
+        "EMAIL": "jessicaapaportugal@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-28 15:51:50",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-28"
+      },
+      {
+        "NOME": "Thaís caroline sanches",
+        "TELEFONE": "11972820886",
+        "EMAIL": "thais.sanches@yahoo.com.br",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-26 04:42:17",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-26"
+      },
+      {
+        "NOME": "Benildo Silva Soares",
+        "TELEFONE": "18997175436",
+        "EMAIL": "benildo1975bss@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-24 13:29:13",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-24"
+      },
+      {
+        "NOME": "Cristiane de vargas",
+        "TELEFONE": "53981364925",
+        "EMAIL": "cristianevargass77@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-24 05:08:32",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-24"
+      }
+    ]
+  },
+  "DATA": {
+    "2025-08-24": [
+      {
+        "NOME": "Benildo Silva Soares",
+        "TELEFONE": "18997175436",
+        "EMAIL": "benildo1975bss@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-24 13:29:13",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-24"
+      },
+      {
+        "NOME": "Cristiane de vargas",
+        "TELEFONE": "53981364925",
+        "EMAIL": "cristianevargass77@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-24 05:08:32",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-24"
+      }
+    ],
+    "2025-08-25": [
+      {
+        "NOME": "Patrícia Amaral",
+        "TELEFONE": "53981109000",
+        "EMAIL": "pbafisio70@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "15000",
+        "DATA": "2025-08-25 00:26:10",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-25"
+      }
+    ],
+    "2025-08-26": [
+      {
+        "NOME": "Thaís caroline sanches",
+        "TELEFONE": "11972820886",
+        "EMAIL": "thais.sanches@yahoo.com.br",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-26 04:42:17",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-26"
+      }
+    ],
+    "2025-08-28": [
+      {
+        "NOME": "Jessica Aparecida Alves Portugal",
+        "TELEFONE": "11952819746",
+        "EMAIL": "jessicaapaportugal@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-28 15:51:50",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-28"
+      }
+    ],
+    "2025-08-29": [
+      {
+        "NOME": "Adrieli Fernanda do Nascimento Silva Pereira",
+        "TELEFONE": "19971599040",
+        "EMAIL": "adrielinascimentoadv@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-29 21:07:31",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-29"
+      }
+    ],
+    "2025-08-30": [
+      {
+        "NOME": "Luís Eduardo Rodrigues Diogenes",
+        "TELEFONE": "31982849795",
+        "EMAIL": "rodriguesdiogenes99@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-08-30 19:05:38",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-08-30"
+      }
+    ],
+    "2025-09-01": [
+      {
+        "NOME": "Tania",
+        "TELEFONE": "11975207474",
+        "EMAIL": "taniasabine@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-01 21:51:04",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-01"
+      },
+      {
+        "NOME": "Helen",
+        "TELEFONE": "27997528867",
+        "EMAIL": "lila.it@hotmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-01 09:45:17",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-01"
+      }
+    ],
+    "2025-09-02": [
+      {
+        "NOME": "Elizeu Mrowska",
+        "TELEFONE": "45998160968",
+        "EMAIL": "elizeumrowska@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-02 23:00:52",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Viviane de Oliveira Santos",
+        "TELEFONE": "11984318535",
+        "EMAIL": "viviane.santos574@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "10000",
+        "DATA": "2025-09-02 20:09:11",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Ricardo Bucalon dos Reis",
+        "TELEFONE": "1698214800",
+        "EMAIL": "kadobuca10@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-02 12:49:52",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      },
+      {
+        "NOME": "Celeste Maria Abreu de Carvalho",
+        "TELEFONE": "351938321338",
+        "EMAIL": "celestegatos171@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "",
+        "DATA": "2025-09-02 07:10:59",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-02"
+      }
+    ],
+    "2025-09-04": [
+      {
+        "NOME": "bruno siqueira",
+        "TELEFONE": "11974323410",
+        "EMAIL": "siqueirabn75@gmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-04 18:10:54",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-04"
+      }
+    ],
+    "2025-09-07": [
+      {
+        "NOME": "Eliane Colaço Magno da Silva",
+        "TELEFONE": "11997452204",
+        "EMAIL": "emdasilv@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 22:26:18",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "Stela",
+        "TELEFONE": "11984010615",
+        "EMAIL": "stela.romeiro@gmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 22:23:15",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-07"
+      },
+      {
+        "NOME": "Daniele Aparecida Paparoto",
+        "TELEFONE": "11995699282",
+        "EMAIL": "dani_paparoto@hotmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-07 21:04:42",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-07"
+      }
+    ],
+    "2025-09-08": [
+      {
+        "NOME": "Andrea Zamin",
+        "TELEFONE": "54993170000",
+        "EMAIL": "andreazamin@gmail.com",
+        "ATENDIMENTO": "Não",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-08 03:43:05",
+        "ATENDIMENTO_NORM": "NAO",
+        "DATA_PURA": "2025-09-08"
+      }
+    ],
+    "2025-09-22": [
+      {
+        "NOME": "Graziella Sartori Dutra",
+        "TELEFONE": "19991857467",
+        "EMAIL": "grazidutra@hotmail.com",
+        "ATENDIMENTO": "Sim",
+        "MEDIA_SALARIAL": "5000",
+        "DATA": "2025-09-22 13:21:06",
+        "ATENDIMENTO_NORM": "SIM",
+        "DATA_PURA": "2025-09-22"
+      }
+    ]
+  }
+}

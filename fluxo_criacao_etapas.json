@@ -1,0 +1,71 @@
+{
+  "inicio": {
+    "etapa_id": "inicio",
+    "nome": "Pesquisa de Tendências",
+    "agente": "inicio",
+    "condicional": false,
+    "proximo": "planejamento"
+  },
+  "planejamento": {
+    "etapa_id": "planejamento",
+    "nome": "Planejador de Marketing",
+    "agente": "planejamento",
+    "condicional": false,
+    "proximo": "apresentacao_inicial"
+  },
+  "apresentacao_inicial": {
+    "etapa_id": "apresentacao_inicial",
+    "nome": "Montador de Apresentação",
+    "agente": "apresentacao",
+    "condicional": true,
+    "proximo": {
+      "Aprovar": "textos",
+      "Revisar": "ajuste_briefing"
+    }
+  },
+  "ajuste_briefing": {
+    "etapa_id": "ajuste_briefing",
+    "nome": "Planejador de Marketing",
+    "agente": "planejamento",
+    "condicional": true,
+    "proximo": {
+      "Aprovar": "textos",
+      "Revisar": "ajuste_briefing"
+    }
+  },
+  "textos": {
+    "etapa_id": "textos",
+    "nome": "Redator Publicitário",
+    "agente": "textos",
+    "condicional": true,
+    "proximo": {
+      "Aprovar": "imagens",
+      "Revisar": "textos"
+    }
+  },
+  "imagens": {
+    "etapa_id": "imagens",
+    "nome": "Diretor de Arte",
+    "agente": "imagens",
+    "condicional": true,
+    "proximo": {
+      "Aprovar": "apresentacao_final",
+      "Revisar": "imagens"
+    }
+  },
+  "apresentacao_final": {
+    "etapa_id": "apresentacao_final",
+    "nome": "Montador de Apresentação",
+    "agente": "apresentacao",
+    "condicional": true,
+    "proximo": {
+      "Aprovar": "finalizado",
+      "Revisar": "apresentacao_final"
+    }
+  },
+  "finalizado": {
+    "etapa_id": "finalizado",
+    "condicional": false,
+    "proximo": null
+  }
+}

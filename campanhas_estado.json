@@ -1,0 +1,21 @@
+{
+  "cliente1": {
+    "etapa_atual": "inicio",
+    "historico": [
+      "inicio",
+      "planejamento",
+      "apresentacao_inicial",
+      "textos",
+      "imagens",
+      "apresentacao_final",
+      "inicio",
+      "planejamento",
+      "apresentacao_inicial",
+      "inicio",
+      "planejamento",
+      "apresentacao_inicial",
+      "textos",
+      "imagens"
+    ]
+  }
+  }

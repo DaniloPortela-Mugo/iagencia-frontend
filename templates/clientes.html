@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Escolha o Cliente</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='pagina2-clientes.css') }}">
+  <style>
+    /* Remove espaçamentos extras no header e footer */
+    header, footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: #fff;
+    }
+    header .logo img, footer .logo img {
+      height: 100px;
+      width: auto;
+      align-items: center;
+    }
+    
+    .grid-clientes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    .cliente-item img {
+      max-width: 150px;
+      max-height: 200px;
+      display: block;
+      align-items: center;
+    }
+    .cliente-item {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Logo Vox no canto esquerdo superior -->
+    <div class="logo">
+      <img src="{{ url_for('static', filename='imagens/vox.jpg') }}" alt="Vox Strategy">
+    </div>
+  
+  </header>
+
+  <main class="main-container selecao-clientes">
+    <h1>Bem-vindo</h1>
+    <h2>Escolha o cliente para iniciar o trabalho:</h2>
+
+    <div class="grid-clientes">
+      {% for cliente in clientes %}
+        <a href="{{ cliente.chat_link }}" class="cliente-item">
+          <img src="{{ cliente.imagem_url }}" alt="{{ cliente.nome }}">
+        </a>
+      {% endfor %}
+    </div>
+  </main>
+
+  <footer>
+    <!-- Apenas placeholder invisível à esquerda -->
+    <div></div>
+    <div class="logo"></div>
+  </footer>
+</body>
+</html>

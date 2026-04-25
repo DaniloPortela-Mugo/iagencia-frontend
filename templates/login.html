@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='pagina1-login.css') }}">
+</head>
+<body>
+  <header>
+    <div class="vox">vox</div>
+     <img src="{{ url_for('static', filename='imagens/vox.jpg') }}" alt="Vox Strategy">
+    <div class="vox" style="visibility: hidden;">logo</div>
+  </header>
+
+  <main class="main-container">
+    <h1>{{login}}</h1>
+    <h2>Faça login para continuar</h2>
+
+    {% if erro %}
+      <p style="color: red; text-align: center;">{{ erro }}</p>
+    {% endif %}
+
+    <form method="POST" class="login-form">
+      <input type="text" name="login" placeholder="Login" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Entrar</button>
+    </form>
+  </main>
+
+  <footer>
+    <div style="visibility: hidden;"></div>
+    <div class="vox">logo</div>
+  </footer>
+</body>
+</html>

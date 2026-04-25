@@ -1,0 +1,4 @@
+== CONTEXTO ==
+/Users/klebs/Desktop/eleicao_platform/client
+v22.21.0
+10.27.0

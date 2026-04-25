@@ -1,0 +1,98 @@
+
+[
+    {
+        "name": "Fidelidade Extrema ao Produto",
+        "description": "Instruções para garantir que o produto original seja renderizado sem alterações, ideal para publicidade.",
+        "instructions_text": "Use the submitted product image exactly as is — do not alter, redesign, or reinterpret any part of it. Keep the product completely intact — all text, labels, proportions, packaging, and colors should remain exactly the same. The final result should be 100% fidelity to the submitted product image. Photorealism, cinematic composition."
+    },
+    {
+        "name": "Apresentação de Produto em Cozinha",
+        "description": "Cria um cenário de cozinha realista com acessórios complementares para apresentação de produtos alimentícios ou domésticos.",
+        "instructions_text": "Place the product on a realistic wooden kitchen table next to a beautiful glass of water. Add complementary accessories if appropriate (a beautiful blender, a basket of fruits like apples, bananas, and pears) — but do not let them touch or cover the product. Use a softly blurred background or environment with natural morning light, soft shadows, calm and focused, early morning."
+    },
+    {
+        "name": "Estilo Editorial de Moda",
+        "description": "Instruções para um estilo de fotografia de moda com foco em iluminação, pose e atmosfera.",
+        "instructions_text": "High-fashion editorial spread, glossy texture, cinematic color grading, luxury setting, and softbox-style lighting. Confident gaze and strong posture. Shallow depth of field."
+    },
+    {
+        "name": "Storyboard de Ficção Científica",
+        "description": "Para gerar frames com estilo de storyboard, ideal para pré-visualização de cenas cinematográficas.",
+        "instructions_text": "Fiction storyboard frame, hand-drawn in pencil and marker, cinematic composition, annotations in the margins, old-school animation prep."
+    },
+    {
+        "name": "Publicidade 3D Minimalista",
+        "description": "Cria um anúncio 3D surreal e futurista para um produto, com foco em ambiente onírico e metáforas visuais.",
+        "instructions_text": "Create a surreal, minimalist, futuristic 3D advertisement. Center a single branded object in a clean, dreamy environment with soft ambient lighting and subtle surreal elements. Incorporate visual metaphors that reflect the brand's identity in unexpected ways like floating, glowing, bending physics, or dreamlike distortion. Use elegant negative space, soft shadows, ambient glow, and futuristic textures. Style: cinematic, poetic, ethereal."
+    },
+    {
+        "name": "Creative Add",
+        "description": "Adicional criativo para o prompt.",
+        "instructions_text": "Creative add."
+    },
+    {
+        "name": "Mood Board (Vertical 3:4)",
+        "description": "Cria uma colagem de mood board vertical em proporção 3:4.",
+        "instructions_text": "Create a vertical mood board collage in 3:4 ratio."
+    },
+    {
+        "name": "Template de Imagem",
+        "description": "Usa uma imagem como template de referência para inserir outras imagens.",
+        "instructions_text": "Use the provided image as a reference template to insert other images."
+    },
+    {
+        "name": "Esboços Conceituais (Múltiplas Vistas)",
+        "description": "Desenho de múltiplos pontos de vista com minimalismo moderno e linhas limpas.",
+        "instructions_text": "Concept sketches, multiple view drawing, modern minimalism, clean lines, white background."
+    },
+    {
+        "name": "Desenho Simples de Cartoon",
+        "description": "Estilo de desenho animado simples.",
+        "instructions_text": "Simple cartoon drawing."
+    },
+    {
+        "name": "Estilo Toy Story",
+        "description": "Geração no estilo visual da animação Toy Story.",
+        "instructions_text": "Toy Story style."
+    },
+    {
+        "name": "Retrato de Rosto Dividido",
+        "description": "Retrato com o rosto dividido em duas metades ou estilos.",
+        "instructions_text": "Split face portrait."
+    },
+    {
+        "name": "Quadrinho em Preto e Branco",
+        "description": "Estilo de quadrinhos em preto e branco.",
+        "instructions_text": "A black-and-white comic book style."
+    },
+    {
+        "name": "Ícones Minimalistas",
+        "description": "Geração de ícones com estilo minimalista.",
+        "instructions_text": "Minimalistic icons."
+    },
+    {
+        "name": "Esboço a Lápis",
+        "description": "Estilo de desenho artístico a lápis.",
+        "instructions_text": "Pencil sketch."
+    },
+    {
+        "name": "Painel Quadrado (Quatro Quadrantes)",
+        "description": "Composição dividida em quatro quadrantes iguais.",
+        "instructions_text": "Square panel, divided into four quadrants."
+    },
+    {
+        "name": "Storyboard (Múltiplas Cenas)",
+        "description": "Geração de um storyboard com múltiplas cenas.",
+        "instructions_text": "Storyboard, multiple scenes."
+    },
+    {
+        "name": "Flat Lay (Foto de Produto)",
+        "description": "Fotografia de produto em estilo flat lay, ultra realista para vendas.",
+        "instructions_text": "Flat Lay, mock up, sale product photo, flat lay ultra realistic."
+    },
+    {
+        "name": "Cena CGI Surreal",
+        "description": "Criação de uma cena surreal gerada por computador (CGI).",
+        "instructions_text": "Surreal CGI scene."
+    }
+]

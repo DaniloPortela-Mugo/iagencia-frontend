@@ -1,0 +1,22 @@
+44:export const trpc = {
+src/lib/trpc.ts:17:    console.warn("[trpc] safe fallback:", e);
+src/lib/trpc.ts:50:  clients: {
+src/lib/trpc.ts:576:  calendarEvents: {
+src/lib/trpc.ts:260:              let approvals: any[] = [];
+src/lib/trpc.ts:316:  approvals: {
+src/lib/trpc.ts:679:  mediaChannels: {
+src/lib/trpc.ts:683:          queryKey: qk("mediaChannels.listByClientId", input),
+src/lib/trpc.ts:689:                .from("media_channels")
+src/lib/trpc.ts:700:  mediaBroadcasts: {
+src/lib/trpc.ts:704:          queryKey: qk("mediaBroadcasts.listByClientId", input),
+src/lib/trpc.ts:710:                .from("media_broadcasts")
+src/lib/trpc.ts:725:            const { data, error } = await supabase.from("media_broadcasts").insert([input]).select("*").single();
+src/lib/trpc.ts:730:            await qc.invalidateQueries({ queryKey: ["mediaBroadcasts.listByClientId"] as any });
+src/lib/trpc.ts:743:            const { error } = await supabase.from("media_broadcasts").delete().eq("id", input.id);
+src/lib/trpc.ts:748:            await qc.invalidateQueries({ queryKey: ["mediaBroadcasts.listByClientId"] as any });
+src/lib/trpc.ts:909:  newsSearch: {
+src/lib/trpc.ts:915:          queryKey: qk("newsSearch.history", input),
+src/lib/trpc.ts:800:  clientNewsSources: {
+src/lib/trpc.ts:804:          queryKey: qk("clientNewsSources.listByClientId", input),
+src/lib/trpc.ts:827:  clientCompetitors: {
+src/lib/trpc.ts:831:          queryKey: qk("clientCompetitors.listByClientId", _input),

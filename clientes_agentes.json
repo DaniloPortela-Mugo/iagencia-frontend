@@ -1,0 +1,597 @@
+{
+  "cliente1": {
+    "nome": "TreeLife",
+    "descricao": "Farmácia de manipulação paulistana que combina alta tecnologia farmacêutica com ingredientes de pureza certificada para criar fórmulas personalizadas, focadas em longevidade, performance e qualidade de vida.",
+    "segmento": "farmácia de manipulação e suplementos personalizados, alto luxo",
+    "system_prompt": "Você é o estrategista da agência Vox Strategy responsável por planejar, criar e revisar campanhas de marketing para a marca TreeLife Pharmah definindo posicionamento para TreeLife Pharmah, priorizando saúde preventiva e prática. Seu interlocutor é a equipe interna da agência; nunca converse diretamente com o consumidor final. Foque em insights, roteiros, copies e conceitos visuais que reforcem longevidade, pureza e confiança. Sempre adote o tom acolhedor da marca.",
+    "agentes": {
+      "planejamento": {
+        "contexto": "Você é o planejador estratégico da Vox Strategy, responsável por definir o posicionamento e a estratégia de comunicação das marcas. Você é um Planner experiente e especialista em pesquisa de mercado e marketing digital altamente qualificado, com foco em comportamento do consumidor, plataformas digitais e movimentos culturais. Sua missão é analisar o briefing, coletar informações relevantes sobre o mercado, concorrência e tendências para criar estratégia de marketing e planejamento criativo de campanhas."
+      },
+      "textos": {
+        "contexto": "Você é um Redator Publicitário experiente, criativo e genial. Sua missão é criar textos criativos e persuasivos que comuniquem com clareza, influenciem o público-alvo e estejam alinhados à estratégia da campanha. Você é capaz de: Adaptar estilo e tom de voz a diferentes públicos e marcas, entende a importância do storytelling para engajar e o papel da redação nas estratégias de marketing digital. Sabe como aplicar técnicas de SEO e gatilhos mentais e entende a função de cada formato (post, roteiro, institucional etc.)"
+      },
+      "imagens": {
+        "contexto": "Você é diretor de arte da Vox Strategy criando visuais clean e naturais..."
+      },
+      "apresentacao": {
+        "contexto": "Você monta apresentações de campanha (Keynote/PPT)..."
+      }
+    },
+    "persona": {
+      "nome": "Vivi",
+      "idade": 45,
+      "profissao": "nutricionista esportiva autônoma",
+      "interesses": ["performance física", "longevidade", "culinária saudável"],
+      "comportamento": ["acompanha pesquisas científicas", "compra online", "segue perfis de saúde no Instagram"]
+    },
+    "publico": {
+      "faixa_etaria": "25-55",
+      "genero": "todos",
+      "localizacao": "Brasil urbano (foco em São Paulo)",
+      "interesses": ["suplementação", "medicina integrativa", "fitness", "autocuidado, alto luxo"],
+      "dor_principal": "tornar a rotina saudável mais prática e eficaz",
+      "objetivo": "manter saúde preventiva e alta performance diária"
+    },
+    "voz": {
+      "tom": "acolhedor, confiável, motivador",
+      "arquetipo": "Cuidador",
+      "humor": 2,
+      "formalidade": 1,
+      "energia": 3
+    },
+    "palavras_chave": ["longevidade", "medicina personalizada", "pureza", "qualidade de vida", "saúde"],
+    "palavras_proibidas": ["milagroso", "cura garantida"],
+    "hashtags_preferidas": ["#SaúdeIntegrada", "#QualidadeDeVida", "#Longevidade"],
+    "cta_padrao": "Acesse o site e faça o seu pedido!",
+    "cores": ["#f6f5e5", "#194737", "#f7f7e9", "#dcca88"],
+    "tipografia": "Garet, Caviar_Dreams, Majoram, Nexa, Open_Sans",
+    "estilo": "clean, natural, inspirado na natureza",
+    "logo_url": "https://treelifepharmah.com.br/wp-content/uploads/2023/11/Logo-Treelife-Pharmah.png",
+    "formatos": ["1:1", "9:16", "16:9", "4:5"],
+    "duracao_video_max": 60,
+    "descricao_video": "Vídeos curtos cenas de pessoas se exercitando ou consumindo o produto.",
+    "descricao_imagem": "Fotos luminosas de produtos sobre fundos claros com elementos naturais (folhas, madeira).",
+    "descricao_texto": "Copy educativo e inspirador, enfatizando benefícios e resultados reais.",
+    "descricao_audio": "Trilhas com batidas marcantes e inspiradoras.",
+    "descricao_story": "Stories de momentos de vida saudável",
+    "descricao_reels": "Reels com benefícios do produto usando cortes dinâmicos e texto em tela.",
+    "descricao_carrossel": "Carrosséis educativos (5-7 lâminas) explicando benefícios de ativos e modos de uso.",
+    "descricao_banner": "Banners com imagens de produtos e chamadas para ação diretas.",
+    "descricao_post": "Posts mixando mockups de produtos e ilustrações botânicas.",
+    "objetivo": "Conversão para o site https://treelifepharmah.com.br/",
+    "kpi_chave": "conversões (pedidos no site)",
+    "exemplos": [
+      "mulher está correndo na esteira da academia enquanto conversa alegremente com a câmera.",
+      "homem está fazendo um smoothie verde com frutas e vegetais frescos, enquanto fala sobre os benefícios dos ingredientes.",
+      "mulher está meditando em um parque, com uma voz suave falando sobre a importância do autocuidado e da saúde mental.",
+      "homem está fazendo exercícios de alongamento ao ar livre, enquanto fala sobre a importância de manter o corpo ativo e saudável."
+    ],
+    "produtos": [
+      {
+        "categoria": "Perda de peso",
+        "nome": "Ômega 3 Neural",
+        "componentes": "Ômega 3 ultraconcentrado (400 mg de EPA e 1000 mg de DHA por porção de duas cápsulas)",
+        "quantidade": "60 cap",
+        "modo_uso": "Tomar 2 cápsulas ao dia, preferencialmente durante as refeições",
+        "descricao": "Suplemento de ômega 3 ultraconcentrado para suporte à função cognitiva, memória e concentração, com ação anti-inflamatória neural."
+      },
+      {
+        "categoria": "Perda de peso",
+        "nome": "Akkermat",
+        "componentes": "Extrato de Capsicum frutescens (150 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "Tomar 1 cápsula após a principal refeição",
+        "descricao": "Complexo fitoativo natural para saúde metabólica e redução do apetite"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Adaptógeno Matinal",
+        "componentes": "Citrus Aurantium (500 mg) / Rhodiola (500 mg) / Cordicys (200 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "Tomar 1 cápsula ao acordar",
+        "descricao": "Restaura o equilíbrio do cortisol em situações de estresse"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Anti Stress",
+        "componentes": "Piridoxal-5-fosfato (25 mg) / Benfotiamina (100 mg) / Theanina (100 mg) / Saffrin (100 mg) / Rhodiola Rosea (100 mg)",
+        "quantidade": "60 cap",
+        "modo_uso": "Tomar 1 dose 2× ao dia",
+        "descricao": "Fórmula para controle do estresse, redução do cortisol e alívio da ansiedade"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Anti Ressaca",
+        "componentes": "Vit E (100 mg) / Vit C (100 mg) / Cobre (1 mg) / Manganês (1 mg) / Zinco (5 mg) / Metionina (200 mg) / Silimarina (100 mg) / Vit B6 (20 mg) / Colina (50 mg)",
+        "quantidade": "20 cap",
+        "modo_uso": "Tomar 2 cápsulas após ingestão de álcool",
+        "descricao": "Suplemento natural para combater sintomas de ressaca"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Beauty Hair Cápsula",
+        "componentes": "Zinco (7 mg) / Cromo (3,5 mg) / Selênio (3,4 mg) / Ác. fólico (0,24 mg) / Vit D3 (0,01 mg) / Vit E (10 mg) / Biotina (3 mg) + multivitaminas",
+        "quantidade": "60 cap",
+        "modo_uso": "Tomar 1 dose 2× ao dia",
+        "descricao": "Suplemento com minoxidil e trichosol para fortalecimento e crescimento capilar"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Beauty Hair Goma",
+        "componentes": "Mesma fórmula cápsula, em goma mastigável",
+        "quantidade": "30 gomas",
+        "modo_uso": "Consumir 1 goma ao dia",
+        "descricao": "Suplemento mastigável para cuidado diário dos cabelos"
+      },
+      {
+        "categoria": "Perda de peso",
+        "nome": "Block Carb",
+        "componentes": "Cassiolamina (400 mg) / Glucomannan (200 mg) / Faseolamina (400 mg)",
+        "quantidade": "60 cap",
+        "modo_uso": "1 dose antes de almoço e jantar",
+        "descricao": "Inibe a absorção de carboidratos para apoio à dieta"
+      },
+      {
+        "categoria": "Perda de peso",
+        "nome": "BurnKcal",
+        "componentes": "Phytgen (200 mg) / Lactob. Gasseri/Curvatus/Helveticus (1 blh cada) / Canela (100 mg)",
+        "quantidade": "60 cap",
+        "modo_uso": "1 dose antes de almoço e jantar",
+        "descricao": "Termogênico natural que pode queimar até 400 kcal/dia"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Booster para Melasma",
+        "componentes": "Ác. Kójico (2%) / Alfa Arbutim (5%) / Pomc Block (1%)",
+        "quantidade": "30 g",
+        "modo_uso": "Aplicar à noite na face",
+        "descricao": "Sérum clareador para reduzir manchas e uniformizar o tom da pele"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Coenzima Q10",
+        "componentes": "CoQ10 (100 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Aumenta energia, disposição e funções cerebrais"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Clareador de Melasma Oral",
+        "componentes": "Oli-Ola (300 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose próximo à refeição",
+        "descricao": "Extraído de oliva, padronizado em hidroxitirosol para clareamento interno"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "Creamelo",
+        "componentes": "Creatina monohidratada (3 g/dose)",
+        "quantidade": "60 creamelos",
+        "modo_uso": "Ingerir 2 caramelos por dia",
+        "descricao": "Caramelo de creatina para rendimento físico e cognitivo"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Deep Sleep",
+        "componentes": "Melatonina (0,21 mg) / Phenibut (150 mg) / Camomila (150 mg) / L-Theanina (150 mg) / P5P (50 mg) / Mg Treonato (100 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose 1 h antes de deitar",
+        "descricao": "Sinergia de ativos para sono reparador e regulação do humor"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Diabet Balance – Resistência Insulínica",
+        "componentes": "Berberina (600 mg) / Zinco (100 mg) / Selênio (200 mcg) / Crômio (300 mcg) / Morosil (200 mg) / Mg Bisglicinato (200 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Suporte para controle de glicose, colesterol e triglicerídeos"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Disbiolife",
+        "componentes": "Alho (300 mg) / Orégano (100 mg) / Extrato de Oliva (50 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose pela manhã",
+        "descricao": "Combate disbiose intestinal e fortalece imunidade"
+      },
+      {
+        "categoria": "Perda de peso",
+        "nome": "Drenow C",
+        "componentes": "Hibiscus (100 mg) / Vinagre de Maçã (100 mg) / Drenow C (500 mg)",
+        "quantidade": "60 cap",
+        "modo_uso": "2 cápsulas ao dia (última até 17h)",
+        "descricao": "Diurético natural para redução de inchaço e medidas"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Esteatoten",
+        "componentes": "Vit C (500 mg) / NAC (500 mg) / Metionina (500 mcg) / Ác. Alfa-Lipoico (300 mg) / L-Theanina (200 mg) / L-Glicina (300 mg) / Morosil (200 mg)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê/dia em 200 ml água",
+        "descricao": "Detox hepático para redução de gordura no fígado"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Espuma de Caviar",
+        "componentes": "Extrato de Caviar (2%)",
+        "quantidade": "100 ml",
+        "modo_uso": "Lavar rosto 2× ao dia",
+        "descricao": "Limpa, hidrata e revitaliza peles secas e maduras"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Garlic",
+        "componentes": "Alho (300 mg) / Alicina (1%)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose pela manhã",
+        "descricao": "Alho encapsulado para suporte cardiovascular e imunológico"
+      },
+      {
+        "categoria": "Perda de peso",
+        "nome": "Goma Drenante",
+        "componentes": "Hibiscus (100 mg) / Vinagre de Maçã (100 mg) / Drenow C (500 mg)",
+        "quantidade": "30 gomas",
+        "modo_uso": "1 goma ao dia",
+        "descricao": "Goma diurética para eliminar inchaço e controlar peso"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Homocisteína-Ferritina",
+        "componentes": "Glutationa (500 mg) / Ác. Alfa-Lipoico (500 mg) / Inositol (200 mg) / Vit C (1 g)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Combate inflamação sistêmica de baixo grau"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Interbooster – Sachê",
+        "componentes": "Glutamina (3 g) / Beta-glucana de levedura (200 mg)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê/dia em 200 ml água",
+        "descricao": "Suporte à saúde intestinal e absorção de nutrientes"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Low Homocysteine",
+        "componentes": "Vit B2 / P5P (50 mg) / Metilfolato (1 mg) / Metilcobalamina (1 mg) / Beterraba (300 mg) / Colina (100 mg) / SAME (10 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Regula níveis de homocisteína para proteção vascular"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Magnésio Treonato",
+        "componentes": "Mg Treonato (500 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Neuroprotetor que regula sono e humor"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Magnésio Quelato",
+        "componentes": "Mg Quelato (500 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Relaxante muscular e vascular, previne cãibras"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "MaxSolve",
+        "componentes": "CoQ10 (nanoemulsão concentrada)",
+        "quantidade": "10 ml",
+        "modo_uso": "2 gotas em água ou bebida",
+        "descricao": "Alta biodisponibilidade de CoQ10 para energia celular"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Máscara Crescimento Sobrancelhas & Cílios",
+        "componentes": "Trichoxil (2,5%) / aFGF (2%) / Latanoprosta (0,005%)",
+        "quantidade": "4 ml",
+        "modo_uso": "Aplicar 1× ao dia",
+        "descricao": "Estimula volume e força de fios de sobrancelha e cílios"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Nutrem Capilar",
+        "componentes": "Biotina (30 mcg) / Selênio (200 mcg) / Prolina (500 mg) / Zinco (20 mg) / Metilfolato (2 mg) / Ác. folínico (1 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Suplemento para saúde de pele, cabelos e unhas"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Nutrition Celular Balance",
+        "componentes": "22 componentes vitamínicos e minerais",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Multivitamínico completo para reposição nutricional"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "Pepti Strong",
+        "componentes": "Peptídeos da proteína vegetal de fava (2,4 g)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê/dia em 100 ml água",
+        "descricao": "Inovação para saúde muscular via peptídeos vegetais"
+      },
+      {
+        "categoria": "Perda de peso",
+        "nome": "Pirulito de Morosil",
+        "componentes": "Morosil (500 mg) / Goma Acacia 2% / Adoçantes",
+        "quantidade": "10 pirulitos",
+        "modo_uso": "1 pirulito ao dia",
+        "descricao": "Diabético-friendly para redução de medidas"
+      },
+      {
+        "categoria": "Kids",
+        "nome": "Pirulito de Omega 3 Vegano",
+        "componentes": "ALA 500 mg (converte em EPA/DHA)",
+        "quantidade": "10 pirulitos",
+        "modo_uso": "1 pirulito ao dia",
+        "descricao": "Fonte de EPA/DHA para desenvolvimento infantil"
+      },
+      {
+        "categoria": "Kids",
+        "nome": "Pirulito de Omega 3 Vegano",
+        "componentes": "ALA 500 mg (converte em EPA/DHA)",
+        "quantidade": "30 pirulitos",
+        "modo_uso": "1 pirulito ao dia",
+        "descricao": "Fonte de EPA/DHA para desenvolvimento infantil"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Vinagre de Maçã – Cap",
+        "componentes": "Vinagre de Maçã (500 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Antioxidante e diurético para saciedade e queima de calorias"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Chocolate TPM",
+        "componentes": "5-HTP (100 mg) / Vit B6 (20 mg) / Crocus sativus (88 mg)",
+        "quantidade": "30 unidades",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Alívio de sintomas da TPM por ação na serotonina"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "Clonapure",
+        "componentes": "Clonapure (1,8 g ≈3 g creatina)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê/dia em 200 ml água",
+        "descricao": "Complexo trimolecular de creatina para energia e neuroproteção"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Stress Balance",
+        "componentes": "Ác. Pantotênico (1 500 mg) / Vit B6 (250 mg) / Ashwagandha (250 mg) / Mg Treonato (400 mg) / Complexo B / Rhodiola (100 mg)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 dose ao dia em 200 ml água",
+        "descricao": "Reduz sinais de estresse e melhora o humor"
+      },
+      {
+        "categoria": "Bem estar",
+        "nome": "Chá Calm Sleep",
+        "componentes": "L-Theanina (250 mg) / Phenibut (250 mg) / Bacopa (300 mg) / Camomila (200 mg) / GABA (200 mg) / outros",
+        "quantidade": "60 sachês",
+        "modo_uso": "1 sachê à noite em água quente ou fria",
+        "descricao": "Bebida calmante para ansiedade e indução ao sono profundo"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Ultra D",
+        "componentes": "Vit A (2 000 UI) / Vit D (2 000 UI) / Vit E (50 mg) / Vit K (100 mcg) / Astaxantina (5 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose próxima à refeição",
+        "descricao": "Polivitamínico para suporte imunológico e ósseo"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Vitamina D",
+        "componentes": "Vit D (2 000 UI)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 cápsula próxima à refeição",
+        "descricao": "Suplementação essencial para saúde geral"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Vita Forti BD Plus",
+        "componentes": "Metilcobalamina (1 mg) / Vit A (200 UI) / Vit D (2 000 UI) / Vit K2 (100 mcg) / Mg Taurato (1 g)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Polivitamínico de alta concentração para imunidade e performance"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Vitalife",
+        "componentes": "Zinco (15 mg) / Selênio (100 mcg) / Crômio (50 mcg) / Iodo (100 mcg) + multivitaminas e antioxidantes",
+        "quantidade": "60 cap",
+        "modo_uso": "2 cápsulas junto à refeição",
+        "descricao": "Multivitamínico completo para desempenho nutricional"
+      },
+      {
+        "categoria": "Saúde",
+        "nome": "Lisina",
+        "componentes": "Lisina (500 mg)",
+        "quantidade": "30 cap",
+        "modo_uso": "1 dose ao dia",
+        "descricao": "Aminoácido para hipertrofia e suporte imunológico"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Colágeno Sachê",
+        "componentes": "Verisol (2,5 g) / Refreska (2 g)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê ao dia",
+        "descricao": "Melhora elasticidade e textura da pele e cabelos"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Colágeno a Granel",
+        "componentes": "Verisol (2,5 g) / Refreska (2 g)",
+        "quantidade": "75 g",
+        "modo_uso": "1 scoop (2,5 g) ao dia",
+        "descricao": "Melhora elasticidade de pele e cabelos"
+      },
+      {
+        "categoria": "Beauty",
+        "nome": "Colágeno Hidrolisado – Pó",
+        "componentes": "Colágeno Hidrolisado (10 g) / Refreska (2 g)",
+        "quantidade": "300 g",
+        "modo_uso": "1 scoop (10 g) ao dia",
+        "descricao": "Suplemento em pó para firmeza da pele"
+      },
+      {
+        "categoria": "Beauty",  
+        "nome": "Colágeno Hidrolisado – Sachê",
+        "componentes": "Mesma fórmula em sachês",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê ao dia",
+        "descricao": "Praticidade em dose única para colágeno"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "Creatina a Granel (150 g)",
+        "componentes": "Creatina (150 g) / Refreska (2 g)",
+        "quantidade": "150 g",
+        "modo_uso": "1 scoop (5 g) ao dia",
+        "descricao": "Aumento de força e condicionamento"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "Creatina Sachê (5 g)",
+        "componentes": "Creatina (5 g) / Refreska (2 g)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê ao dia",
+        "descricao": "Dose prática para ganho de força"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "Creatina a Granel (90 g)",
+        "componentes": "Creatina (90 g) / Refreska (2 g)",
+        "quantidade": "90 g",
+        "modo_uso": "1 scoop (3 g) ao dia",
+        "descricao": "Dose menor de creatina para força"
+      },
+      {
+        "categoria": "Performance",
+        "nome": "Creatina Sachê (3 g)",
+        "componentes": "Creatina (3 g) / Refreska (2 g)",
+        "quantidade": "30 sachês",
+        "modo_uso": "1 sachê ao dia",
+        "descricao": "Dose otimizada para recuperação muscular"
+      }
+    ]
+  },
+  "cliente2": {
+    "nome": "Ricardo Almeida",
+    "descricao": "Clínica de dermatologia especializada em tratamentos estéticos e saúde da pele.",
+    "segmento": "saúde e estética",
+    "persona": {
+      "nome": "Mariana",
+      "idade": 38,
+      "profissao": "advogada",
+      "interesses": ["cuidados com a pele", "lifestyle saudável", "viagens"],
+      "comportamento": ["pesquisa tratamentos antes de agendar", "segue influenciadores de skincare"]
+    },
+    "publico": {
+      "faixa_etaria": "30-55",
+      "genero": "predominantemente feminino",
+      "localizacao": "grandes centros urbanos",
+      "interesses": ["antiaging", "tratamentos estéticos", "bem-estar"],
+      "dor_principal": "linhas de expressão e manchas",
+      "objetivo": "ter pele mais jovem e saudável"
+    },
+    "voz": {
+      "tom": "profissional, acolhedor, confiante",
+      "arquetipo": "Cuidador",
+      "humor": 2,
+      "formalidade": 3,
+      "energia": 3
+    },
+    "palavras_chave": ["skincare", "rejuvenescimento", "dermatologia", "saúde da pele"],
+    "palavras_proibidas": ["caseiro", "genérico"],
+    "hashtags_preferidas": ["#PeleSaudavel", "#DermaCare"],
+    "cta_padrao": "Agende sua avaliação agora!",
+    "cores": ["#00A8E8", "#FFFFFF"],
+    "tipografia": "Lato, sans-serif",
+    "estilo": "clean, sofisticado, minimalista",
+    "logo_url": "https://…/dermacare_logo.png",
+    "formatos": ["1:1", "9:16"],
+    "duracao_video_max": 30,
+    "descricao_video": "Vídeos educativos que mostram procedimentos e cuidados com a pele, com linguagem acessível e imagens nítidas.",
+    "descricao_imagem": "Fotos de antes e depois, com close nas áreas tratadas, ilustrando resultados reais.",
+    "descricao_texto": "Textos informativos sobre tratamentos, ingredientes e dicas de cuidado diário.",
+    "descricao_audio": "Voz calma e explicativa, com música ambiente suave de fundo.",
+    "descricao_story": "Stories de depoimentos de pacientes e Q&A sobre cuidados com a pele.",
+    "descricao_reels": "Reels mostrando passo a passo de procedimentos rápidos e dicas de rotina de skincare.",
+    "descricao_carrossel": "Carrosséis explicando benefícios de cada tratamento, com dados e ilustrações.",
+    "descricao_banner": "Banners claros com chamadas para avaliação gratuita e destaque para promoções.",
+    "descricao_post": "Posts combinando imagem de tratamento e texto detalhado sobre benefícios.",
+    "descricao_story_ad": "Stories patrocinados com swipe up para agendamento.",
+    "descricao_reels_ad": "Reels patrocinados com clipes de procedimentos e links diretos para agendamento.",
+    "descricao_carrossel_ad": "Carrosséis patrocinados mostrando antes e depois com link para site.",
+    "descricao_banner_ad": "Banners patrocinados destacando ofertas e pacotes promocionais.",
+    "objetivo": "conversão",
+    "kpi_chave": "agendamentos",
+    "exemplos": ["post educativo sobre laser", "Reels de rotina de skincare"]
+  },
+  "cliente3": {
+    "nome": "Bacio di Latte",
+    "descricao": "Fábrica de sorvetes artesanais, com foco em gelato premium e ingredientes naturais.",
+    "segmento": "alimentação artesanal",
+    "persona": {
+      "nome": "Lucas",
+      "idade": 28,
+      "profissao": "publicitário",
+      "interesses": ["gastronomia", "viagens", "experiências gourmet"],
+      "comportamento": ["compartilha fotos de comidas", "procura ingredientes naturais"]
+    },
+    "publico": {
+      "faixa_etaria": "15-45",
+      "genero": "todos",
+      "localizacao": "capitais e grandes cidades",
+      "interesses": ["sorvetes artesanais", "sabores exclusivos", "momentos de lazer"],
+      "dor_principal": "falta de opções de sorvetes premium",
+      "objetivo": "desfrutar de sorvete artesanal de alta qualidade"
+    },
+    "voz": {
+      "tom": "doce, convidativo, leve",
+      "arquetipo": "Amigo",
+      "humor": 5,
+      "formalidade": 1,
+      "energia": 4
+    },
+    "palavras_chave": ["gelato", "artesanal", "premium", "gourmet"],
+    "palavras_proibidas": ["industrial", "comum"],
+    "hashtags_preferidas": ["#BacioDiLatte", "#GelatoArt"],
+    "cta_padrao": "Venha provar hoje mesmo!",
+    "cores": ["#FDEBD0", "#D35400"],
+    "tipografia": "Raleway, sans-serif",
+    "estilo": "aconchegante, sofisticado, artesanal",
+    "logo_url": "https://…/bacio_logo.png",
+    "formatos": ["1:1", "9:16"],
+    "duracao_video_max": 30,
+    "descricao_video": "Vídeos atraentes mostrando o processo de produção artesanal e pessoas saboreando o gelato.",
+    "descricao_imagem": "Fotos de close nos sabores coloridos e texturas cremosas em ambientes acolhedores.",
+    "descricao_texto": "Textos que destacam a origem dos ingredientes e exclusividade dos sabores.",
+    "descricao_audio": "Trilha sonora leve, com sons de natureza e risadas de pessoas felizes.",
+    "descricao_story": "Stories apresentando o ‘sabor do dia’ e enquetes sobre preferências.",
+    "descricao_reels": "Reels dinâmicos mostrando o preparo e reação de clientes experimentando.",
+    "descricao_carrossel": "Carrosséis que contam a história de cada ingrediente e receita.",
+    "descricao_banner": "Banners convidativos com destaque para promoções e novos sabores.",
+    "descricao_post": "Posts que misturam fotos de gelato e citações de clientes satisfeitos.",
+    "descricao_story_ad": "Stories patrocinados com link para localização da loja.",
+    "descricao_reels_ad": "Reels patrocinados com ofertas exclusivas para seguidores.",
+    "descricao_carrossel_ad": "Carrosséis patrocinados exibindo variedade de sabores e opções de presentes.",
+    "descricao_banner_ad": "Banners patrocinados promovendo combos e descontos.",
+    "objetivo": "awareness",
+    "kpi_chave": "engajamento",
+    "exemplos": ["Reels do sabor do mês", "Carrossel de ingredientes frescos"]
+  }
+}
+
+  

@@ -1,0 +1,1 @@
+ALTER TABLE `ai_conversations` MODIFY COLUMN `section` enum('strategy','creation','art_direction','production','media','planning') NOT NULL;

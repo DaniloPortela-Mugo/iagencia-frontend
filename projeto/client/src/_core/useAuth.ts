@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { authService } from "@/services/authService";
+import { supabase } from "@/lib/supabase";
 
 type AuthUser = {
   id?: string;
@@ -19,19 +19,25 @@ export function useAuth(): UseAuthResult {
   useEffect(() => {
     let mounted = true;
 
-    async function load() {
-      try {
-        const currentUser = await authService.getUser?.();
-        if (mounted) setUser((currentUser as AuthUser) ?? null);
-      } finally {
-        if (mounted) setLoading(false);
+    supabase.auth.getSession().then(({ data: { session }, error }) => {
+      if (!mounted) return;
+      if (error || !session) {
+        supabase.auth.signOut();
+        setUser(null);
+      } else {
+        setUser(session.user as AuthUser);
       }
-    }
+      setLoading(false);
+    });
 
-    load();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return;
+      setUser(session?.user as AuthUser ?? null);
+    });
 
     return () => {
       mounted = false;
+      subscription.unsubscribe();
     };
   }, []);
 

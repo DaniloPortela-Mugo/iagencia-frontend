@@ -16,3 +16,10 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     detectSessionInUrl: false,
   },
 });
+
+// Limpa sessão corrompida quando o refresh token é inválido
+supabase.auth.onAuthStateChange((event, session) => {
+  if (event === 'TOKEN_REFRESHED' && !session) {
+    supabase.auth.signOut();
+  }
+});

@@ -42,6 +42,17 @@ const getAuthHeaders = async (extra?: Record<string, string>) => {
   };
 };
 
+async function uploadBase64ToStorage(dataUrl: string, tenantSlug: string, prefix = "image"): Promise<string> {
+  const mimeType = dataUrl.split(";")[0].split(":")[1] || "image/jpeg";
+  const ext = mimeType.split("/")[1] || "jpg";
+  const byteArray = Uint8Array.from(atob(dataUrl.split(",")[1]), (c) => c.charCodeAt(0));
+  const blob = new Blob([byteArray], { type: mimeType });
+  const filename = `${tenantSlug}/${prefix}_${Date.now()}.${ext}`;
+  const { error } = await supabase.storage.from("library").upload(filename, blob, { contentType: mimeType, upsert: false });
+  if (error) throw new Error(error.message);
+  return supabase.storage.from("library").getPublicUrl(filename).data.publicUrl;
+}
+
 function sanitizePromptText(text: string) {
   if (!text) return "";
   return text
@@ -884,19 +895,12 @@ try {
 
   if (media && media.startsWith("data:image")) {
     const safeTenant = activeTenant && activeTenant !== "all" ? activeTenant : "";
-    const upResponse = await fetchWithTimeout(`${API_BASE}/media/upload-base64`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        tenant_slug: safeTenant,
-        filename_prefix: "studio_render",
-        data_url: media,
-      }),
-    }, 20000);
-
-    if (upResponse.ok) {
-      const upJson = await upResponse.json();
-      media = upJson?.url || media;
+    if (safeTenant) {
+      try {
+        media = await uploadBase64ToStorage(media, safeTenant, "studio_render");
+      } catch {
+        // mantém base64 se upload falhar
+      }
     }
   }
 
@@ -1172,10 +1176,15 @@ const safeTenant = activeTenant && activeTenant !== "all" ? activeTenant : "";
     throw new Error("tenant ausente");
   }
 
+  let libraryUrl = dataUrl;
+  if (dataUrl.startsWith("data:")) {
+    libraryUrl = await uploadBase64ToStorage(dataUrl, safeTenant, "biblioteca");
+  }
+
   const { error } = await supabase.from("library").insert([
     {
       tenant_slug: safeTenant,
-      url: dataUrl,
+      url: libraryUrl,
       type: "image",
       task_id: activeTask.id,
       title: activeTask.title || "Arte",
@@ -1203,23 +1212,9 @@ onSaveToApproval={async (dataUrl, draft) => {
     throw new Error("tenant ausente");
   }
 
-  let finalImageUrl = dataUrl;
-  if (dataUrl.startsWith("data:")) {
-    const mimeType = dataUrl.split(";")[0].split(":")[1] || "image/jpeg";
-    const ext = mimeType.split("/")[1] || "jpg";
-    const base64 = dataUrl.split(",")[1];
-    const byteArray = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
-    const blob = new Blob([byteArray], { type: mimeType });
-    const filename = `${safeTenant}/aprovacao_${Date.now()}.${ext}`;
-    const { error: upError } = await supabase.storage
-      .from("library")
-      .upload(filename, blob, { contentType: mimeType, upsert: false });
-    if (upError) throw new Error(upError.message || "Erro ao fazer upload da imagem.");
-    const { data: { publicUrl } } = supabase.storage.from("library").getPublicUrl(filename);
-    finalImageUrl = publicUrl;
-  } else {
-    finalImageUrl = toAbsoluteMediaUrl(dataUrl);
-  }
+  let finalImageUrl = dataUrl.startsWith("data:")
+    ? await uploadBase64ToStorage(dataUrl, safeTenant, "aprovacao")
+    : toAbsoluteMediaUrl(dataUrl);
 
   if (draft) {
     try {

@@ -1289,7 +1289,17 @@ onSaveDraft={async (draftPayload: any) => {
   setDraftNameInput(activeTask?.title || "");
   setShowSaveDraftModal(true);
 }}
-initialDraft={initialDraft}
+initialDraft={(() => {
+  const FORMAT_MAP: Record<string, string> = {
+    "Horizontal (16:9)": "landscape",
+    "Vertical (9:16)": "story",
+    "Quadrado (1:1)": "square",
+    "Feed Instagram (4:5)": "feed",
+    "Ultrawide (21:9)": "landscape",
+  };
+  if (initialDraft?.canvasFormatId) return initialDraft;
+  return { ...(initialDraft || {}), canvasFormatId: FORMAT_MAP[config.format] ?? "feed" };
+})()}
 autosaveKey={String(activeTask?.id || "no-task")}
 />
 )}

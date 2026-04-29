@@ -486,13 +486,23 @@ export default function VideoStudio() {
   }, [safeTenant, activeTask?.id]);
 
   const handleSaveJobSnapshot = async (payload: any, name: string) => {
+    const stripBase64 = (v: any) => (typeof v === "string" && v.startsWith("data:") ? null : v);
+    const sanitizedPayload = {
+      ...payload,
+      generatedResult: stripBase64(payload.generatedResult),
+      faceImage:       stripBase64(payload.faceImage),
+      bodyImage:       stripBase64(payload.bodyImage),
+      productImage:    stripBase64(payload.productImage),
+      clothingImage:   stripBase64(payload.clothingImage),
+      styleImage:      stripBase64(payload.styleImage),
+    };
     const job = {
       id: Date.now(),
       name,
       date: new Date().toLocaleDateString("pt-BR"),
       taskId: activeTask?.id || null,
       tenant: safeTenant,
-      payload,
+      payload: sanitizedPayload,
     };
     const updated = [job, ...savedJobs];
     setSavedJobs(updated);

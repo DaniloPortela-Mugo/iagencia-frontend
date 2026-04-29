@@ -386,10 +386,26 @@ useEffect(() => {
 
 const handleSaveJobSnapshot = (payload: any, name: string) => {
   const safeTenant = activeTenant && activeTenant !== "all" ? activeTenant : "";
-  const sanitizedPayload = { ...payload };
-  if (typeof sanitizedPayload.generatedResult === "string" && sanitizedPayload.generatedResult.startsWith("data:")) {
-    sanitizedPayload.generatedResult = null;
-  }
+  const stripBase64 = (v: any) => (typeof v === "string" && v.startsWith("data:") ? null : v);
+  const sanitizedPayload = {
+    ...payload,
+    generatedResult: stripBase64(payload.generatedResult),
+    faceImage:       stripBase64(payload.faceImage),
+    bodyImage:       stripBase64(payload.bodyImage),
+    productImage:    stripBase64(payload.productImage),
+    clothingImage:   stripBase64(payload.clothingImage),
+    styleImage:      stripBase64(payload.styleImage),
+    draft: payload.draft
+      ? {
+          ...payload.draft,
+          elements: Array.isArray(payload.draft.elements)
+            ? payload.draft.elements.map((el: any) =>
+                el?.type === "image" ? { ...el, src: stripBase64(el.src) } : el
+              )
+            : payload.draft.elements,
+        }
+      : payload.draft,
+  };
   const job = {
     id: Date.now(),
     name,

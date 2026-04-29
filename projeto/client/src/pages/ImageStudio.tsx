@@ -643,6 +643,28 @@ const openEditorWithDraft = async () => {
   }
 
   try {
+    // 1. Busca último approval do task
+    const { data: approvals } = await supabase
+      .from("approvals")
+      .select("image_url,draft_payload")
+      .eq("task_id", activeTask.id)
+      .order("created_at", { ascending: false })
+      .limit(1);
+    const approvalImageUrl = toAbsoluteMediaUrl(approvals?.[0]?.image_url || "") || null;
+    const approvalDraft = approvals?.[0]?.draft_payload || null;
+
+    // 2. Se o usuário gerou uma imagem nova (diferente do approval), abre limpo
+    const hasNewImage = !!generatedResult && generatedResult !== approvalImageUrl;
+    if (hasNewImage) {
+      setInitialDraft(null);
+      setImageForEditing(generatedResult || "");
+      setIsStudioOpen(true);
+      return;
+    }
+
+    // 3. Modo edição do approval: carrega draft com elementos
+    let appliedDraft: any = null;
+
     const { data: drafts } = await supabase
       .from("art_drafts")
       .select("elements,bg_color,canvas_format_id,updated_at")
@@ -650,56 +672,32 @@ const openEditorWithDraft = async () => {
       .order("updated_at", { ascending: false })
       .limit(1);
 
-    let appliedDraft: any = null;
     if (drafts && drafts.length > 0) {
       const d = drafts[0];
       let elements = d.elements || [];
       if (typeof elements === "string") {
-        try {
-          elements = JSON.parse(elements);
-        } catch {
-          elements = [];
-        }
+        try { elements = JSON.parse(elements); } catch { elements = []; }
       }
       appliedDraft = {
         elements: Array.isArray(elements) ? elements : [],
         bgColor: d.bg_color || "#ffffff",
         canvasFormatId: d.canvas_format_id || null,
       };
-    }
-
-    let approvalImageUrl: string | null = null;
-
-    if (!appliedDraft) {
-      const { data: approvals } = await supabase
-        .from("approvals")
-        .select("image_url,draft_payload")
-        .eq("task_id", activeTask.id)
-        .order("created_at", { ascending: false })
-        .limit(1);
-      approvalImageUrl = toAbsoluteMediaUrl(approvals?.[0]?.image_url || "") || null;
-      const approvalDraft = approvals?.[0]?.draft_payload || null;
-      if (approvalDraft) {
-        appliedDraft = {
-          elements: Array.isArray(approvalDraft?.elements) ? approvalDraft.elements : [],
-          bgColor: approvalDraft?.bgColor || "#ffffff",
-          canvasFormatId: approvalDraft?.canvasFormatId || null,
-        };
-      }
-    } else {
-      // mesmo com draft de art_drafts, busca a imagem do approval como base
-      const { data: approvals } = await supabase
-        .from("approvals")
-        .select("image_url")
-        .eq("task_id", activeTask.id)
-        .order("created_at", { ascending: false })
-        .limit(1);
-      approvalImageUrl = toAbsoluteMediaUrl(approvals?.[0]?.image_url || "") || null;
+    } else if (approvalDraft) {
+      appliedDraft = {
+        elements: Array.isArray(approvalDraft?.elements) ? approvalDraft.elements : [],
+        bgColor: approvalDraft?.bgColor || "#ffffff",
+        canvasFormatId: approvalDraft?.canvasFormatId || null,
+      };
     }
 
     setInitialDraft(appliedDraft);
-    // usa o approval mais recente como base; cai no generatedResult se não houver
-    setImageForEditing(approvalImageUrl || generatedResult || "");
+
+    // 4. Quando há draft com elementos, passa string vazia como baseImage para não
+    //    sobrescrever o src do base-img salvo nos elementos (evita texto duplicado).
+    //    Quando não há draft, usa o approval image como base limpa.
+    const hasDraftElements = Array.isArray(appliedDraft?.elements) && appliedDraft.elements.length > 0;
+    setImageForEditing(hasDraftElements ? "" : (approvalImageUrl || generatedResult || ""));
     if (approvalImageUrl) setGeneratedResult(approvalImageUrl);
   } catch {
     setInitialDraft(null);

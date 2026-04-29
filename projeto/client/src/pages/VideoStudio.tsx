@@ -38,6 +38,18 @@ import { PlatformSelector } from "../components/Studio/PlatformSelector";
 const API_BASE = import.meta.env.VITE_API_BASE?.trim() || "http://localhost:8000";
 const GENERATE_ENDPOINT = "/creation/generate-video";
 
+function toAbsoluteMediaUrl(url: string) {
+  const normalized = (url || "").trim();
+  if (!normalized) return "";
+  if (normalized.startsWith("data:")) return normalized;
+  if (normalized.startsWith("blob:")) return normalized;
+  if (/^https?:\/\//i.test(normalized)) return normalized;
+  if (normalized.startsWith("//")) return `https:${normalized}`;
+  if (normalized.startsWith(`${API_BASE}http`)) return normalized.slice(normalized.indexOf("http", API_BASE.length));
+  if (normalized.startsWith("/")) return `${API_BASE}${normalized}`;
+  return `${API_BASE}/${normalized.replace(/^\/+/, "")}`;
+}
+
 const getAuthHeaders = async (extra?: Record<string, string>) => {
   const { data } = await supabase.auth.getSession();
   const token = data?.session?.access_token;
@@ -738,9 +750,7 @@ export default function VideoStudio() {
     if (!safeTenant) return toast.error("Selecione um cliente antes de enviar.");
 
     try {
-      const finalVideoUrl = dataUrl.startsWith("http")
-        ? dataUrl
-        : `${API_BASE}${dataUrl.startsWith("/") ? "" : "/"}${dataUrl}`;
+      const finalVideoUrl = toAbsoluteMediaUrl(dataUrl);
       const { error } = await supabase.from("library").insert([
         {
           tenant_slug: safeTenant,
@@ -764,9 +774,7 @@ export default function VideoStudio() {
     if (!safeTenant) return toast.error("Selecione um cliente antes de enviar.");
 
     try {
-      const finalVideoUrl = dataUrl.startsWith("http")
-        ? dataUrl
-        : `${API_BASE}${dataUrl.startsWith("/") ? "" : "/"}${dataUrl}`;
+      const finalVideoUrl = toAbsoluteMediaUrl(dataUrl);
 
       const { error } = await supabase.from("approvals").insert([
         {
@@ -778,10 +786,11 @@ export default function VideoStudio() {
           created_at: new Date().toISOString(),
         },
       ]);
-      if (error) throw new Error(error.message);
+      if (error) throw new Error(error.message || "Erro ao salvar aprovação.");
 
       await supabase.from("tasks").update({ status: "doing" }).eq("id", activeTask.id);
 
+      setGeneratedResult(finalVideoUrl);
       setPendingJobPayload({
         characters,
         config,
@@ -977,9 +986,7 @@ export default function VideoStudio() {
     if (!rawUrl || typeof rawUrl !== "string") {
       throw new Error(data?.detail || "Backend não retornou URL do vídeo.");
     }
-    const finalUrl = rawUrl.startsWith("http")
-      ? rawUrl
-      : `${API_BASE}${rawUrl.startsWith("/") ? "" : "/"}${rawUrl}`;
+    const finalUrl = toAbsoluteMediaUrl(rawUrl);
     setGeneratedResult(finalUrl);
     toast.success("Vídeo renderizado!");
   } catch (err: any) {

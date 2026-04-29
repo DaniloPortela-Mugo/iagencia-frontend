@@ -18,3 +18,8 @@ build/
 coverage/
 .idea/
 .vscode/
+
+# --- SUBMODULES (not part of this project) ---
+Wav2Lip/
+labelImg/
+orca_vox/

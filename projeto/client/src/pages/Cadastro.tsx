@@ -616,10 +616,8 @@ export default function Cadastro() {
     const email = userEmail.trim().toLowerCase();
     if (!email) return;
 
-    // Primeiro tenta encontrar no state já carregado
     let profile = profiles.find(p => p.email?.toLowerCase() === email);
 
-    // Se não encontrar, busca direto no Supabase
     if (!profile) {
       const { data } = await supabase
         .from("profiles")
@@ -630,7 +628,7 @@ export default function Cadastro() {
     }
 
     if (!profile) {
-      toast.error("Usuário não encontrado. Peça para ele criar uma conta primeiro.");
+      toast.error("Usuário não encontrado. Use o botão ✉️ para convidar por e-mail.");
       return;
     }
     if (tenantUsers.find(u => u.user_id === profile!.id)) {
@@ -639,6 +637,27 @@ export default function Cadastro() {
     }
     setTenantUsers(prev => [...prev, { user_id: profile!.id, role: "cliente", allowed_modules: [] }]);
     setUserEmail("");
+  };
+
+  const handleInviteUser = async () => {
+    const email = userEmail.trim().toLowerCase();
+    if (!email) return toast.error("Digite o e-mail antes de convidar.");
+    if (!tenantForm.slug.trim()) return toast.error("Salve o tenant antes de convidar usuários.");
+
+    try {
+      const { error } = await invokeAdminFn("invite-user", {
+        email,
+        tenant_slug: tenantForm.slug.trim(),
+        role: "cliente",
+      });
+      if (error) throw error;
+      toast.success(`Convite enviado para ${email}. O usuário receberá um e-mail com o link de acesso.`);
+      setUserEmail("");
+      // recarrega profiles para pegar o novo usuário caso já tenha sido criado
+      setTimeout(() => loadAccess(), 3000);
+    } catch (e: any) {
+      toast.error(e?.message || "Erro ao enviar convite.");
+    }
   };
 
   const handleTenantSave = async () => {
@@ -972,11 +991,23 @@ export default function Cadastro() {
                           size="icon"
                           className="h-9 w-9 bg-zinc-800 hover:bg-zinc-700 shrink-0"
                           onClick={addUserByEmail}
-                          title="Adicionar usuário"
+                          title="Adicionar usuário já cadastrado"
                         >
                           <Plus className="w-3 h-3" />
                         </Button>
+                        <Button
+                          size="icon"
+                          className="h-9 w-9 bg-purple-700 hover:bg-purple-600 shrink-0"
+                          onClick={handleInviteUser}
+                          title="Convidar por e-mail (usuário novo)"
+                        >
+                          <span className="text-xs">✉️</span>
+                        </Button>
                       </div>
+                      <p className="text-[10px] text-zinc-600">
+                        <span className="text-zinc-500">+</span> adiciona usuário existente &nbsp;·&nbsp;
+                        <span className="text-purple-400">✉️</span> envia convite para e-mail novo
+                      </p>
                     </div>
 
                     <Button onClick={handleTenantSave} className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold gap-2">

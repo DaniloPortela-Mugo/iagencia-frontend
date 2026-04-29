@@ -53,6 +53,9 @@
 		"victory-vendor": "^37.3.6",
 		"wouter": "^3.9.0"
 	},
+	"pnpm": {
+		"onlyBuiltDependencies": ["esbuild"]
+	},
 	"devDependencies": {
 		"@tailwindcss/postcss": "^4.1.18",
 		"@types/localforage": "^0.0.33",

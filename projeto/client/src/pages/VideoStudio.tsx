@@ -798,7 +798,7 @@ export default function VideoStudio() {
       ]);
       if (error) throw new Error(error.message || "Erro ao salvar aprovação.");
 
-      await supabase.from("tasks").update({ status: "doing" }).eq("id", activeTask.id);
+      await updateTaskStatus(activeTask.id, "review");
 
       setGeneratedResult(finalVideoUrl);
       setPendingJobPayload({

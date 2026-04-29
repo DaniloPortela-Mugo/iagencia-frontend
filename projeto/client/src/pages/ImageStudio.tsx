@@ -668,6 +668,8 @@ const openEditorWithDraft = async () => {
       };
     }
 
+    let approvalImageUrl: string | null = null;
+
     if (!appliedDraft) {
       const { data: approvals } = await supabase
         .from("approvals")
@@ -675,6 +677,7 @@ const openEditorWithDraft = async () => {
         .eq("task_id", activeTask.id)
         .order("created_at", { ascending: false })
         .limit(1);
+      approvalImageUrl = toAbsoluteMediaUrl(approvals?.[0]?.image_url || "") || null;
       const approvalDraft = approvals?.[0]?.draft_payload || null;
       if (approvalDraft) {
         appliedDraft = {
@@ -683,14 +686,26 @@ const openEditorWithDraft = async () => {
           canvasFormatId: approvalDraft?.canvasFormatId || null,
         };
       }
+    } else {
+      // mesmo com draft de art_drafts, busca a imagem do approval como base
+      const { data: approvals } = await supabase
+        .from("approvals")
+        .select("image_url")
+        .eq("task_id", activeTask.id)
+        .order("created_at", { ascending: false })
+        .limit(1);
+      approvalImageUrl = toAbsoluteMediaUrl(approvals?.[0]?.image_url || "") || null;
     }
 
     setInitialDraft(appliedDraft);
+    // usa o approval mais recente como base; cai no generatedResult se não houver
+    setImageForEditing(approvalImageUrl || generatedResult || "");
+    if (approvalImageUrl) setGeneratedResult(approvalImageUrl);
   } catch {
     setInitialDraft(null);
+    setImageForEditing(generatedResult || "");
   }
 
-  setImageForEditing(generatedResult || "");
   setIsStudioOpen(true);
 };
 
@@ -1278,7 +1293,7 @@ onSaveToApproval={async (dataUrl, draft) => {
     }
   }
 
-  await supabase.from("tasks").update({ status: "doing" }).eq("id", activeTask.id);
+  await updateTaskStatus(activeTask.id, "review");
 
   setGeneratedResult(finalImageUrl);
   setPendingJobPayload({

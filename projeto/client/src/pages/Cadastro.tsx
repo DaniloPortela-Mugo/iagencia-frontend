@@ -55,6 +55,8 @@ export default function Cadastro() {
   });
   const [tenantUsers, setTenantUsers] = useState<{ user_id: string; role: string; allowed_modules: string[] }[]>([]);
   const [userEmail, setUserEmail] = useState("");
+  const [inviteRole, setInviteRole] = useState("cliente");
+  const [inviteModules, setInviteModules] = useState<string[]>(["atendimento", "approvals", "library"]);
   const [contextTenant, setContextTenant] = useState("");
   const [contextFiles, setContextFiles] = useState<any[]>([]);
   const [contextSelectedPath, setContextSelectedPath] = useState("");
@@ -648,12 +650,12 @@ export default function Cadastro() {
       const { error } = await invokeAdminFn("invite-user", {
         email,
         tenant_slug: tenantForm.slug.trim(),
-        role: "cliente",
+        role: inviteRole,
+        allowed_modules: inviteModules,
       });
       if (error) throw error;
-      toast.success(`Convite enviado para ${email}. O usuário receberá um e-mail com o link de acesso.`);
+      toast.success(`Convite enviado para ${email}.`);
       setUserEmail("");
-      // recarrega profiles para pegar o novo usuário caso já tenha sido criado
       setTimeout(() => loadAccess(), 3000);
     } catch (e: any) {
       toast.error(e?.message || "Erro ao enviar convite.");
@@ -978,7 +980,7 @@ export default function Cadastro() {
                         );
                       })}
 
-                      {/* Adicionar usuário por email */}
+                      {/* Adicionar / Convidar usuário */}
                       <div className="flex gap-2 pt-1">
                         <Input
                           className="bg-black border-zinc-800 text-white text-xs flex-1"
@@ -995,19 +997,54 @@ export default function Cadastro() {
                         >
                           <Plus className="w-3 h-3" />
                         </Button>
+                      </div>
+
+                      {/* Painel de convite para usuário novo */}
+                      <div className="border border-zinc-800 rounded-lg p-3 space-y-2 bg-zinc-950">
+                        <p className="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Convidar usuário novo por e-mail</p>
+
+                        <div className="flex gap-2">
+                          <div className="flex-1">
+                            <label className="text-[10px] text-zinc-500 mb-1 block">Role</label>
+                            <select
+                              className="w-full bg-black border border-zinc-700 rounded p-1.5 text-xs text-zinc-300"
+                              value={inviteRole}
+                              onChange={(e) => setInviteRole(e.target.value)}
+                            >
+                              {ACCESS_ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+                            </select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="text-[10px] text-zinc-500 mb-1 block">Páginas com acesso</label>
+                          <div className="flex flex-wrap gap-1">
+                            {ACCESS_MODULES.map(mod => (
+                              <button
+                                key={mod}
+                                type="button"
+                                onClick={() => setInviteModules(prev =>
+                                  prev.includes(mod) ? prev.filter(m => m !== mod) : [...prev, mod]
+                                )}
+                                className={`text-[10px] px-2 py-0.5 rounded-full border transition-colors ${
+                                  inviteModules.includes(mod)
+                                    ? "bg-purple-600 border-purple-500 text-white"
+                                    : "border-zinc-700 text-zinc-500 hover:text-zinc-300"
+                                }`}
+                              >
+                                {mod}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
                         <Button
-                          size="icon"
-                          className="h-9 w-9 bg-purple-700 hover:bg-purple-600 shrink-0"
+                          className="w-full bg-purple-700 hover:bg-purple-600 text-white text-xs h-8 gap-2"
                           onClick={handleInviteUser}
-                          title="Convidar por e-mail (usuário novo)"
                         >
-                          <span className="text-xs">✉️</span>
+                          <span>✉️</span> Enviar convite
                         </Button>
                       </div>
-                      <p className="text-[10px] text-zinc-600">
-                        <span className="text-zinc-500">+</span> adiciona usuário existente &nbsp;·&nbsp;
-                        <span className="text-purple-400">✉️</span> envia convite para e-mail novo
-                      </p>
                     </div>
 
                     <Button onClick={handleTenantSave} className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold gap-2">

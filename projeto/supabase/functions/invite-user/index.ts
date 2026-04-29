@@ -43,6 +43,7 @@ Deno.serve(async (req) => {
   const email: string = (body.email ?? "").trim().toLowerCase();
   const tenantSlug: string = (body.tenant_slug ?? "").trim();
   const role: string = (body.role ?? "cliente").trim();
+  const allowedModules: string[] = Array.isArray(body.allowed_modules) ? body.allowed_modules : [];
 
   if (!email || !tenantSlug) {
     return json({ error: "email e tenant_slug são obrigatórios." }, 400);
@@ -75,9 +76,9 @@ Deno.serve(async (req) => {
       { onConflict: "id" }
     );
 
-    // Cria o acesso ao tenant imediatamente
+    // Cria o acesso ao tenant com os módulos configurados
     await admin.from("user_tenants").upsert(
-      { user_id: userId, tenant_slug: tenantSlug, role, allowed_modules: [] },
+      { user_id: userId, tenant_slug: tenantSlug, role, allowed_modules: allowedModules },
       { onConflict: "user_id,tenant_slug" }
     );
   }

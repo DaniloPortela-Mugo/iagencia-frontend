@@ -235,11 +235,10 @@ useEffect(() => {
         .order("created_at", { ascending: false })
         .limit(1);
       const url = data?.[0]?.url || null;
-      setGeneratedResult(url);
-      setImageForEditing(url || "");
+      setGeneratedResult(prev => prev || url);
+      setImageForEditing(prev => prev || url || "");
     } catch {
-      setGeneratedResult(null);
-      setImageForEditing("");
+      // preserve existing result on error — do not clear
     }
   };
   loadLatest();
@@ -256,7 +255,7 @@ useEffect(() => {
     if (savedState.generalIdea) setGeneralIdea(savedState.generalIdea);
     if (savedState.finalPrompt) setFinalPrompt(savedState.finalPrompt);
     if (savedState.negativePrompt) setNegativePrompt(savedState.negativePrompt);
-    if (savedState.generatedResult) setGeneratedResult(savedState.generatedResult);
+    if (savedState.generatedResult) setGeneratedResult(prev => prev || savedState.generatedResult);
     if (savedState.faceImage) setFaceImage(savedState.faceImage);
     if (savedState.bodyImage) setBodyImage(savedState.bodyImage);
     if (savedState.productImage) setProductImage(savedState.productImage);
@@ -335,7 +334,7 @@ useEffect(() => {
       if (savedState.generalIdea) setGeneralIdea(savedState.generalIdea);
       if (savedState.finalPrompt) setFinalPrompt(savedState.finalPrompt);
       if (savedState.negativePrompt) setNegativePrompt(savedState.negativePrompt);
-      if (savedState.generatedResult) setGeneratedResult(savedState.generatedResult);
+      if (savedState.generatedResult) setGeneratedResult(prev => prev || savedState.generatedResult);
       if (savedState.faceImage) setFaceImage(savedState.faceImage);
       if (savedState.bodyImage) setBodyImage(savedState.bodyImage);
       if (savedState.productImage) setProductImage(savedState.productImage);
@@ -572,7 +571,7 @@ useEffect(() => {
       const url = data?.[0]?.image_url;
       if (url) {
         const abs = toAbsoluteMediaUrl(url);
-        setGeneratedResult(abs);
+        setGeneratedResult(prev => prev || abs);
       }
     });
 }, [activeTenant, activeTask?.id]);

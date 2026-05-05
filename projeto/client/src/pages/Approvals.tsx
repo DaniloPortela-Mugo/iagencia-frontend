@@ -190,11 +190,19 @@ const PlannerReviewer = ({ item, viewMode }: any) => {
           <div className="text-slate-500 text-sm">Planner vazio ou inválido.</div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table className="w-full text-left border-collapse table-fixed">
+              <colgroup>
+                <col className="w-32" />
+                <col className="w-28" />
+                <col className="w-1/4" />
+                <col className="w-1/4" />
+                <col className="w-1/4" />
+                <col className="w-1/4" />
+              </colgroup>
               <thead>
                 <tr>
-                  <th className="p-3 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase w-40">Canal</th>
-                  <th className="p-3 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase w-40">Pilar</th>
+                  <th className="p-3 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase">Canal</th>
+                  <th className="p-3 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase">Pilar</th>
                   <th className="p-3 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase">Sem 1</th>
                   <th className="p-3 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase">Sem 2</th>
                   <th className="p-3 border-b border-slate-200 text-[10px] font-bold text-slate-500 uppercase">Sem 3</th>
@@ -203,12 +211,14 @@ const PlannerReviewer = ({ item, viewMode }: any) => {
               </thead>
               <tbody>
                 {grid.map((row: any, idx: number) => (
-                  <tr key={idx} className="hover:bg-slate-50 transition">
-                    <td className="p-3 border-b border-slate-100 text-sm font-bold text-slate-700">{row?.platform || "-"}</td>
-                    <td className="p-3 border-b border-slate-100 text-sm text-slate-600">{row?.pillar || "-"}</td>
+                  <tr key={idx} className="hover:bg-slate-50 transition align-top">
+                    <td className="p-3 border-b border-slate-100 text-xs font-bold text-slate-700 wrap-break-word">{row?.platform || "-"}</td>
+                    <td className="p-3 border-b border-slate-100 text-xs text-slate-600 wrap-break-word">{row?.pillar || "-"}</td>
                     {(["w1", "w2", "w3", "w4"] as const).map((week) => (
-                      <td key={week} className="p-3 border-b border-slate-100 text-sm text-slate-700 whitespace-pre-wrap">
-                        {row?.[week] || "-"}
+                      <td key={week} className="p-3 border-b border-slate-100 align-top">
+                        <p className="text-xs text-slate-700 leading-relaxed wrap-break-word line-clamp-4" title={row?.[week] || "-"}>
+                          {row?.[week] || "-"}
+                        </p>
                       </td>
                     ))}
                   </tr>

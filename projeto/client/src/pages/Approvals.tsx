@@ -212,11 +212,11 @@ const PlannerReviewer = ({ item, viewMode }: any) => {
               <tbody>
                 {grid.map((row: any, idx: number) => (
                   <tr key={idx} className="hover:bg-slate-50 transition align-top">
-                    <td className="p-3 border-b border-slate-100 text-xs font-bold text-slate-700 wrap-break-word">{row?.platform || "-"}</td>
-                    <td className="p-3 border-b border-slate-100 text-xs text-slate-600 wrap-break-word">{row?.pillar || "-"}</td>
+                    <td className="p-3 border-b border-slate-100 text-xs font-bold text-slate-700 overflow-hidden max-w-0"><span className="block truncate" title={row?.platform || "-"}>{row?.platform || "-"}</span></td>
+                    <td className="p-3 border-b border-slate-100 text-xs text-slate-600 overflow-hidden max-w-0"><span className="block truncate" title={row?.pillar || "-"}>{row?.pillar || "-"}</span></td>
                     {(["w1", "w2", "w3", "w4"] as const).map((week) => (
-                      <td key={week} className="p-3 border-b border-slate-100 align-top">
-                        <p className="text-xs text-slate-700 leading-relaxed wrap-break-word line-clamp-4" title={row?.[week] || "-"}>
+                      <td key={week} className="p-3 border-b border-slate-100 align-top overflow-hidden max-w-0">
+                        <p className="text-xs text-slate-700 leading-relaxed line-clamp-4" title={row?.[week] || "-"}>
                           {row?.[week] || "-"}
                         </p>
                       </td>

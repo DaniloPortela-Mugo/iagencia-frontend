@@ -774,7 +774,7 @@ const generateContentSuggestions = async () => {
       .insert([
         {
           tenant: tenantSlug,
-          department: "atendimento",
+          department: "social_media",
           title: `Aprovação do Planner: ${MONTHS[tacticalMonthIndex]} ${selectedYear}`,
           description: `Planejador de Conteúdo (${MONTHS[tacticalMonthIndex]} ${selectedYear})`,
           status: "review",

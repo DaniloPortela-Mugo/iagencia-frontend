@@ -54,6 +54,8 @@ import Monitor from "./pages/Monitor";
 import Login from "./pages/Login";
 import LoginLite from "./pages/LoginLite";
 import Suppliers from "./pages/Suppliers";
+import ChangePassword from "./pages/ChangePassword";
+import BrandProfile from "./pages/BrandProfile";
 
 const Placeholder = ({ title }: { title: string }) => (
   <div className="p-10 text-zinc-500">Página em construção: {title}</div>
@@ -80,7 +82,7 @@ function NoAccess({ onLogout }: { onLogout: () => void }) {
 
 // --- ROTEADOR PROTEGIDO ---
 function AppRouter() {
-    const { isAuthenticated, authLoading, profileLoading, user, tenantAccess, logout, currentRole, currentModules } = useAuth();
+    const { isAuthenticated, authLoading, profileLoading, user, tenantAccess, logout, currentRole, currentModules, mustChangePassword } = useAuth();
     const [location, setLocation] = useLocation();
     const hasAnyAccess = tenantAccess.length > 0 || Boolean(user?.allowedTenants?.length);
     const allowedModules =
@@ -103,6 +105,10 @@ function AppRouter() {
     // Se não estiver logado, força a tela de Login
     if (!isAuthenticated) {
         return location === "/login-lite" ? <LoginLite /> : <Login />;
+    }
+
+    if (mustChangePassword) {
+        return <ChangePassword />;
     }
 
     // Estado de transição: token setado mas perfil ainda não carregado (SIGNED_IN pendente)
@@ -189,6 +195,7 @@ function AppRouter() {
                 <Route path="/mediaoff" component={MediaOff} />
                 <Route path="/monitor" component={Monitor} />
                 <Route path="/suppliers" component={Suppliers} />
+                <Route path="/brand-profile" component={BrandProfile} />
                 
                 {/* Fallback */}
                 <Route path="/"><Placeholder title="Bem-vindo à IAgência." /></Route>

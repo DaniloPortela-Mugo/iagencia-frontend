@@ -94,11 +94,17 @@ export default function Atendimento() {
   const [activeTask, setActiveTask] = useState<any>(null);
 
   // === ESTADOS DO AGENTE IA ===
-  const [subClient, setSubClient] = useState(""); 
+  const [subClient, setSubClient] = useState("");
   const [title, setTitle] = useState("");
   const [rawRequest, setRawRequest] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [streamingPreview, setStreamingPreview] = useState("");
   const [briefingResult, setBriefingResult] = useState<any>(null);
+  // Chat livre
+  const [chatMode, setChatMode] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+  const [chatHistory, setChatHistory] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
+  const [isChatLoading, setIsChatLoading] = useState(false);
   const [selectedDepartments, setSelectedDepartments] = useState<string[]>([]);
   const [childTasks, setChildTasks] = useState<any[]>([]);
   const [isLoadingChildren, setIsLoadingChildren] = useState(false);
@@ -480,16 +486,19 @@ export default function Atendimento() {
   const handleGenerateBriefing = async () => {
       if (!title || !rawRequest) return toast.warning("Preencha o título e o pedido.");
       setIsGenerating(true);
+      setStreamingPreview("");
+      setBriefingResult(null);
       try {
           const { data: sessionData } = await supabase.auth.getSession();
           const token = sessionData?.session?.access_token;
-          const res = await fetch(ATENDIMENTO_AGENT_URL, {
-              method: "POST", 
+          const streamUrl = `${API_URL}/atendimento/agent/stream`;
+          const res = await fetch(streamUrl, {
+              method: "POST",
               headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
-              body: JSON.stringify({ 
+              body: JSON.stringify({
                   tenant_slug: subClient || activeTenant,
-                  client: `${subClient || activeTenant} - ${subClient || activeTenant}`, 
-                  title, 
+                  client: `${subClient || activeTenant} - ${subClient || activeTenant}`,
+                  title,
                   raw_input: rawRequest,
                   flow: "atendimento",
                   objective,
@@ -500,18 +509,104 @@ export default function Atendimento() {
                   references: references
               })
           });
-          const data = await res.json();
-          const deliverables = getDeliverables(data?.deliverables);
-          const result = { ...data, deliverables };
-          setBriefingResult(result);
-          setSelectedHistoryItem(null);
-          await autoSaveBriefing(result, title);
-          toast.success("Briefing Estratégico Gerado!");
-      } catch (error) { 
-          toast.error("Erro na inteligência do Agente."); 
-      } finally { 
-          setIsGenerating(false); 
+          if (!res.ok || !res.body) throw new Error("Falha na conexão com o agente.");
+          const reader = res.body.getReader();
+          const decoder = new TextDecoder();
+          let buffer = "";
+          let accumulated = "";
+          while (true) {
+              const { done, value } = await reader.read();
+              if (done) break;
+              buffer += decoder.decode(value, { stream: true });
+              const lines = buffer.split("\n");
+              buffer = lines.pop() || "";
+              for (const line of lines) {
+                  if (!line.startsWith("data: ")) continue;
+                  const payload = line.slice(6).trim();
+                  if (payload === "[DONE]") {
+                      try {
+                          const data = JSON.parse(accumulated);
+                          const deliverables = getDeliverables(data?.deliverables);
+                          const result = { ...data, deliverables };
+                          setBriefingResult(result);
+                          setStreamingPreview("");
+                          setSelectedHistoryItem(null);
+                          await autoSaveBriefing(result, title);
+                          toast.success("Briefing Estratégico Gerado!");
+                      } catch { toast.error("Erro ao processar briefing."); }
+                      break;
+                  }
+                  try {
+                      const { token: t, error } = JSON.parse(payload);
+                      if (error) throw new Error(error);
+                      if (t) { accumulated += t; setStreamingPreview(accumulated); }
+                  } catch { /* ignora chunks malformados */ }
+              }
+          }
+      } catch (error) {
+          toast.error("Erro na inteligência do Agente.");
+      } finally {
+          setIsGenerating(false);
+          setStreamingPreview("");
       }
+  };
+
+  const handleChatSend = async () => {
+    if (!chatInput.trim() || isChatLoading) return;
+    const userMsg = chatInput.trim();
+    setChatInput("");
+    const newHistory = [...chatHistory, { role: "user" as const, content: userMsg }];
+    setChatHistory(newHistory);
+    setIsChatLoading(true);
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData?.session?.access_token;
+      const res = await fetch(`${API_URL}/atendimento/chat-to-briefing`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({
+          tenant_slug: subClient || activeTenant,
+          message: userMsg,
+          history: chatHistory,
+        }),
+      });
+      const data = await res.json();
+      if (data.type === "briefing") {
+        const d = data.data;
+        setBriefingResult(d);
+        if (d.title) setTitle(d.title);
+        if (d.summary) setRawRequest(d.summary);
+        setChatHistory([...newHistory, { role: "assistant", content: "Briefing extraído com sucesso. Revise ao lado." }]);
+        toast.success("Briefing gerado pelo chat!");
+      } else if (data.type === "question") {
+        setChatHistory([...newHistory, { role: "assistant", content: data.text }]);
+      }
+    } catch {
+      toast.error("Erro ao processar mensagem.");
+    } finally {
+      setIsChatLoading(false);
+    }
+  };
+
+  const handleApproveBriefing = async () => {
+    if (!briefingResult || !activeTenant) return;
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData?.session?.access_token;
+      const text = JSON.stringify(briefingResult, null, 2);
+      await fetch(`${API_URL}/feedback`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({
+          tenant_slug: activeTenant,
+          output_type: "briefing",
+          approved_text: text,
+          input_summary: title,
+          rating: 5,
+        }),
+      });
+      toast.success("Briefing salvo como referência para futuras gerações.");
+    } catch { /* silencia — feedback é best-effort */ }
   };
 
  // 1. CLONA O TICKET PARA A FILA DE JOBS DA CRIAÇÃO (todo)
@@ -677,12 +772,61 @@ const handleDispatchJob = async (destinationDepartments: string[]) => {
         <div className="w-full lg:w-[380px] space-y-4">
             <Card className="bg-zinc-900 border-zinc-800 shadow-xl overflow-hidden">
                 <CardHeader className="pb-3 bg-zinc-950/50 border-b border-zinc-800">
-                    <CardTitle className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] flex items-center gap-2">
-                        <MessageSquare className="w-3.5 h-3.5 text-blue-500"/> Entrada de Pedido (Raw)
+                    <CardTitle className="text-[10px] font-black text-zinc-400 uppercase tracking-[0.2em] flex items-center justify-between gap-2">
+                        <span className="flex items-center gap-2">
+                          <MessageSquare className="w-3.5 h-3.5 text-blue-500"/> Entrada de Pedido
+                        </span>
+                        <button
+                          onClick={() => { setChatMode(!chatMode); setChatHistory([]); }}
+                          className={`text-[9px] px-2 py-1 rounded-full font-bold uppercase tracking-widest transition ${chatMode ? "bg-blue-600 text-white" : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"}`}
+                        >
+                          {chatMode ? "Modo Chat" : "Modo Form"}
+                        </button>
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4 pt-4">
-                    <div>
+                    {chatMode ? (
+                      <div className="flex flex-col gap-3">
+                        <div className="min-h-48 max-h-64 overflow-y-auto space-y-2 bg-black rounded-xl p-3 border border-zinc-800">
+                          {chatHistory.length === 0 && (
+                            <p className="text-[11px] text-zinc-600 text-center mt-6">
+                              Descreva o pedido do cliente em linguagem natural.<br/>
+                              Ex: "O cliente quer um post de Instagram para lançar um novo produto..."
+                            </p>
+                          )}
+                          {chatHistory.map((msg, i) => (
+                            <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+                              <div className={`max-w-[85%] text-[11px] px-3 py-2 rounded-xl leading-relaxed ${msg.role === "user" ? "bg-blue-600 text-white" : "bg-zinc-800 text-zinc-300"}`}>
+                                {msg.content}
+                              </div>
+                            </div>
+                          ))}
+                          {isChatLoading && (
+                            <div className="flex justify-start">
+                              <div className="bg-zinc-800 text-zinc-400 text-[11px] px-3 py-2 rounded-xl flex items-center gap-1">
+                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-zinc-500 animate-bounce" style={{animationDelay:"0ms"}}/>
+                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-zinc-500 animate-bounce" style={{animationDelay:"150ms"}}/>
+                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-zinc-500 animate-bounce" style={{animationDelay:"300ms"}}/>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex gap-2">
+                          <input
+                            className="flex-1 bg-black border border-zinc-700 text-white text-xs rounded-lg px-3 py-2 placeholder-zinc-600 focus:outline-none focus:border-blue-500"
+                            placeholder="Digite o pedido..."
+                            value={chatInput}
+                            onChange={(e) => setChatInput(e.target.value)}
+                            onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleChatSend(); } }}
+                            disabled={isChatLoading}
+                          />
+                          <Button onClick={handleChatSend} disabled={isChatLoading || !chatInput.trim()} className="h-9 px-3 bg-blue-600 hover:bg-blue-500">
+                            <ArrowRight className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                    <><div>
                         <label className="text-[10px] font-bold text-zinc-500 uppercase mb-1 block">Cliente</label>
                         <select
                           className="w-full bg-black border border-zinc-700 text-white h-9 text-xs rounded-md px-2"
@@ -747,6 +891,7 @@ const handleDispatchJob = async (destinationDepartments: string[]) => {
                     <Button onClick={handleGenerateBriefing} disabled={isGenerating} className="w-full bg-blue-600 hover:bg-blue-500 text-white font-black text-[10px] uppercase tracking-widest h-12">
                         {isGenerating ? "Refinando Estratégia..." : "Gerar Briefing"} <Zap className="w-4 h-4 ml-2"/>
                     </Button>
+                    </>) }
 </CardContent>
             </Card>
 
@@ -762,13 +907,27 @@ const handleDispatchJob = async (destinationDepartments: string[]) => {
         <div className="flex-1 space-y-6">
             {!briefingResult ? (
                 <div className="h-full min-h-[500px] flex flex-col items-center justify-center border-2 border-dashed border-zinc-800 rounded-3xl bg-zinc-900/20 p-10 text-zinc-600">
-                    <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center mb-6 shadow-inner border border-zinc-800">
-                        <Wand2 className="w-8 h-8 opacity-20" />
-                    </div>
-                    <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-widest">Aguardando Inteligência</h3>
-                    <p className="text-[11px] text-center mt-2 max-w-[280px] leading-relaxed">
-                        Selecione um card na pauta acima ou cole um pedido bruto para que a IA organize o escopo técnico.
-                    </p>
+                    {streamingPreview ? (
+                        <div className="w-full">
+                            <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                <span className="inline-block w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                                Construindo briefing...
+                            </p>
+                            <pre className="text-[11px] text-zinc-400 whitespace-pre-wrap leading-relaxed font-mono max-h-100 overflow-y-auto">
+                                {streamingPreview}
+                            </pre>
+                        </div>
+                    ) : (
+                        <>
+                            <div className="w-16 h-16 bg-zinc-900 rounded-full flex items-center justify-center mb-6 shadow-inner border border-zinc-800">
+                                <Wand2 className="w-8 h-8 opacity-20" />
+                            </div>
+                            <h3 className="text-sm font-bold text-zinc-400 uppercase tracking-widest">Aguardando Inteligência</h3>
+                            <p className="text-[11px] text-center mt-2 max-w-70 leading-relaxed">
+                                Selecione um card na pauta acima ou cole um pedido bruto para que a IA organize o escopo técnico.
+                            </p>
+                        </>
+                    )}
                 </div>
             ) : (
                 <div className="space-y-6 animate-in slide-in-from-right-4 duration-500 pb-20">
@@ -906,6 +1065,15 @@ const handleDispatchJob = async (destinationDepartments: string[]) => {
                             onClick={() => handleDispatchJob(selectedDepartments)}
                           >
                             Enviar selecionados
+                          </Button>
+                          <Button
+                            type="button"
+                            className="text-[10px] font-bold bg-emerald-700 hover:bg-emerald-600 text-white col-span-2"
+                            onClick={handleApproveBriefing}
+                            disabled={!briefingResult}
+                            title="Salva este briefing como exemplo de referência para futuras gerações de IA"
+                          >
+                            Salvar como Referência
                           </Button>
                         </div>
 

@@ -2,12 +2,13 @@ import React, { ReactNode, useMemo, useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "../../contexts/AuthContext";
 import { supabase } from "../../lib/supabase";
-import { 
-  LayoutDashboard, Users, PenTool, 
-  MessageSquare, CheckSquare, Settings, 
+import {
+  LayoutDashboard, Users, PenTool,
+  MessageSquare, CheckSquare, Settings,
   LogOut, Briefcase, Library, UserCircle, Video, Monitor, Newspaper, Truck,
   Image as ImageIcon,
-  Film
+  Film,
+  Fingerprint
 } from "lucide-react";
 import { ROLE_PERMISSIONS } from "../../permissions";
 
@@ -29,6 +30,7 @@ const ALL_MENU_ITEMS = [
   { id: "media_offline", path: "/mediaoff", label: "Midia Off", icon: Newspaper },
   { id: "library", path: "/library", label: "Biblioteca", icon: Library },
   { id: "approvals", path: "/approvals", label: "Aprovações", icon: CheckSquare },
+  { id: "brand_profile", path: "/brand-profile", label: "Perfil de Marca", icon: Fingerprint },
   { id: "suppliers", path: "/suppliers", label: "Fornecedores", icon: Truck },
   { id: "cadastro", path: "/cadastro", label: "Cadastros", icon: Settings },
 ];

@@ -105,8 +105,8 @@ export default function SocialMedia() {
   const { activeTenant, user } = useAuth();
   const editorName = user?.name || "Sistema";
   const tenantSlug =
-    (activeTenant && activeTenant !== "all") ? activeTenant
-    : (subClientFilter !== "Todos" ? subClientFilter : "");
+    (subClientFilter !== "Todos") ? subClientFilter
+    : (activeTenant && activeTenant !== "all" ? activeTenant : "");
   const [tenantOptions, setTenantOptions] = useState<{ slug: string; name: string }[]>([]);
 
   // --- FILTRO LOCAL (Projetos/Sub-marcas) ---
@@ -701,9 +701,6 @@ const generateContentSuggestions = async () => {
   };
 
   const handleCreateNewEvent = async () => {
-    const tenantSlug = subClientFilter !== "Todos"
-      ? subClientFilter
-      : (activeTenant && activeTenant !== "all" ? activeTenant : "");
     if (!tenantSlug) return toast.error("Selecione um cliente.");
     const dayNum = Number(newEventData.day);
     if (!Number.isFinite(dayNum) || dayNum <= 0) return toast.error("Defina um dia válido.");
@@ -730,9 +727,6 @@ const generateContentSuggestions = async () => {
   };
 
   const handleSaveCalendar = async () => {
-    const tenantSlug = subClientFilter !== "Todos"
-      ? subClientFilter
-      : (activeTenant && activeTenant !== "all" ? activeTenant : "");
     if (!tenantSlug) return toast.error("Selecione um cliente.");
     try {
       await fetch(`${API_URL}/SocialMedia/grid/save`, {
@@ -756,9 +750,6 @@ const generateContentSuggestions = async () => {
   };
 
   const handleSendPlannerToApproval = async () => {
-    const tenantSlug = subClientFilter !== "Todos"
-      ? subClientFilter
-      : (activeTenant && activeTenant !== "all" ? activeTenant : "");
     if (!tenantSlug) return toast.error("Selecione um cliente.");
     const payload = {
       month: MONTHS[tacticalMonthIndex],
@@ -911,7 +902,7 @@ const generateContentSuggestions = async () => {
       <header className="h-16 border-b border-zinc-800 flex items-center justify-between px-6 bg-black shrink-0 z-20">
         <div className="flex items-center gap-6">
           <h1 className="text-lg font-bold flex items-center gap-2 text-white">
-            <span className="bg-gradient-to-br from-purple-600 to-pink-600 w-8 h-8 rounded flex items-center justify-center text-sm">#</span>
+            <span className="bg-linear-to-br from-purple-600 to-pink-600 w-8 h-8 rounded flex items-center justify-center text-sm">#</span>
             Social Media
           </h1>
 
@@ -989,7 +980,7 @@ const generateContentSuggestions = async () => {
               <div className="text-[10px] uppercase font-bold px-3 py-1.5 rounded-lg border border-emerald-500/30 text-emerald-300 bg-emerald-900/20">
                 Salva em {MONTHS[tacticalMonthIndex]}
               </div>
-              <Button size="sm" className="text-white font-bold text-xs gap-2 bg-gradient-to-r from-purple-600 to-blue-600" onClick={generateContentSuggestions} disabled={isGeneratingSuggestions}><Sparkles className="w-3 h-3" /> Gerar com IA</Button>
+              <Button size="sm" className="text-white font-bold text-xs gap-2 bg-linear-to-r from-purple-600 to-blue-600" onClick={generateContentSuggestions} disabled={isGeneratingSuggestions}><Sparkles className="w-3 h-3" /> Gerar com IA</Button>
             </div>
           </div>
 
@@ -1009,10 +1000,10 @@ const generateContentSuggestions = async () => {
                 {Array.isArray(contentGrid) && contentGrid.map((row: any, idx: number) => (
                   <tr key={idx} className="group hover:bg-zinc-900/30 transition">
                     <td className="p-4 border-b border-zinc-800 text-sm font-bold text-purple-300 bg-zinc-950">{row?.platform}</td>
-                    <td className="p-2 border-b border-zinc-800 border-l border-zinc-800/50"><input className="w-full bg-zinc-900/50 text-xs text-blue-300 font-bold p-2 rounded border-transparent transition text-center focus:outline-none" value={row?.pillar || ""} onChange={(e) => updateContentCell(idx, "pillar", e.target.value)} /></td>
+                    <td className="p-2 border-b border-zinc-800 border-l"><input className="w-full bg-zinc-900/50 text-xs text-blue-300 font-bold p-2 rounded border-transparent transition text-center focus:outline-none" value={row?.pillar || ""} onChange={(e) => updateContentCell(idx, "pillar", e.target.value)} /></td>
                     {(["w1", "w2", "w3", "w4"] as const).map((week) => (
-                      <td key={week} className="p-2 border-b border-zinc-800 border-l border-zinc-800/50 relative group/cell">
-                        <div className="relative min-h-[50px]">
+                      <td key={week} className="p-2 border-b border-zinc-800 border-l relative group/cell">
+                        <div className="relative min-h-12.5">
                           <textarea className="w-full h-full bg-transparent text-xs text-gray-300 p-2 rounded hover:bg-zinc-800 focus:bg-black focus:border-purple-500 focus:outline-none border border-transparent transition resize-none" rows={3} value={row ? row[week] || "" : ""} onChange={(e) => updateContentCell(idx, week, e.target.value)} placeholder="-" />
                           {row && row[week] && row[week] !== "-" && (
                             <div className="absolute right-1 top-2 flex gap-1 opacity-0 group-hover/cell:opacity-100 transition">
@@ -1032,10 +1023,10 @@ const generateContentSuggestions = async () => {
         </section>
 
         {/* CHAT */}
-        <section className="bg-zinc-950 border border-zinc-800 rounded-2xl p-0 overflow-hidden shadow-2xl mb-6 flex flex-col h-[400px]">
+        <section className="bg-zinc-950 border border-zinc-800 rounded-2xl p-0 overflow-hidden shadow-2xl mb-6 flex flex-col h-100">
           <div className="p-4 border-b border-zinc-800 bg-black flex justify-between items-center">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center"><Bot className="w-5 h-5 text-white" /></div>
+              <div className="w-8 h-8 bg-linear-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center"><Bot className="w-5 h-5 text-white" /></div>
               <div><h3 className="font-bold text-sm text-white">Planejador de Conteúdo</h3><p className="text-[10px] text-zinc-500">Agente Estratégico</p></div>
             </div>
             {activeContext && (
@@ -1096,7 +1087,7 @@ const generateContentSuggestions = async () => {
                 return { ...ev, day: finalDay, _suggested_day: suggestedDay };
               });
               return (
-                <div key={weekKey} className="bg-black border border-zinc-800 rounded-xl p-4 flex flex-col h-full min-h-[250px]">
+                <div key={weekKey} className="bg-black border border-zinc-800 rounded-xl p-4 flex flex-col h-full min-h-62.5">
                   <div className="flex justify-between items-center mb-3 border-b border-zinc-900 pb-2">
                     <span className="text-sm font-bold text-purple-400">Semana {idx + 1}</span>
                     <span className="text-[10px] text-zinc-500">Início dia {startDay}</span>
@@ -1135,7 +1126,7 @@ const generateContentSuggestions = async () => {
         {/* MODAL NOVO CARD */}
         {showNewEventModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in">
-            <div className="bg-zinc-900 border border-zinc-700 p-8 rounded-2xl w-[520px] shadow-2xl">
+            <div className="bg-zinc-900 border border-zinc-700 p-8 rounded-2xl w-130 shadow-2xl">
               <h3 className="text-lg font-bold mb-6 text-white flex items-center gap-2"><Plus className="w-5 h-5 text-blue-500" /> Novo Card</h3>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
@@ -1165,7 +1156,7 @@ const generateContentSuggestions = async () => {
                 <div>
                   <label className="text-[10px] font-bold text-zinc-500 uppercase mb-2 block">Conteúdo</label>
                   <textarea
-                    className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-xs text-white min-h-[120px]"
+                    className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-xs text-white min-h-30"
                     value={newEventData.content}
                     onChange={(e) => setNewEventData({ ...newEventData, content: e.target.value })}
                     placeholder="Cole o conteúdo do card aqui..."
@@ -1206,11 +1197,11 @@ const generateContentSuggestions = async () => {
       {/* MODAL TAREFA KANBAN */}
       {showTaskModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-[#18181b] border border-zinc-800 p-8 rounded-2xl w-[500px] shadow-2xl">
+          <div className="bg-[#18181b] border border-zinc-800 p-8 rounded-2xl w-125 shadow-2xl">
             <h3 className="text-lg font-bold mb-6 flex items-center gap-2 text-white"><Plus className="w-5 h-5 text-purple-500" /> {editingTaskId ? "Editar Tarefa" : "Nova Tarefa"}</h3>
             <div className="space-y-5">
               <div><label className="text-xs text-zinc-400 mb-1 block">Título *</label><input autoFocus className="w-full bg-black border border-purple-500 rounded-lg p-3 text-white text-sm focus:outline-none focus:ring-1 focus:ring-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.1)]" value={newTaskData.title} onChange={(e) => setNewTaskData({ ...newTaskData, title: e.target.value })} onKeyDown={(e) => { if (e.key === "Enter") handleSaveTask(); }} /></div>
-              <div><label className="text-xs text-zinc-400 mb-1 block">Detalhes</label><textarea className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-purple-500 focus:outline-none min-h-[100px] resize-none" value={newTaskData.description} onChange={(e) => setNewTaskData({ ...newTaskData, description: e.target.value })} /></div>
+              <div><label className="text-xs text-zinc-400 mb-1 block">Detalhes</label><textarea className="w-full bg-black border border-zinc-700 rounded-lg p-3 text-white text-sm focus:border-purple-500 focus:outline-none min-h-25 resize-none" value={newTaskData.description} onChange={(e) => setNewTaskData({ ...newTaskData, description: e.target.value })} /></div>
               <div>
                 <label className="text-xs text-zinc-400 mb-2 block">Formatos</label>
                 <div className="flex flex-wrap gap-2">
@@ -1253,7 +1244,7 @@ const generateContentSuggestions = async () => {
       {/* MODAL SEND (PIPELINE DISPATCH) */}
       {showSendModal && selectedContentForDispatch && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="bg-zinc-900 border border-zinc-700 p-8 rounded-2xl w-[500px] shadow-2xl">
+          <div className="bg-zinc-900 border border-zinc-700 p-8 rounded-2xl w-125 shadow-2xl">
             <h3 className="text-lg font-bold mb-6 text-white flex items-center gap-2"><Zap className="w-5 h-5 text-purple-500" /> Disparar Job de Conteúdo</h3>
             <div className="bg-black/50 p-4 rounded-xl border border-zinc-800 mb-6">
               <p className="text-xs text-zinc-500 uppercase font-bold mb-2">Resumo do Conteúdo</p>
